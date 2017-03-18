@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "openglwidget.h"
+#include "scene.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
 private:
     Ui::MainWindow *ui;
     OpenGLWidget *m_openglWidget;
+    Scene *m_scene;
 };
 
 #endif // MAINWINDOW_H
