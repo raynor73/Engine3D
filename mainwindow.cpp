@@ -3,7 +3,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "engineconfig.h"
-#include "defaultscene.h"
+#include "tutorialscene.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::onOpenGLReady()
 {
-    m_scene = new DefaultScene();
+    m_scene = new TutorialScene();
     m_scene->start();
     m_openglWidget->setScene(m_scene);
     disconnect(m_openglWidget, &OpenGLWidget::openGLReady, this, &MainWindow::onOpenGLReady);

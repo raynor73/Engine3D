@@ -5,7 +5,7 @@
 #include <QOpenGLFunctions>
 #include "scene.h"
 
-class DefaultScene : public Scene
+class DefaultScene : public Scene, protected QOpenGLFunctions
 {
     Q_OBJECT
 
@@ -15,9 +15,6 @@ public:
     virtual void start();
     virtual void stop();
     virtual void render();
-
-private:
-     QOpenGLFunctions *m_openGLFunctions;
 };
 
 #endif // DEFAULTSCENE_H

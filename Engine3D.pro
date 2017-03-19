@@ -29,13 +29,17 @@ SOURCES += main.cpp\
     openglwidget.cpp \
     scene.cpp \
     defaultscene.cpp \
-    userinput.cpp
+    userinput.cpp \
+    tutorialscene.cpp \
+    tutorialcontroller.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
     openglwidget.h \
     scene.h \
     defaultscene.h \
-    userinput.h
+    userinput.h \
+    tutorialscene.h \
+    tutorialcontroller.h
 
 FORMS    += mainwindow.ui
