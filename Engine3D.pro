@@ -33,7 +33,9 @@ SOURCES += main.cpp\
     tutorialscene.cpp \
     tutorialcontroller.cpp \
     geometry/vector2f.cpp \
-    geometry/vector3f.cpp
+    geometry/vector3f.cpp \
+    geometry/matrix4f.cpp \
+    geometry/quaternion.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -44,6 +46,8 @@ HEADERS  += mainwindow.h \
     tutorialscene.h \
     tutorialcontroller.h \
     geometry/vector2f.h \
-    geometry/vector3f.h
+    geometry/vector3f.h \
+    geometry/matrix4f.h \
+    geometry/quaternion.h
 
 FORMS    += mainwindow.ui
