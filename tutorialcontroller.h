@@ -9,17 +9,20 @@ class TutorialController : public QObject
     Q_OBJECT
 public:
     explicit TutorialController(UserInput &userInput, QObject *parent = 0);
+    ~TutorialController();
 
-    void startReadUserInput();
-    void stopReadUserInput();
+    void startReadingUserInput();
+    void stopReadingUserInput();
 
 public slots:
-    void onKeyEvent(QKeyEvent *);
-    void onMouseEvent(QMouseEvent *);
+    void onKeyEvent(QKeyEvent);
+    void onMouseEvent(QMouseEvent);
 
 private:
     UserInput &m_userInput;
     bool m_isReadingUserInput;
+    void connectToEvents();
+    void disconnectFromEvents();
 };
 
 #endif // TUTORIALCONTROLLER_H

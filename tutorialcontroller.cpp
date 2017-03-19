@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "tutorialcontroller.h"
 
 TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
@@ -6,26 +7,44 @@ TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
     m_isReadingUserInput(false)
 {}
 
-void TutorialController::startReadUserInput()
+void TutorialController::connectToEvents()
 {
-    connect(m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
-    connect(m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
+    connect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
+    connect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
+}
 
+TutorialController::~TutorialController()
+{
+    if (m_isReadingUserInput)
+        connectToEvents();
+}
+
+void TutorialController::startReadingUserInput()
+{
+    connectToEvents();
     m_isReadingUserInput = true;
 }
 
-void TutorialController::stopReadUserInput()
+void TutorialController::disconnectFromEvents()
 {
-    disconnect(m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
-    disconnect(m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
+    disconnect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
+    disconnect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
+}
 
+void TutorialController::stopReadingUserInput()
+{
+    disconnectFromEvents();
     m_isReadingUserInput = false;
 }
 
-void TutorialController::onKeyEvent(QKeyEvent *)
+void TutorialController::onKeyEvent(QKeyEvent event)
 {
-
+    if (event.key() == Qt::Key_Up) {
+        if (event.type() == QEvent::KeyPress)
+            qDebug() << "'Up' key pressed";
+        else
+            qDebug() << "'Up' key released";
+    }
 }
 
-void TutorialController::onMouseEvent(QMouseEvent *) {}
-
+void TutorialController::onMouseEvent(QMouseEvent event) {}

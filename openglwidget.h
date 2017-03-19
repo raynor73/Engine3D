@@ -15,6 +15,7 @@ class OpenGLWidget : public QOpenGLWidget
 public:
     explicit OpenGLWidget(QWidget *, float);
     void setScene(Scene *);
+    float fps() { return m_fps; }
 
 signals:
     void openGLReady();

@@ -18,14 +18,16 @@ bool UserInput::eventFilter(QObject *object, QEvent *event)
     switch (event->type()) {
     case QEvent::MouseButtonDblClick:
     case QEvent::MouseButtonPress:
-    case QEvent::MouseButtonRelease:
-        emit onMouseEvent(static_cast<QMouseEvent *>(event));
+    case QEvent::MouseButtonRelease: {
+        QMouseEvent mouseEvent = *static_cast<QMouseEvent *>(event);
+        emit onMouseEvent(mouseEvent);
         return true;
+    }
 
     case QEvent::MouseMove: {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-        m_pointerX = mouseEvent->x();
-        m_pointerY = mouseEvent->y();
+        QMouseEvent mouseEvent = *static_cast<QMouseEvent *>(event);
+        m_pointerX = mouseEvent.x();
+        m_pointerY = mouseEvent.y();
 
         int width = EngineConfig::DISPLAY_WIDTH;
         int height = EngineConfig::DISPLAY_HEIGHT;
@@ -48,8 +50,8 @@ bool UserInput::eventFilter(QObject *object, QEvent *event)
 
     case QEvent::KeyPress:
     case QEvent::KeyRelease: {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if (!keyEvent->isAutoRepeat()) {
+        QKeyEvent keyEvent = *static_cast<QKeyEvent *>(event);
+        if (!keyEvent.isAutoRepeat()) {
             emit onKeyEvent(keyEvent);
             return true;
         }

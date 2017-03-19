@@ -19,8 +19,8 @@ public:
     int pointerY() { return m_pointerY; }
 
 signals:
-    void onKeyEvent(QKeyEvent *);
-    void onMouseEvent(QMouseEvent *);
+    void onKeyEvent(QKeyEvent);
+    void onMouseEvent(QMouseEvent);
 
 protected:
     virtual bool eventFilter(QObject *, QEvent *);
