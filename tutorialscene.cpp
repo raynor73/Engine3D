@@ -1,6 +1,6 @@
 #include <QDebug>
 #include "tutorialscene.h"
-#include "geometry/vector2f.h"
+#include "renderutils.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
     Scene(parent),
@@ -14,9 +14,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
         qDebug() << "FPS" << m_openGLWidget.fps();
     });
     m_fpsTimer.start(1000);
-
-    Vector2f v(10000.234f, 5.6789f);
-    qDebug() << v;
 }
 
 TutorialScene::~TutorialScene()
@@ -29,7 +26,7 @@ TutorialScene::~TutorialScene()
 void TutorialScene::start()
 {
     initializeOpenGLFunctions();
-    glClearColor(0, 0, 1, 1);
+    RenderUtils::initGraphics(*this);
 }
 
 void TutorialScene::stop()
@@ -37,5 +34,5 @@ void TutorialScene::stop()
 
 void TutorialScene::render()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    RenderUtils::clearScreen(*this);
 }

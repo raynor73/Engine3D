@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     geometry/vector2f.cpp \
     geometry/vector3f.cpp \
     geometry/matrix4f.cpp \
-    geometry/quaternion.cpp
+    geometry/quaternion.cpp \
+    renderutils.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -48,6 +49,7 @@ HEADERS  += mainwindow.h \
     geometry/vector2f.h \
     geometry/vector3f.h \
     geometry/matrix4f.h \
-    geometry/quaternion.h
+    geometry/quaternion.h \
+    renderutils.h
 
 FORMS    += mainwindow.ui
