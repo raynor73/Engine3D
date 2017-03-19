@@ -1,4 +1,5 @@
 #include <QPushButton>
+#include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "engineconfig.h"
@@ -14,11 +15,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_openglWidget = new OpenGLWidget(this, EngineConfig::MAX_FPS);
     m_openglWidget->setGeometry(0, 0, EngineConfig::DISPLAY_WIDTH, EngineConfig::DISPLAY_HEIGHT);
 
-    connect(m_openglWidget, &OpenGLWidget::openGLReady, [this] () {
-        m_scene = new DefaultScene();
-        m_openglWidget->setScene(m_scene);
-        m_scene->start();
-    });
+    // TODO Think about if QOpenGLWidget::paintGL can be run before below connection
+    connect(m_openglWidget, &OpenGLWidget::openGLReady, this, &MainWindow::onOpenGLReady);
+
+    m_userInput = new UserInput(this);
+}
+
+void MainWindow::onOpenGLReady()
+{
+    m_scene = new DefaultScene();
+    m_scene->start();
+    m_openglWidget->setScene(m_scene);
+    disconnect(m_openglWidget, &OpenGLWidget::openGLReady, this, &MainWindow::onOpenGLReady);
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +39,7 @@ MainWindow::~MainWindow()
         m_scene = NULL;
     }
 
+    delete m_userInput;
     delete m_openglWidget;
     delete ui;
 }

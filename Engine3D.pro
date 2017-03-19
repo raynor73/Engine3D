@@ -28,12 +28,14 @@ SOURCES += main.cpp\
     engineconfig.cpp \
     openglwidget.cpp \
     scene.cpp \
-    defaultscene.cpp
+    defaultscene.cpp \
+    userinput.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
     openglwidget.h \
     scene.h \
-    defaultscene.h
+    defaultscene.h \
+    userinput.h
 
 FORMS    += mainwindow.ui

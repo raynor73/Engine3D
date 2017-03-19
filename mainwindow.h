@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "openglwidget.h"
+#include "userinput.h"
 #include "scene.h"
 
 namespace Ui {
@@ -17,10 +18,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void onOpenGLReady();
+
 private:
     Ui::MainWindow *ui;
     OpenGLWidget *m_openglWidget;
     Scene *m_scene;
+    UserInput *m_userInput;
 };
 
 #endif // MAINWINDOW_H
