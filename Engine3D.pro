@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     defaultscene.cpp \
     userinput.cpp \
     tutorialscene.cpp \
-    tutorialcontroller.cpp
+    tutorialcontroller.cpp \
+    geometry/vector2f.cpp \
+    geometry/vector3f.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -40,6 +42,8 @@ HEADERS  += mainwindow.h \
     defaultscene.h \
     userinput.h \
     tutorialscene.h \
-    tutorialcontroller.h
+    tutorialcontroller.h \
+    geometry/vector2f.h \
+    geometry/vector3f.h
 
 FORMS    += mainwindow.ui

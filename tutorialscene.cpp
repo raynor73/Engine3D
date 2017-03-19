@@ -1,5 +1,6 @@
 #include <QDebug>
 #include "tutorialscene.h"
+#include "geometry/vector2f.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
     Scene(parent),
@@ -13,6 +14,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
         qDebug() << "FPS" << m_openGLWidget.fps();
     });
     m_fpsTimer.start(1000);
+
+    Vector2f v(10000.234f, 5.6789f);
+    qDebug() << v;
 }
 
 TutorialScene::~TutorialScene()

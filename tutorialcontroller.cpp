@@ -50,7 +50,7 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 void TutorialController::onMouseEvent(QMouseEvent event) {
     if (event.button() == Qt::RightButton) {
         if (event.type() == QEvent::MouseButtonPress)
-            qDebug() << "Right mouse button pressed";
+            qDebug("Right mouse button pressed at %d; %d", m_userInput.pointerX(), m_userInput.pointerY());
         else
             qDebug() << "Right mouse button released";
     }
