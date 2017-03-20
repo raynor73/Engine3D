@@ -19,3 +19,15 @@ void RenderUtils::initGraphics(QOpenGLFunctions &f)
 
     f.glEnable(GL_FRAMEBUFFER_SRGB);
 }
+
+QString RenderUtils::getOpenGLVersion(QOpenGLFunctions &f)
+{
+	return QString::fromLocal8Bit(reinterpret_cast<const char *>(f.glGetString(GL_VERSION)));
+}
+
+GLint RenderUtils::glGetShader(QOpenGLFunctions &f, GLuint shader, GLenum pname)
+{
+	GLint result;
+	f.glGetShaderiv(shader, pname, &result);
+	return result;
+}

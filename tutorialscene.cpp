@@ -10,6 +10,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 {
 	initializeOpenGLFunctions();
 
+	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
+
 	m_controller = new TutorialController(m_userInput);
     m_controller->startReadingUserInput();
 

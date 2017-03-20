@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     geometry/quaternion.cpp \
     renderutils.cpp \
     geometry/vertex.cpp \
-    geometry/mesh.cpp
+    geometry/mesh.cpp \
+    graphics/shader.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -54,8 +55,12 @@ HEADERS  += mainwindow.h \
     geometry/quaternion.h \
     renderutils.h \
     geometry/vertex.h \
-    geometry/mesh.h
+    geometry/mesh.h \
+    graphics/shader.h
 
 FORMS    += mainwindow.ui
 
 CONFIG += c++11
+
+RESOURCES += \
+    resources.qrc
