@@ -94,3 +94,15 @@ Vector3f::operator QString()
 {
     return QString("%1; %2; %3").arg(x, 0, 'f', 3).arg(y, 0, 'f', 3).arg(z, 0, 'f', 3);
 }
+
+Vector3f &Vector3f::operator =(const Vector3f &other)
+{
+	if (&other == this)
+		return *this;
+
+	x = other.x;
+	y = other.y;
+	z = other.z;
+
+	return *this;
+}

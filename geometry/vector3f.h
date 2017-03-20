@@ -28,6 +28,7 @@ public:
     Vector3f operator *(float);
     Vector3f operator /(const Vector3f &);
     Vector3f operator /(float);
+	Vector3f &operator =(const Vector3f &);
 };
 
 #endif // VECTOR3F_H

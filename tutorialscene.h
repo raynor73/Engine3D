@@ -5,6 +5,7 @@
 #include <QOpenGLFunctions>
 #include <QTimer>
 #include "scene.h"
+#include "geometry/mesh.h"
 #include "userinput.h"
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
@@ -24,6 +25,7 @@ private:
     UserInput &m_userInput;
     TutorialController *m_controller;
     QTimer m_fpsTimer;
+	Mesh *m_mesh;
 };
 
 #endif // TUTORIALSCENE_H
