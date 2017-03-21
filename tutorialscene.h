@@ -9,6 +9,7 @@
 #include "userinput.h"
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
+#include "graphics/shader.h"
 
 class TutorialScene : public Scene, protected QOpenGLFunctions
 {
@@ -26,6 +27,7 @@ private:
     TutorialController *m_controller;
     QTimer m_fpsTimer;
 	Mesh *m_mesh;
+	Shader *m_shader;
 };
 
 #endif // TUTORIALSCENE_H

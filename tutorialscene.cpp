@@ -26,6 +26,10 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	vertices.append(Vertex(Vector3f(0.5f, 0.5f, 0)));
 	vertices.append(Vertex(Vector3f(-0.5f, 0.5f, 0)));
 	m_mesh->setVertices(vertices);
+
+	m_shader = new Shader(*this);
+
+	m_shader->setVertexShader();
 }
 
 TutorialScene::~TutorialScene()
@@ -34,6 +38,7 @@ TutorialScene::~TutorialScene()
     m_controller->stopReadingUserInput();
     delete m_controller;
 	delete m_mesh;
+	delete m_shader;
 }
 
 void TutorialScene::start()

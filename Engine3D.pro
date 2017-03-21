@@ -64,3 +64,7 @@ CONFIG += c++11
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    resources/shaders/basicvertex.vsh \
+    resources/shaders/basicfragment.fsh
