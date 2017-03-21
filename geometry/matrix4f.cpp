@@ -10,8 +10,10 @@ Matrix4f::Matrix4f(QObject *parent) : QObject(parent)
 
 Matrix4f::Matrix4f(const Matrix4f &other) : Matrix4f(other.parent())
 {
-    for (int i = 0; i < SIZE; i++)
-        std::copy(&m_data[i][0], &m_data[i][SIZE - 1], &other.m_data[i][0]);
+	/*for (int i = 0; i < SIZE; i++)
+		std::copy(&m_data[i][0], &m_data[i][SIZE - 1], &other.m_data[i][0]);*/
+	for (int i = 0; i < SIZE; i++)
+		std::copy(&other.m_data[i][0], &other.m_data[i][SIZE], &m_data[i][0]);
 }
 
 Matrix4f::~Matrix4f()

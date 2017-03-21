@@ -1,5 +1,7 @@
 #include <QDebug>
 #include <QList>
+#include <QFile>
+#include <QTextStream>
 #include "tutorialscene.h"
 #include "renderutils.h"
 
@@ -29,14 +31,28 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_shader = new Shader(*this);
 
-	m_shader->setVertexShader();
+	QFile vertexShaderFile(":/resources/shaders/basicvertex.vsh");
+	vertexShaderFile.open(QFile::ReadOnly | QFile::Text);
+	QTextStream vertexShaderStream(&vertexShaderFile);
+	QString vertexShaderText = vertexShaderStream.readAll();
+	vertexShaderFile.close();
+
+	QFile fragmentShaderFile(":/resources/shaders/basicfragment.fsh");
+	fragmentShaderFile.open(QFile::ReadOnly | QFile::Text);
+	QTextStream fragmentShaderStream(&fragmentShaderFile);
+	QString fragmentShaderText = fragmentShaderStream.readAll();
+	fragmentShaderFile.close();
+
+	m_shader->setVertexShader(vertexShaderText);
+	m_shader->setFragmentShader(fragmentShaderText);
+	m_shader->linkProgram();
 }
 
 TutorialScene::~TutorialScene()
 {
-    m_fpsTimer.stop();
-    m_controller->stopReadingUserInput();
-    delete m_controller;
+	m_fpsTimer.stop();
+	m_controller->stopReadingUserInput();
+	delete m_controller;
 	delete m_mesh;
 	delete m_shader;
 }
@@ -51,7 +67,8 @@ void TutorialScene::stop()
 
 void TutorialScene::render()
 {
-    RenderUtils::clearScreen(*this);
+	RenderUtils::clearScreen(*this);
 
+	m_shader->bind();
 	m_mesh->draw();
 }

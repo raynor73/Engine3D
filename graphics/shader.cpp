@@ -1,5 +1,6 @@
 #include <QStringList>
 #include <QByteArray>
+#include <QDebug>
 #include "shader.h"
 #include "renderutils.h"
 
@@ -28,16 +29,16 @@ void Shader::setGeometryShader(QString &text)
 
 void Shader::setFragmentShader(QString &text)
 {
-	compileShader(text, GL_FRAGMENT_SHADER_ARB);
+	compileShader(text, GL_FRAGMENT_SHADER);
 }
 
 void Shader::linkProgram()
 {
 	f.glLinkProgram(m_programReference);
-	Q_ASSERT(RenderUtils::glGetShader(f, m_programReference, GL_LINK_STATUS) == GL_TRUE);
+	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_LINK_STATUS) == GL_TRUE);
 
 	f.glValidateProgram(m_programReference);
-	Q_ASSERT(RenderUtils::glGetShader(f, m_programReference, GL_VALIDATE_STATUS) == GL_TRUE);
+	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_VALIDATE_STATUS) == GL_TRUE);
 }
 
 void Shader::bind()
@@ -55,14 +56,27 @@ void Shader::compileShader(QString &text, GLenum type)
 	GLint *stringLengths = new GLint[qtSourceStrings.size()];
 	for (int i = 0; i < qtSourceStrings.size(); i++) {
 		QByteArray stringBytes = qtSourceStrings.at(i).toLocal8Bit();
-		rawSourceStrings[i] = new char[stringBytes.size()];
-		std::copy(&rawSourceStrings[i][0], &rawSourceStrings[i][stringBytes.size() - 1], &stringBytes.data()[0]);
+		rawSourceStrings[i] = new char[stringBytes.size() + 1];
+
+		std::fill(rawSourceStrings[i], rawSourceStrings[i] + stringBytes.size() + 1, 0);
+
+		if (stringBytes.size() > 0)
+			std::copy(stringBytes.data(), stringBytes.data() + stringBytes.size(),
+					  rawSourceStrings[i]);
+
 		stringLengths[i] = stringBytes.size();
+
+		qDebug() << QString::fromLocal8Bit(rawSourceStrings[i]);
 	}
 
-	f.glShaderSource(shaderReference, qtSourceStrings.size(), const_cast<const char **>(rawSourceStrings),
-					 stringLengths);
+	f.glShaderSource(shaderReference, qtSourceStrings.size(),
+					 const_cast<const char **>(rawSourceStrings), stringLengths);
 	f.glCompileShader(shaderReference);
+
+	char tmp[1024];
+	GLsizei length;
+	f.glGetShaderInfoLog(shaderReference, 1024, &length, tmp);
+	qDebug() << QString::fromLocal8Bit(tmp);
 
 	Q_ASSERT(RenderUtils::glGetShader(f, shaderReference, GL_COMPILE_STATUS) == GL_TRUE);
 
@@ -74,4 +88,3 @@ void Shader::compileShader(QString &text, GLenum type)
 	delete rawSourceStrings;
 	delete stringLengths;
 }
-

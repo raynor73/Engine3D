@@ -15,6 +15,7 @@ public:
 	void setVertexShader(QString &);
 	void setGeometryShader(QString &);
 	void setFragmentShader(QString &);
+	void linkProgram();
 	void bind();
 
 private:
@@ -22,7 +23,6 @@ private:
 	GLuint m_programReference;
 
 	void compileShader(QString &, GLenum);
-	void linkProgram();
 };
 
 #endif // SHADER_H

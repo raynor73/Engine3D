@@ -10,6 +10,7 @@ void clearScreen(QOpenGLFunctions &);
 void initGraphics(QOpenGLFunctions &);
 QString getOpenGLVersion(QOpenGLFunctions &);
 GLint glGetShader(QOpenGLFunctions &, GLuint, GLenum);
+GLint glGetProgram(QOpenGLFunctions &, GLuint, GLenum);
 }
 
 #endif // RENDERUTILS_H

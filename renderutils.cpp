@@ -31,3 +31,10 @@ GLint RenderUtils::glGetShader(QOpenGLFunctions &f, GLuint shader, GLenum pname)
 	f.glGetShaderiv(shader, pname, &result);
 	return result;
 }
+
+GLint RenderUtils::glGetProgram(QOpenGLFunctions &f, GLuint program, GLenum pname)
+{
+	GLint result;
+	f.glGetProgramiv(program, pname, &result);
+	return result;
+}
