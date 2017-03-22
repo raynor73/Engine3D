@@ -44,6 +44,9 @@ void Shader::linkProgram()
 void Shader::bind()
 {
 	f.glUseProgram(m_programReference);
+
+	m_positionAttributeIndex = f.glGetAttribLocation(m_programReference, "position");
+	Q_ASSERT(m_positionAttributeIndex >= 0 && m_positionAttributeIndex != GL_INVALID_OPERATION);
 }
 
 void Shader::compileShader(QString &text, GLenum type)

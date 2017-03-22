@@ -4,6 +4,7 @@
 #include <QTextStream>
 #include "tutorialscene.h"
 #include "renderutils.h"
+#include "engineconfig.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
     Scene(parent),
@@ -13,6 +14,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	initializeOpenGLFunctions();
 
 	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
+	RenderUtils::initGraphics(*this);
+	glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
 
 	m_controller = new TutorialController(m_userInput);
     m_controller->startReadingUserInput();
@@ -24,9 +27,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
-	vertices.append(Vertex(Vector3f(0, 0.5f, 0)));
-	vertices.append(Vertex(Vector3f(-0.5f, -0.5f, 0)));
-	vertices.append(Vertex(Vector3f(0.5f, -0.5f, 0)));
+	vertices.append(Vertex(Vector3f(0, 0, 0)));
+	vertices.append(Vertex(Vector3f(1, 0, 0)));
+	vertices.append(Vertex(Vector3f(1, 1, 0)));
 	m_mesh->setVertices(vertices);
 
 	m_shader = new Shader(*this);
@@ -43,9 +46,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	QString fragmentShaderText = fragmentShaderStream.readAll();
 	fragmentShaderFile.close();
 
-	/*m_shader->setVertexShader(vertexShaderText);
+	m_shader->setVertexShader(vertexShaderText);
 	m_shader->setFragmentShader(fragmentShaderText);
-	m_shader->linkProgram();*/
+	m_shader->linkProgram();
 }
 
 TutorialScene::~TutorialScene()
@@ -59,7 +62,8 @@ TutorialScene::~TutorialScene()
 
 void TutorialScene::start()
 {
-    RenderUtils::initGraphics(*this);
+	//RenderUtils::initGraphics(*this);
+	//glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
 }
 
 void TutorialScene::stop()
@@ -67,8 +71,9 @@ void TutorialScene::stop()
 
 void TutorialScene::render()
 {
-	RenderUtils::clearScreen(*this);
+	//RenderUtils::clearScreen(*this);
 
-	//m_shader->bind();
+	m_shader->bind();
+	m_mesh->setPositionAttributeIndex(m_shader->positionAttributeIndex());
 	m_mesh->draw();
 }

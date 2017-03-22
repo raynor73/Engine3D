@@ -3,21 +3,26 @@
 void RenderUtils::clearScreen(QOpenGLFunctions &f)
 {
     // TODO: Stencil buffer
-    f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void RenderUtils::initGraphics(QOpenGLFunctions &f)
 {
-	f.glClearColor(0, 1, 1, 0);
+	f.glClearColor(0, 1, 1, 1);
 
-    f.glFrontFace(GL_CW);
+	/*f.glFrontFace(GL_CW);
     f.glCullFace(GL_BACK);
     f.glEnable(GL_CULL_FACE);
-    f.glEnable(GL_DEPTH_TEST);
+	f.glEnable(GL_DEPTH_TEST);*/
 
     // TODO: Depth clamp
 
-    f.glEnable(GL_FRAMEBUFFER_SRGB);
+	//f.glEnable(GL_FRAMEBUFFER_SRGB);
+
+	f.glDisable(GL_TEXTURE);
+	f.glDisable(GL_DEPTH_TEST);
+	f.glDisable(GL_ALPHA_TEST);
+	f.glDisable(GL_CULL_FACE);
 }
 
 QString RenderUtils::getOpenGLVersion(QOpenGLFunctions &f)

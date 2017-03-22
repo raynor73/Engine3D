@@ -15,11 +15,13 @@ public:
 
 	void setVertices(const QList<Vertex> &);
 	void draw();
+	void setPositionAttributeIndex(GLint index) { m_positionAttributeIndex = index; }
 
 private:
 	QOpenGLFunctions &f;
 
 	GLuint m_bufferObjectName;
+	GLint m_positionAttributeIndex;
 	int m_numberOfVertices;
 	unsigned char *m_buffer;
 };
