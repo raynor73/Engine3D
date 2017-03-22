@@ -25,8 +25,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
 	vertices.append(Vertex(Vector3f(0, 0.5f, 0)));
-	vertices.append(Vertex(Vector3f(0.5f, 0.5f, 0)));
-	vertices.append(Vertex(Vector3f(-0.5f, 0.5f, 0)));
+	vertices.append(Vertex(Vector3f(-0.5f, -0.5f, 0)));
+	vertices.append(Vertex(Vector3f(0.5f, -0.5f, 0)));
 	m_mesh->setVertices(vertices);
 
 	m_shader = new Shader(*this);
@@ -43,9 +43,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	QString fragmentShaderText = fragmentShaderStream.readAll();
 	fragmentShaderFile.close();
 
-	m_shader->setVertexShader(vertexShaderText);
+	/*m_shader->setVertexShader(vertexShaderText);
 	m_shader->setFragmentShader(fragmentShaderText);
-	m_shader->linkProgram();
+	m_shader->linkProgram();*/
 }
 
 TutorialScene::~TutorialScene()
@@ -69,6 +69,6 @@ void TutorialScene::render()
 {
 	RenderUtils::clearScreen(*this);
 
-	m_shader->bind();
+	//m_shader->bind();
 	m_mesh->draw();
 }

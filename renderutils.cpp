@@ -8,7 +8,7 @@ void RenderUtils::clearScreen(QOpenGLFunctions &f)
 
 void RenderUtils::initGraphics(QOpenGLFunctions &f)
 {
-    f.glClearColor(0, 0, 0, 0);
+	f.glClearColor(0, 1, 1, 0);
 
     f.glFrontFace(GL_CW);
     f.glCullFace(GL_BACK);

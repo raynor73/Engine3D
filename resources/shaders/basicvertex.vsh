@@ -1,6 +1,6 @@
-attribute vec4 position;
+attribute vec3 position;
 
 void main()
 {
-    gl_Position = position;
+    gl_Position = vec4(position, 1);
 }
