@@ -8,7 +8,7 @@ void RenderUtils::clearScreen(QOpenGLFunctions &f)
 
 void RenderUtils::initGraphics(QOpenGLFunctions &f)
 {
-	f.glClearColor(0, 1, 1, 1);
+	f.glClearColor(0, 0, 0, 0);
 
 	/*f.glFrontFace(GL_CW);
     f.glCullFace(GL_BACK);
@@ -19,10 +19,10 @@ void RenderUtils::initGraphics(QOpenGLFunctions &f)
 
 	//f.glEnable(GL_FRAMEBUFFER_SRGB);
 
-	f.glDisable(GL_TEXTURE);
+	/*f.glDisable(GL_TEXTURE);
 	f.glDisable(GL_DEPTH_TEST);
 	f.glDisable(GL_ALPHA_TEST);
-	f.glDisable(GL_CULL_FACE);
+	f.glDisable(GL_CULL_FACE);*/
 }
 
 QString RenderUtils::getOpenGLVersion(QOpenGLFunctions &f)

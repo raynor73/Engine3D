@@ -49,7 +49,7 @@ void Mesh::draw()
 	//f.glVertexAttribPointer(m_positionAttributeIndex, Vertex::SIZE, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
 	f.glVertexAttribPointer(m_positionAttributeIndex, Vertex::SIZE, GL_FLOAT, GL_FALSE, 0, 0);
 
-	f.glDrawArrays(GL_TRIANGLE_STRIP, 0, m_numberOfVertices);
+	f.glDrawArrays(GL_TRIANGLES, 0, m_numberOfVertices);
 
 	f.glDisableVertexAttribArray(m_positionAttributeIndex);
 }

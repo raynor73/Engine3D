@@ -71,9 +71,10 @@ void TutorialScene::stop()
 
 void TutorialScene::render()
 {
-	//RenderUtils::clearScreen(*this);
+	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
 	m_mesh->setPositionAttributeIndex(m_shader->positionAttributeIndex());
+	//m_mesh->setPositionAttributeIndex(0);
 	m_mesh->draw();
 }
