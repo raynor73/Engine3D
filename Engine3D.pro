@@ -68,3 +68,16 @@ RESOURCES += \
 DISTFILES += \
     resources/shaders/basicvertex.vsh \
     resources/shaders/basicfragment.fsh
+
+win32: LIBS += -L$$PWD/libs/win/glew-2.0.0/lib/Release/Win32/ -lglew32
+
+INCLUDEPATH += $$PWD/libs/win/glew-2.0.0/include
+DEPENDPATH += $$PWD/libs/win/glew-2.0.0/include
+
+win32: LIBS += -L$$PWD/libs/win/glfw-3.2.1.bin.WIN32/lib-mingw/ -lglfw3
+
+INCLUDEPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
+DEPENDPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
+
+INCLUDEPATH += $$PWD/libs/glm-0.9.8.4
+
