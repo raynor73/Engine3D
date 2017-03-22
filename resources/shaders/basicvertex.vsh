@@ -1,6 +1,11 @@
-attribute vec3 position;
+#version 330 core
 
-void main(void)
-{
-    gl_Position = vec4(position, 1);
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+
+void main(){
+
+    gl_Position.xyz = vertexPosition_modelspace;
+    gl_Position.w = 1.0;
+
 }

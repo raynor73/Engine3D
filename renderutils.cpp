@@ -4,6 +4,7 @@ void RenderUtils::clearScreen(QOpenGLFunctions &f)
 {
     // TODO: Stencil buffer
 	//f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	f.glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void RenderUtils::initGraphics(QOpenGLFunctions &f)

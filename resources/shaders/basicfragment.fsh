@@ -1,4 +1,12 @@
-void main(void)
+#version 330 core
+
+// Ouput data
+out vec3 color;
+
+void main()
 {
-    gl_FragColor = vec4(1, 1, 1, 1);
+
+    // Output color = red
+    color = vec3(1,0,0);
+
 }

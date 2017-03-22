@@ -15,7 +15,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
 	RenderUtils::initGraphics(*this);
-	glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
+	//glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
+	GLuint VertexArrayID;
 
 	m_controller = new TutorialController(m_userInput);
     m_controller->startReadingUserInput();
@@ -74,7 +75,7 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
-	m_mesh->setPositionAttributeIndex(m_shader->positionAttributeIndex());
+	//m_mesh->setPositionAttributeIndex(m_shader->positionAttributeIndex());
 	//m_mesh->setPositionAttributeIndex(0);
 	m_mesh->draw();
 }

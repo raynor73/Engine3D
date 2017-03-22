@@ -43,13 +43,13 @@ void Mesh::setVertices(const QList<Vertex> &vertices)
 
 void Mesh::draw()
 {
-	f.glEnableVertexAttribArray(m_positionAttributeIndex);
+	f.glEnableVertexAttribArray(0);
 
 	f.glBindBuffer(GL_ARRAY_BUFFER, m_bufferObjectName);
 	//f.glVertexAttribPointer(m_positionAttributeIndex, Vertex::SIZE, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
-	f.glVertexAttribPointer(m_positionAttributeIndex, Vertex::SIZE, GL_FLOAT, GL_FALSE, 0, 0);
+	f.glVertexAttribPointer(0, Vertex::SIZE, GL_FLOAT, GL_FALSE, 0, 0);
 
 	f.glDrawArrays(GL_TRIANGLES, 0, m_numberOfVertices);
 
-	f.glDisableVertexAttribArray(m_positionAttributeIndex);
+	f.glDisableVertexAttribArray(0);
 }
