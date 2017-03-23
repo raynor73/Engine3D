@@ -69,7 +69,7 @@ DISTFILES += \
     resources/shaders/basicvertex.vsh \
     resources/shaders/basicfragment.fsh
 
-win32: LIBS += -L$$PWD/libs/win/glew-2.0.0/lib/Release/Win32/ -lglew32
+win32: LIBS += -L$$PWD/libs/win/glew-2.0.0/lib/Release/Win32/ -lglew32s
 
 INCLUDEPATH += $$PWD/libs/win/glew-2.0.0/include
 DEPENDPATH += $$PWD/libs/win/glew-2.0.0/include
@@ -81,3 +81,4 @@ DEPENDPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
 
 INCLUDEPATH += $$PWD/libs/glm-0.9.8.4
 
+win32: LIBS += -L"C:/Program Files (x86)/Windows Kits/8.1/Lib/winv6.3/um/x86/" -lGdi32
