@@ -70,15 +70,27 @@ DISTFILES += \
     resources/shaders/basicfragment.fsh
 
 win32: LIBS += -L$$PWD/libs/win/glew-2.0.0/lib/Release/Win32/ -lglew32s
-
-INCLUDEPATH += $$PWD/libs/win/glew-2.0.0/include
-DEPENDPATH += $$PWD/libs/win/glew-2.0.0/include
+win32: INCLUDEPATH += $$PWD/libs/win/glew-2.0.0/include
+win32: DEPENDPATH += $$PWD/libs/win/glew-2.0.0/include
 
 win32: LIBS += -L$$PWD/libs/win/glfw-3.2.1.bin.WIN32/lib-mingw/ -lglfw3
-
-INCLUDEPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
-DEPENDPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
+win32: INCLUDEPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
+win32: DEPENDPATH += $$PWD/libs/win/glfw-3.2.1.bin.WIN32/include
 
 INCLUDEPATH += $$PWD/libs/glm-0.9.8.4
 
-win32: LIBS += -L"C:/Program Files (x86)/Windows Kits/8.1/Lib/winv6.3/um/x86/" -lGdi32
+unix:!macx: LIBS += -L$$PWD/libs/glew-2.0.0/lib/ -lGLEW
+
+INCLUDEPATH += $$PWD/libs/glew-2.0.0/include
+DEPENDPATH += $$PWD/libs/glew-2.0.0/include
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/libs/glew-2.0.0/lib/libGLEW.a
+
+unix:!macx: LIBS += -L$$PWD/libs/glfw-3.2.1/src/ -lglfw3
+
+INCLUDEPATH += $$PWD/libs/glfw-3.2.1/include
+DEPENDPATH += $$PWD/libs/glfw-3.2.1/include
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/libs/glfw-3.2.1/src/libglfw3.a
+
+unix:!macx: LIBS += -lXrandr -lXrender -lXi -lXfixes -lXxf86vm -lXext -lX11 -lpthread -lxcb -lXau -lXdmcp -ldl -lXcursor -lXinerama

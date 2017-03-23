@@ -1,4 +1,3 @@
-#define GLEW_STATIC
 #include <stdio.h>
 #include <stdlib.h>
 #include <QApplication>
@@ -39,6 +38,16 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+	do{
+		// Draw nothing, see you in tutorial 2 !
+
+		// Swap buffers
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	} // Check if the ESC key was pressed or the window was closed
+	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 	return 0;
 	//return a.exec();
 }
