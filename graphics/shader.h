@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <GL/glew.h>
 
 class Shader : public QObject
 {
