@@ -1,3 +1,4 @@
+#include <cmath>
 #include <QDebug>
 #include <QList>
 #include <QFile>
@@ -41,6 +42,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_shader->setFragmentShader(fragmentShaderText);
 
 	m_shader->linkProgram();
+
+	QString uniformName = QString::fromLocal8Bit("uniformFloat");
+	m_shader->addUniform(uniformName);
 }
 
 TutorialScene::~TutorialScene()
@@ -57,6 +61,21 @@ void TutorialScene::start()
 
 void TutorialScene::stop()
 {}
+
+static float temp = 0;
+
+void TutorialScene::update()
+{
+	float dt = 0;
+	if (m_deltaTimer.isValid())
+		dt = 1000000000L / m_deltaTimer.nsecsElapsed();
+
+	m_deltaTimer.start();
+
+	temp += sinf(dt);
+	QString uniformName = QString::fromLocal8Bit("uniformFloat");
+	m_shader->setUniformf(uniformName, temp);
+}
 
 void TutorialScene::render()
 {

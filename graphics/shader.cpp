@@ -61,3 +61,31 @@ void Shader::compileShader(QString &text, GLenum type)
 
 	f.glAttachShader(m_programReference, shaderReference);
 }
+
+void Shader::addUniform(QString &uniformName)
+{
+	GLint uniformLocation = f.glGetUniformLocation(m_programReference, uniformName.toLocal8Bit());
+	Q_ASSERT(uniformLocation >= 0);
+
+	m_uniformLocations[uniformName] = uniformLocation;
+}
+
+void Shader::setUniformi(QString &uniformName, int value)
+{
+	f.glUniform1i(m_uniformLocations[uniformName], value);
+}
+
+void Shader::setUniformf(QString &uniformName, float value)
+{
+	f.glUniform1f(m_uniformLocations[uniformName], value);
+}
+
+void Shader::setUniform(QString &uniformName, Vector3f &value)
+{
+	f.glUniform3f(m_uniformLocations[uniformName], value.x, value.y, value.z);
+}
+
+void Shader::setUniform(QString &uniformName, Matrix4f &value)
+{
+	f.glUniformMatrix4fv(m_uniformLocations[uniformName], 1, GL_TRUE, reinterpret_cast<float *>(value.getM()));
+}

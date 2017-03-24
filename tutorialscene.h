@@ -4,6 +4,7 @@
 #include <QObject>
 #include "qopenglfunctions_selector.h"
 #include <QTimer>
+#include <QElapsedTimer>
 #include "scene.h"
 #include "geometry/mesh.h"
 #include "userinput.h"
@@ -14,18 +15,20 @@
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
 public:
-    explicit TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
-    ~TutorialScene();
+	explicit TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
+	~TutorialScene();
 
-    virtual void start();
-    virtual void stop();
-    virtual void render();
+	virtual void start();
+	virtual void stop();
+	virtual void update();
+	virtual void render();
 
 private:
-    OpenGLWidget &m_openGLWidget;
-    UserInput &m_userInput;
-    TutorialController *m_controller;
-    QTimer m_fpsTimer;
+	OpenGLWidget &m_openGLWidget;
+	UserInput &m_userInput;
+	TutorialController *m_controller;
+	QTimer m_fpsTimer;
+	QElapsedTimer m_deltaTimer;
 	Mesh *m_mesh;
 	Shader *m_shader;
 };

@@ -2,31 +2,24 @@
 #include "matrix4f.h"
 
 Matrix4f::Matrix4f(QObject *parent) : QObject(parent)
-{
-    m_data = new float*[SIZE];
-    for (int i = 0; i < SIZE; i++)
-       m_data[i] = new float[SIZE];
-}
+{}
 
 Matrix4f::Matrix4f(const Matrix4f &other) : Matrix4f(other.parent())
 {
-	/*for (int i = 0; i < SIZE; i++)
-		std::copy(&m_data[i][0], &m_data[i][SIZE - 1], &other.m_data[i][0]);*/
-	for (int i = 0; i < SIZE; i++)
-		std::copy(&other.m_data[i][0], &other.m_data[i][SIZE], &m_data[i][0]);
+	std::copy(&other.m_data[0][0], &other.m_data[0][0] + SIZE * SIZE, &m_data[0][0]);
 }
 
 Matrix4f::~Matrix4f()
-{
-    for (int i = 0; i < SIZE; i++)
-       delete m_data[i];
+{}
 
-    delete m_data;
+float (*Matrix4f::getM())[SIZE]
+{
+	return m_data;
 }
 
-void Matrix4f::setM(float **data)
+void Matrix4f::setM(float (*data)[SIZE])
 {
-    m_data = data;
+	std::copy(&data[0][0], &data[0][0] + SIZE * SIZE, &m_data[0][0]);
 }
 
 float  Matrix4f::get(int row, int column)
