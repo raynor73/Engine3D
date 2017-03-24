@@ -1,6 +1,6 @@
 #include "mesh.h"
 
-Mesh::Mesh(QOpenGLFunctions_3_3_Core &f, QObject *parent) :
+Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
 	f(f),
 	m_numberOfVertices(0),

@@ -5,6 +5,7 @@
 #include "tutorialscene.h"
 #include "renderutils.h"
 #include "engineconfig.h"
+#include "utils.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	Scene(parent),
@@ -16,10 +17,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
 	RenderUtils::initGraphics(*this);
 
-	GLuint vertexArrayName;
-	glGenVertexArrays(1, &vertexArrayName);
-	glBindVertexArray(vertexArrayName);
-
 	m_controller = new TutorialController(m_userInput);
 	m_controller->startReadingUserInput();
 
@@ -30,27 +27,19 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
-	vertices.append(Vertex(Vector3f(0, 0, 0)));
-	vertices.append(Vertex(Vector3f(1, 0, 0)));
-	vertices.append(Vertex(Vector3f(1, 1, 0)));
+	vertices.append(Vertex(Vector3f(0, 1, 0)));
+	vertices.append(Vertex(Vector3f(1, -1, 0)));
+	vertices.append(Vertex(Vector3f(-1, -1, 0)));
 	m_mesh->setVertices(vertices);
 
 	m_shader = new Shader(*this);
 
-	QFile vertexShaderFile(":/resources/shaders/basicvertex.vsh");
-	vertexShaderFile.open(QFile::ReadOnly | QFile::Text);
-	QTextStream vertexShaderStream(&vertexShaderFile);
-	QString vertexShaderText = vertexShaderStream.readAll();
-	vertexShaderFile.close();
-
-	QFile fragmentShaderFile(":/resources/shaders/basicfragment.fsh");
-	fragmentShaderFile.open(QFile::ReadOnly | QFile::Text);
-	QTextStream fragmentShaderStream(&fragmentShaderFile);
-	QString fragmentShaderText = fragmentShaderStream.readAll();
-	fragmentShaderFile.close();
-
+	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
 	m_shader->setVertexShader(vertexShaderText);
+
+	QString fragmentShaderText = Utils::loadShader("basicfragment.fsh");
 	m_shader->setFragmentShader(fragmentShaderText);
+
 	m_shader->linkProgram();
 }
 

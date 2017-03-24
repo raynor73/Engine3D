@@ -3,13 +3,13 @@
 
 #include <QObject>
 #include <QString>
-#include <QOpenGLFunctions_3_3_Core>
+#include "qopenglfunctions_selector.h"
 
 class Shader : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Shader(QOpenGLFunctions_3_3_Core &, QObject *parent = 0);
+	explicit Shader(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
 	~Shader();
 
 	void setVertexShader(QString &);
@@ -20,7 +20,7 @@ public:
 	void bind();
 
 private:
-	QOpenGLFunctions_3_3_Core &f;
+	QOPENGLFUNCTIONS_CLASSNAME &f;
 	GLuint m_programReference;
 	GLint m_positionAttributeIndex;
 

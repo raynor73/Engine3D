@@ -2,7 +2,7 @@
 #define TUTORIALSCENE_H
 
 #include <QObject>
-#include <QOpenGLFunctions_3_3_Core>
+#include "qopenglfunctions_selector.h"
 #include <QTimer>
 #include "scene.h"
 #include "geometry/mesh.h"
@@ -11,7 +11,7 @@
 #include "openglwidget.h"
 #include "graphics/shader.h"
 
-class TutorialScene : public Scene, protected QOpenGLFunctions_3_3_Core
+class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
 public:
     explicit TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);

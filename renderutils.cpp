@@ -1,46 +1,54 @@
 #include "renderutils.h"
 
-void RenderUtils::clearScreen(QOpenGLFunctions_3_3_Core &f)
+void RenderUtils::clearScreen(QOPENGLFUNCTIONS_CLASSNAME &f)
 {
-    // TODO: Stencil buffer
-	//f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	f.glClear(GL_COLOR_BUFFER_BIT);
+	// TODO: Stencil buffer
+	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void RenderUtils::initGraphics(QOpenGLFunctions_3_3_Core &f)
+void RenderUtils::initGraphics(QOPENGLFUNCTIONS_CLASSNAME &f)
 {
 	f.glClearColor(0, 0, 0, 0);
 
-	/*f.glFrontFace(GL_CW);
-    f.glCullFace(GL_BACK);
-    f.glEnable(GL_CULL_FACE);
-	f.glEnable(GL_DEPTH_TEST);*/
+	f.glFrontFace(GL_CW);
+	f.glCullFace(GL_BACK);
+	f.glEnable(GL_CULL_FACE);
+	f.glEnable(GL_DEPTH_TEST);
 
-    // TODO: Depth clamp
+	// TODO: Depth clamp
 
-	//f.glEnable(GL_FRAMEBUFFER_SRGB);
+	f.glEnable(GL_FRAMEBUFFER_SRGB);
 
-	/*f.glDisable(GL_TEXTURE);
-	f.glDisable(GL_DEPTH_TEST);
-	f.glDisable(GL_ALPHA_TEST);
-	f.glDisable(GL_CULL_FACE);*/
+	GLuint vertexArrayName;
+	f.glGenVertexArrays(1, &vertexArrayName);
+	f.glBindVertexArray(vertexArrayName);
 }
 
-QString RenderUtils::getOpenGLVersion(QOpenGLFunctions_3_3_Core &f)
+QString RenderUtils::getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f)
 {
 	return QString::fromLocal8Bit(reinterpret_cast<const char *>(f.glGetString(GL_VERSION)));
 }
 
-GLint RenderUtils::glGetShader(QOpenGLFunctions_3_3_Core &f, GLuint shader, GLenum pname)
+GLint RenderUtils::glGetShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shader, GLenum pname)
 {
 	GLint result;
 	f.glGetShaderiv(shader, pname, &result);
 	return result;
 }
 
-GLint RenderUtils::glGetProgram(QOpenGLFunctions_3_3_Core &f, GLuint program, GLenum pname)
+GLint RenderUtils::glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program, GLenum pname)
 {
 	GLint result;
 	f.glGetProgramiv(program, pname, &result);
 	return result;
+}
+
+QString RenderUtils::glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shaderReference)
+{
+	char buffer[1024];
+	GLsizei length;
+
+	f.glGetShaderInfoLog(shaderReference, 1024, &length, buffer);
+
+	return QString::fromLocal8Bit(buffer);
 }
