@@ -1,16 +1,16 @@
 #ifndef RENDERUTILS_H
 #define RENDERUTILS_H
 
-#include <QOpenGLFunctions>
 #include <QString>
+#include <GL/glew.h>
 
 namespace RenderUtils
 {
-void clearScreen(QOpenGLFunctions &);
-void initGraphics(QOpenGLFunctions &);
-QString getOpenGLVersion(QOpenGLFunctions &);
-GLint glGetShader(QOpenGLFunctions &, GLuint, GLenum);
-GLint glGetProgram(QOpenGLFunctions &, GLuint, GLenum);
+void clearScreen();
+void initGraphics();
+QString getOpenGLVersion();
+GLint glGetShader(GLuint, GLenum);
+GLint glGetProgram(GLuint, GLenum);
 }
 
 #endif // RENDERUTILS_H

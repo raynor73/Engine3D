@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QApplication>
+#include <QFile>
+#include <QTextStream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include "engineconfig.h"
 #include "graphics/shader.h"
+#include "renderutils.h"
 
 // An array of 3 vectors which represents 3 vertices
 static const GLfloat g_vertex_buffer_data[] = {
@@ -13,8 +16,6 @@ static const GLfloat g_vertex_buffer_data[] = {
    1.0f, -1.0f, 0.0f,
    0.0f,  1.0f, 0.0f,
 };
-
-static Shader g_shader;
 
 int main(int argc, char *argv[])
 {
@@ -64,7 +65,29 @@ int main(int argc, char *argv[])
 	// Give our vertices to OpenGL.
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
+	Shader shader;
+
+	QFile vertexShaderFile(":/resources/shaders/basicvertex.vsh");
+	vertexShaderFile.open(QFile::ReadOnly | QFile::Text);
+	QTextStream vertexShaderStream(&vertexShaderFile);
+	QString vertexShaderText = vertexShaderStream.readAll();
+	vertexShaderFile.close();
+
+	QFile fragmentShaderFile(":/resources/shaders/basicfragment.fsh");
+	fragmentShaderFile.open(QFile::ReadOnly | QFile::Text);
+	QTextStream fragmentShaderStream(&fragmentShaderFile);
+	QString fragmentShaderText = fragmentShaderStream.readAll();
+	fragmentShaderFile.close();
+
+	shader.setVertexShader(vertexShaderText);
+	shader.setFragmentShader(fragmentShaderText);
+	shader.linkProgram();
+
 	do {
+		shader.bind();
+
+		RenderUtils::clearScreen();
+
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);

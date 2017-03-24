@@ -24,14 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     engineconfig.cpp \
-    openglwidget.cpp \
-    scene.cpp \
-    defaultscene.cpp \
-    userinput.cpp \
-    tutorialscene.cpp \
-    tutorialcontroller.cpp \
     geometry/vector2f.cpp \
     geometry/vector3f.cpp \
     geometry/matrix4f.cpp \
@@ -41,14 +34,8 @@ SOURCES += main.cpp\
     geometry/mesh.cpp \
     graphics/shader.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     engineconfig.h \
-    openglwidget.h \
-    scene.h \
-    defaultscene.h \
-    userinput.h \
-    tutorialscene.h \
-    tutorialcontroller.h \
     geometry/vector2f.h \
     geometry/vector3f.h \
     geometry/matrix4f.h \

@@ -15,13 +15,11 @@ public:
 	void setVertexShader(QString &);
 	void setGeometryShader(QString &);
 	void setFragmentShader(QString &);
-	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
 
 private:
 	GLuint m_programReference;
-	GLint m_positionAttributeIndex;
 
 	void compileShader(QString &, GLenum);
 };
