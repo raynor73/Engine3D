@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_3_3_Core>
 #include <QElapsedTimer>
 #include "scene.h"
 

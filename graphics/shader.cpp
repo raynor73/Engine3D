@@ -4,7 +4,7 @@
 #include "shader.h"
 #include "renderutils.h"
 
-Shader::Shader(QOpenGLFunctions &f, QObject *parent) :
+Shader::Shader(QOpenGLFunctions_3_3_Core &f, QObject *parent) :
 	QObject(parent),
 	f(f)
 {

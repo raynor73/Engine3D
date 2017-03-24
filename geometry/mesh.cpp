@@ -1,6 +1,6 @@
 #include "mesh.h"
 
-Mesh::Mesh(QOpenGLFunctions &f, QObject *parent) :
+Mesh::Mesh(QOpenGLFunctions_3_3_Core &f, QObject *parent) :
 	QObject(parent),
 	f(f),
 	m_numberOfVertices(0),
@@ -46,7 +46,6 @@ void Mesh::draw()
 	f.glEnableVertexAttribArray(0);
 
 	f.glBindBuffer(GL_ARRAY_BUFFER, m_bufferObjectName);
-	//f.glVertexAttribPointer(m_positionAttributeIndex, Vertex::SIZE, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
 	f.glVertexAttribPointer(0, Vertex::SIZE, GL_FLOAT, GL_FALSE, 0, 0);
 
 	f.glDrawArrays(GL_TRIANGLES, 0, m_numberOfVertices);

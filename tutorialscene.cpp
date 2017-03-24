@@ -7,24 +7,26 @@
 #include "engineconfig.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
-    Scene(parent),
-    m_openGLWidget(openGLWidget),
-    m_userInput(userInput)
+	Scene(parent),
+	m_openGLWidget(openGLWidget),
+	m_userInput(userInput)
 {
 	initializeOpenGLFunctions();
 
 	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
 	RenderUtils::initGraphics(*this);
-	//glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
-	GLuint VertexArrayID;
+
+	GLuint vertexArrayName;
+	glGenVertexArrays(1, &vertexArrayName);
+	glBindVertexArray(vertexArrayName);
 
 	m_controller = new TutorialController(m_userInput);
-    m_controller->startReadingUserInput();
+	m_controller->startReadingUserInput();
 
-    connect(&m_fpsTimer, &QTimer::timeout, [this]() {
-        qDebug() << "FPS" << m_openGLWidget.fps();
-    });
-    m_fpsTimer.start(1000);
+	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
+		qDebug() << "FPS" << m_openGLWidget.fps();
+	});
+	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
@@ -62,10 +64,7 @@ TutorialScene::~TutorialScene()
 }
 
 void TutorialScene::start()
-{
-	//RenderUtils::initGraphics(*this);
-	//glViewport(0, 0, EngineConfig::DISPLAY_WIDTH - 1, EngineConfig::DISPLAY_HEIGHT - 1);
-}
+{}
 
 void TutorialScene::stop()
 {}
@@ -75,7 +74,5 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
-	//m_mesh->setPositionAttributeIndex(m_shader->positionAttributeIndex());
-	//m_mesh->setPositionAttributeIndex(0);
 	m_mesh->draw();
 }
