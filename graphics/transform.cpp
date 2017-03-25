@@ -2,7 +2,8 @@
 
 Transform::Transform(QObject *parent) :
 	QObject(parent),
-	m_translation(Vector3f(0, 0, 0))
+	m_translation(Vector3f(0, 0, 0)),
+	m_rotation(Vector3f(0, 0, 0))
 {}
 
 void Transform::setTranslation(const Vector3f &translation)
@@ -16,6 +17,19 @@ void Transform::setTranslation(float x, float y, float z)
 	m_translation.y = y;
 	m_translation.z = z;
 }
+
+void Transform::setRotation(const Vector3f &rotation)
+{
+	m_rotation = rotation;
+}
+
+void Transform::setRotation(float x, float y, float z)
+{
+	m_rotation.x = x;
+	m_rotation.y = y;
+	m_rotation.z = z;
+}
+
 
 Matrix4f Transform::transformation()
 {

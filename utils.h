@@ -7,6 +7,7 @@ namespace Utils
 {
 
 QString loadShader(const QString &);
+float toRadians(float);
 
 }
 

@@ -1,4 +1,5 @@
 #include <cmath>
+#include "utils.h"
 #include "vector2f.h"
 
 Vector2f::Vector2f(float x, float y, QObject *parent) :
@@ -35,7 +36,7 @@ Vector2f *Vector2f::normalize()
 
 Vector2f Vector2f::rotate(float angle)
 {
-    float rad = angle * M_PI / 180;
+	float rad = Utils::toRadians(angle);
     float cos = cosf(rad);
     float sin = sinf(rad);
     return Vector2f(x * cos - y * sin, x * sin + y * cos);

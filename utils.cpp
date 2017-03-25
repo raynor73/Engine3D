@@ -1,5 +1,5 @@
+#include <cmath>
 #include "utils.h"
-
 #include <QFile>
 #include <QTextStream>
 
@@ -18,6 +18,11 @@ QString loadShader(const QString &filename)
 	shaderFile.close();
 
 	return shaderText;
+}
+
+inline float toRadians(float degrees)
+{
+	return degrees * M_PI / 180;
 }
 
 }
