@@ -4,9 +4,9 @@ layout(location = 0) in vec3 position;
 
 out vec4 color;
 
-uniform float uniformFLoat;
+uniform float uniformFloat;
 
 void main() {
-    color = vec4(clamp(position, 0, uniformFLoat), 1);
+    color = vec4(clamp(position, 0, uniformFloat), 1);
     gl_Position = vec4(position, 1);
 }

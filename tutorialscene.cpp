@@ -68,13 +68,13 @@ void TutorialScene::update()
 {
 	float dt = 0;
 	if (m_deltaTimer.isValid())
-		dt = 1000000000L / m_deltaTimer.nsecsElapsed();
+		dt = m_deltaTimer.nsecsElapsed() / 1000000000.0f;
 
 	m_deltaTimer.start();
 
-	temp += sinf(dt);
+	temp += dt;
 	QString uniformName = QString::fromLocal8Bit("uniformFloat");
-	m_shader->setUniformf(uniformName, temp);
+	m_shader->setUniformf(uniformName, std::abs(std::sin(temp)));
 }
 
 void TutorialScene::render()
