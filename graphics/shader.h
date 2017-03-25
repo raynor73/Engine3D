@@ -18,11 +18,11 @@ public:
 	void setVertexShader(QString &);
 	void setGeometryShader(QString &);
 	void setFragmentShader(QString &);
-	void addUniform(QString &);
-	void setUniformi(QString &, int);
-	void setUniformf(QString &, float);
-	void setUniform(QString &, Vector3f &);
-	void setUniform(QString &, Matrix4f &);
+	void addUniform(const QString &);
+	void setUniformi(const QString &, int);
+	void setUniformf(const QString &, float);
+	void setUniform(const QString &, Vector3f &);
+	void setUniform(const QString &, Matrix4f &);
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();

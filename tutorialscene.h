@@ -11,6 +11,7 @@
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
 #include "graphics/shader.h"
+#include "graphics/transform.h"
 
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
@@ -31,6 +32,7 @@ private:
 	QElapsedTimer m_deltaTimer;
 	Mesh *m_mesh;
 	Shader *m_shader;
+	Transform *m_transform;
 };
 
 #endif // TUTORIALSCENE_H

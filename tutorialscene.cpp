@@ -43,17 +43,19 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_shader->linkProgram();
 
-	QString uniformName = QString::fromLocal8Bit("uniformFloat");
-	m_shader->addUniform(uniformName);
+	m_shader->addUniform("transform");
+
+	m_transform = new Transform();
 }
 
 TutorialScene::~TutorialScene()
 {
 	m_fpsTimer.stop();
 	m_controller->stopReadingUserInput();
-	delete m_controller;
-	delete m_mesh;
+	delete m_transform;
 	delete m_shader;
+	delete m_mesh;
+	delete m_controller;
 }
 
 void TutorialScene::start()
@@ -73,8 +75,7 @@ void TutorialScene::update()
 	m_deltaTimer.start();
 
 	temp += dt;
-	QString uniformName = QString::fromLocal8Bit("uniformFloat");
-	m_shader->setUniformf(uniformName, std::abs(std::sin(temp)));
+	m_transform->setTranslation(std::sin(temp), 0, 0);
 }
 
 void TutorialScene::render()
@@ -82,5 +83,7 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
+	Matrix4f transformation = m_transform->transformation();
+	m_shader->setUniform("transform", transformation);
 	m_mesh->draw();
 }

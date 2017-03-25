@@ -42,6 +42,17 @@ Matrix4f *Matrix4f::initIdentity()
     return this;
 }
 
+Matrix4f *Matrix4f::initTranslation(float x, float y, float z)
+{
+	initIdentity();
+
+	m_data[0][3] = x;
+	m_data[1][3] = y;
+	m_data[2][3] = z;
+
+	return this;
+}
+
 Matrix4f Matrix4f::operator *(const Matrix4f &other)
 {
     Matrix4f m;

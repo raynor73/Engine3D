@@ -18,6 +18,7 @@ public:
 	float get(int, int);
 	void set(int, int, float);
 	Matrix4f *initIdentity();
+	Matrix4f *initTranslation(float, float, float);
 	Matrix4f operator *(const Matrix4f &);
 
 private:

@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     geometry/vertex.cpp \
     geometry/mesh.cpp \
     graphics/shader.cpp \
-    utils.cpp
+    utils.cpp \
+    graphics/transform.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     geometry/mesh.h \
     graphics/shader.h \
     utils.h \
-    qopenglfunctions_selector.h
+    qopenglfunctions_selector.h \
+    graphics/transform.h
 
 FORMS    += mainwindow.ui
 
