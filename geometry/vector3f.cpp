@@ -75,7 +75,7 @@ Vector3f Vector3f::operator *(const Vector3f &other)
     return Vector3f(x * other.x, y * other.y, z * other.z);
 }
 
-Vector3f Vector3f::operator *(float a)
+Vector3f Vector3f::operator *(float a) const
 {
     return Vector3f(x * a, y * a, z * a);
 }
