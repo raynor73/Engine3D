@@ -28,7 +28,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
-	Utils::loadMesh("box.obj", *m_mesh);
+	Utils::loadMesh("monkey.obj", *m_mesh);
 
 	m_shader = new Shader(*this);
 	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
