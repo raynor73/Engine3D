@@ -20,6 +20,7 @@ public:
 	Matrix4f *initIdentity();
 	Matrix4f *initTranslation(float, float, float);
 	Matrix4f *initRotation(float, float, float);
+	Matrix4f *initScale(float, float, float);
 	Matrix4f operator *(const Matrix4f &);
 
 private:

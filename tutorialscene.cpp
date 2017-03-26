@@ -74,8 +74,12 @@ void TutorialScene::update()
 	m_deltaTimer.start();
 
 	temp += dt;
-	m_transform->setTranslation(std::sin(temp), 0, 0);
-	m_transform->setRotation(0, 0, std::sin(temp) * 180);
+
+	float sinValue = std::sin(temp);
+
+	m_transform->setTranslation(sinValue, 0, 0);
+	m_transform->setRotation(0, 0, sinValue * 180);
+	m_transform->setScale(sinValue, sinValue, sinValue);
 }
 
 void TutorialScene::render()

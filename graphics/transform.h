@@ -17,11 +17,15 @@ public:
 	Vector3f *rotation() { return &m_rotation; }
 	void setRotation(const Vector3f &);
 	void setRotation(float, float, float);
+	Vector3f *scale() { return &m_scale; }
+	void setScale(const Vector3f &);
+	void setScale(float, float, float);
 	Matrix4f transformation();
 
 private:
 	Vector3f m_translation;
 	Vector3f m_rotation;
+	Vector3f m_scale;
 };
 
 #endif // TRANSFORM_H

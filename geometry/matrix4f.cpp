@@ -88,6 +88,17 @@ Matrix4f *Matrix4f::initRotation(float x, float y, float z)
 	return this;
 }
 
+Matrix4f *Matrix4f::initScale(float x, float y, float z)
+{
+	initIdentity();
+
+	m_data[0][0] = x;
+	m_data[1][1] = y;
+	m_data[2][2] = z;
+
+	return this;
+}
+
 Matrix4f Matrix4f::operator *(const Matrix4f &other)
 {
 	Matrix4f m;
