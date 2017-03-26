@@ -1,6 +1,7 @@
 #include <cmath>
 #include <QDebug>
 #include <QList>
+#include <QVector>
 #include <QFile>
 #include <QTextStream>
 #include "tutorialscene.h"
@@ -28,21 +29,31 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
-	vertices.append(Vertex(Vector3f(0, 1, 0)));
-	vertices.append(Vertex(Vector3f(1, -1, 0)));
-	vertices.append(Vertex(Vector3f(-1, -1, 0)));
-	m_mesh->setVertices(vertices);
+	vertices += Vertex(Vector3f(-1, -1, 0));
+	vertices += Vertex(Vector3f(0, 1, 0));
+	vertices += Vertex(Vector3f(1, -1, 0));
+	vertices += Vertex(Vector3f(0, -1, 1));
+	QVector<unsigned int> indices;
+	indices += 0;
+	indices += 1;
+	indices += 3;
+	indices += 3;
+	indices += 1;
+	indices += 2;
+	indices += 2;
+	indices += 1;
+	indices += 0;
+	indices += 0;
+	indices += 2;
+	indices += 3;
+	m_mesh->setVertices(vertices, indices);
 
 	m_shader = new Shader(*this);
-
 	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
 	m_shader->setVertexShader(vertexShaderText);
-
 	QString fragmentShaderText = Utils::loadShader("basicfragment.fsh");
 	m_shader->setFragmentShader(fragmentShaderText);
-
 	m_shader->linkProgram();
-
 	m_shader->addUniform("transform");
 
 	m_transform = new Transform();
@@ -78,8 +89,8 @@ void TutorialScene::update()
 	float sinValue = std::sin(temp);
 
 	m_transform->setTranslation(sinValue, 0, 0);
-	m_transform->setRotation(0, 0, sinValue * 180);
-	m_transform->setScale(sinValue, sinValue, sinValue);
+	m_transform->setRotation(0, sinValue * 180, 0);
+	//m_transform->setScale(sinValue, sinValue, sinValue);
 }
 
 void TutorialScene::render()

@@ -13,15 +13,16 @@ public:
 	explicit Mesh(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
 	~Mesh();
 
-	void setVertices(const QList<Vertex> &);
+	void setVertices(const QList<Vertex> &, const QVector<unsigned int> &);
 	void draw();
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 
-	GLuint m_bufferObjectName;
-	int m_numberOfVertices;
-	unsigned char *m_buffer;
+	GLuint m_vertexBufferObjectName;
+	GLuint m_indexBufferObjectName;
+	int m_numberOfIndices;
+	unsigned char *m_temporaryVertexBuffer;
 };
 
 #endif // MESH_H
