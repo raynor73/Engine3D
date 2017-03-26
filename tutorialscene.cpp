@@ -38,7 +38,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_shader->linkProgram();
 	m_shader->addUniform("transform");
 
-	m_transform = new Transform();
+	m_transform = new Transform(70, EngineConfig::DISPLAY_WIDTH, EngineConfig::DISPLAY_HEIGHT, 0.1,
+								1000);
 }
 
 TutorialScene::~TutorialScene()
@@ -70,9 +71,9 @@ void TutorialScene::update()
 
 	float sinValue = std::sin(temp);
 
-	m_transform->setTranslation(sinValue, 0, 0);
+	m_transform->setTranslation(sinValue, 0, 5);
 	m_transform->setRotation(0, sinValue * 180, 0);
-	m_transform->setScale(0.7 * sinValue, 0.7 * sinValue, 0.7 * sinValue);
+	//m_transform->setScale(0.7 * sinValue, 0.7 * sinValue, 0.7 * sinValue);
 }
 
 void TutorialScene::render()
@@ -80,7 +81,7 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
-	Matrix4f transformation = m_transform->transformation();
+	Matrix4f transformation = m_transform->projectedTransformation();
 	m_shader->setUniform("transform", transformation);
 	m_mesh->draw();
 }

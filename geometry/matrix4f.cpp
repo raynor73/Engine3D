@@ -99,6 +99,24 @@ Matrix4f *Matrix4f::initScale(float x, float y, float z)
 	return this;
 }
 
+Matrix4f *Matrix4f::initProjection(float fov, float width, float height, float zNear, float zFar)
+{
+	initIdentity();
+
+	auto aspectRatio = width / height;
+	auto tanHalfFov = std::tan(Utils::toRadians(fov / 2));
+	auto zRange = zNear - zFar;
+
+	m_data[0][0] = 1.0 / (tanHalfFov * aspectRatio);
+	m_data[1][1] = 1.0 / tanHalfFov;
+	m_data[3][3] = 0;
+	m_data[3][2] = 1;
+	m_data[2][2] = (-zNear - zFar) / zRange;
+	m_data[2][3] = 2 * zFar * zNear / zRange;
+
+	return this;
+}
+
 Matrix4f Matrix4f::operator *(const Matrix4f &other)
 {
 	Matrix4f m;

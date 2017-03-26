@@ -9,7 +9,7 @@ class Transform : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Transform(QObject *parent = 0);
+	explicit Transform(float, float, float, float, float, QObject *parent = 0);
 
 	Vector3f *translation() { return &m_translation; }
 	void setTranslation(const Vector3f &);
@@ -21,11 +21,18 @@ public:
 	void setScale(const Vector3f &);
 	void setScale(float, float, float);
 	Matrix4f transformation();
+	Matrix4f projectedTransformation();
 
 private:
 	Vector3f m_translation;
 	Vector3f m_rotation;
 	Vector3f m_scale;
+
+	float m_zNear;
+	float m_zFar;
+	float m_width;
+	float m_height;
+	float m_fov;
 };
 
 #endif // TRANSFORM_H

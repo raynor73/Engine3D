@@ -1,10 +1,15 @@
 #include "transform.h"
 
-Transform::Transform(QObject *parent) :
+Transform::Transform(float fov, float width, float height, float zNear, float zFar, QObject *parent) :
 	QObject(parent),
 	m_translation(Vector3f(0, 0, 0)),
 	m_rotation(Vector3f(0, 0, 0)),
-	m_scale(Vector3f(1, 1, 1))
+	m_scale(Vector3f(1, 1, 1)),
+	m_zNear(zNear),
+	m_zFar(zFar),
+	m_width(width),
+	m_height(height),
+	m_fov(fov)
 {}
 
 void Transform::setTranslation(const Vector3f &translation)
@@ -55,4 +60,14 @@ Matrix4f Transform::transformation()
 	scaleM.initScale(m_scale.x, m_scale.y, m_scale.z);
 
 	return translationM * rotationM * scaleM;
+}
+
+Matrix4f Transform::projectedTransformation()
+{
+	Matrix4f tansformationM = transformation();
+
+	Matrix4f projection;
+	projection.initProjection(m_fov, m_width, m_height, m_zNear, m_zFar);
+
+	return projection * transformation();
 }
