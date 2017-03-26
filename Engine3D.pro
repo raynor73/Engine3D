@@ -38,7 +38,7 @@ SOURCES += main.cpp\
     geometry/quaternion.cpp \
     renderutils.cpp \
     geometry/vertex.cpp \
-    geometry/mesh.cpp \
+    graphics/mesh.cpp \
     graphics/shader.cpp \
     utils.cpp \
     graphics/transform.cpp
@@ -57,7 +57,7 @@ HEADERS  += mainwindow.h \
     geometry/quaternion.h \
     renderutils.h \
     geometry/vertex.h \
-    geometry/mesh.h \
+    graphics/mesh.h \
     graphics/shader.h \
     utils.h \
     qopenglfunctions_selector.h \
@@ -72,4 +72,5 @@ RESOURCES += \
 
 DISTFILES += \
     resources/shaders/basicvertex.vsh \
-    resources/shaders/basicfragment.fsh
+    resources/shaders/basicfragment.fsh \
+    resources/models/box.obj

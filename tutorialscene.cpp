@@ -28,25 +28,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
-	QList<Vertex> vertices;
-	vertices += Vertex(Vector3f(-1, -1, 0));
-	vertices += Vertex(Vector3f(0, 1, 0));
-	vertices += Vertex(Vector3f(1, -1, 0));
-	vertices += Vertex(Vector3f(0, -1, 1));
-	QVector<unsigned int> indices;
-	indices += 0;
-	indices += 1;
-	indices += 3;
-	indices += 3;
-	indices += 1;
-	indices += 2;
-	indices += 2;
-	indices += 1;
-	indices += 0;
-	indices += 0;
-	indices += 2;
-	indices += 3;
-	m_mesh->setVertices(vertices, indices);
+	Utils::loadMesh("box.obj", *m_mesh);
 
 	m_shader = new Shader(*this);
 	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
@@ -90,7 +72,7 @@ void TutorialScene::update()
 
 	m_transform->setTranslation(sinValue, 0, 0);
 	m_transform->setRotation(0, sinValue * 180, 0);
-	//m_transform->setScale(sinValue, sinValue, sinValue);
+	m_transform->setScale(0.7 * sinValue, 0.7 * sinValue, 0.7 * sinValue);
 }
 
 void TutorialScene::render()

@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>resources/shaders/basicvertex.vsh</file>
         <file>resources/shaders/basicfragment.fsh</file>
+        <file>resources/models/box.obj</file>
     </qresource>
 </RCC>

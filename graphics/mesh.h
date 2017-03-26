@@ -4,7 +4,7 @@
 #include <QObject>
 #include "qopenglfunctions_selector.h"
 #include <QList>
-#include "vertex.h"
+#include "geometry/vertex.h"
 
 class Mesh : public QObject
 {

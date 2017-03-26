@@ -6,7 +6,7 @@
 #include <QTimer>
 #include <QElapsedTimer>
 #include "scene.h"
-#include "geometry/mesh.h"
+#include "graphics/mesh.h"
 #include "userinput.h"
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
