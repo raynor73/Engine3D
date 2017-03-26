@@ -20,7 +20,7 @@ QString loadShader(const QString &filename)
 	return shaderText;
 }
 
-inline float toRadians(float degrees)
+float toRadians(float degrees)
 {
 	return degrees * M_PI / 180;
 }

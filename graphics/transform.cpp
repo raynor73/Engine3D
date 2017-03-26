@@ -35,5 +35,9 @@ Matrix4f Transform::transformation()
 {
 	Matrix4f translationM;
 	translationM.initTranslation(m_translation.x, m_translation.y, m_translation.z);
-	return translationM;
+
+	Matrix4f rotationM;
+	rotationM.initRotation(m_rotation.x, m_rotation.y, m_rotation.z);
+
+	return translationM * rotationM;
 }

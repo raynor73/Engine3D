@@ -65,7 +65,6 @@ void TutorialScene::stop()
 {}
 
 static float temp = 0;
-
 void TutorialScene::update()
 {
 	float dt = 0;
@@ -76,6 +75,7 @@ void TutorialScene::update()
 
 	temp += dt;
 	m_transform->setTranslation(std::sin(temp), 0, 0);
+	m_transform->setRotation(0, 0, std::sin(temp) * 180);
 }
 
 void TutorialScene::render()
