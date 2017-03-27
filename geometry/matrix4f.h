@@ -2,6 +2,7 @@
 #define MATRIX4F_H
 
 #include <QObject>
+#include "geometry/vector3f.h"
 
 class Matrix4f : public QObject
 {
@@ -22,6 +23,7 @@ public:
 	Matrix4f *initRotation(float, float, float);
 	Matrix4f *initScale(float, float, float);
 	Matrix4f *initProjection(float, float, float, float, float);
+	Matrix4f *initCamera(const Vector3f &, const Vector3f &);
 	Matrix4f operator *(const Matrix4f &);
 
 private:

@@ -1,5 +1,7 @@
 #include <cmath>
 #include "vector3f.h"
+#include "utils.h"
+#include "geometry/quaternion.h"
 
 Vector3f::Vector3f(float x, float y, float z, QObject *parent) :
     QObject(parent),
@@ -45,9 +47,26 @@ Vector3f *Vector3f::normalize()
     return this;
 }
 
-Vector3f Vector3f::rotate(float angle, Vector3f &axis)
+Vector3f *Vector3f::rotate(float angle, const Vector3f &axis)
 {
+	float sinHalfAngle = std::sin(Utils::toRadians(angle / 2));
+	float cosHalfAngle = std::cos(Utils::toRadians(angle / 2));
 
+	float rX = axis.x * sinHalfAngle;
+	float rY = axis.y * sinHalfAngle;
+	float rZ = axis.z * sinHalfAngle;
+	float rW = cosHalfAngle;
+
+	Quaternion rotation(rX, rY, rZ, rW);
+	Quaternion conjugate = rotation.conjugate();
+
+	Quaternion w = rotation * (*this) * conjugate;
+
+	x = w.x;
+	y = w.y;
+	z = w.z;
+
+	return this;
 }
 
 Vector3f Vector3f::operator +(const Vector3f &other)

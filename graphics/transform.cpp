@@ -64,10 +64,13 @@ Matrix4f Transform::transformation()
 
 Matrix4f Transform::projectedTransformation()
 {
-	Matrix4f tansformationM = transformation();
+	Matrix4f transformationM = transformation();
 
-	Matrix4f projection;
-	projection.initProjection(m_fov, m_width, m_height, m_zNear, m_zFar);
+	Matrix4f projectionM;
+	projectionM.initProjection(m_fov, m_width, m_height, m_zNear, m_zFar);
 
-	return projection * transformation();
+	Matrix4f cameraM;
+	//cameraM.init
+
+	return projectionM * transformationM;
 }

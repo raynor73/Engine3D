@@ -53,6 +53,24 @@ void Camera::rotateX(float angle)
 {
 	Vector3f hAxis = yAxis.cross(m_forward);
 	hAxis.normalize();
+
+	m_forward.rotate(angle, hAxis);
+	m_forward.normalize();
+
+	m_up = m_forward.cross(hAxis);
+	m_up.normalize();
+}
+
+void Camera::rotateY(float angle)
+{
+	Vector3f hAxis = yAxis.cross(m_forward);
+	hAxis.normalize();
+
+	m_forward.rotate(angle, yAxis);
+	m_forward.normalize();
+
+	m_up = m_forward.cross(hAxis);
+	m_up.normalize();
 }
 
 const Vector3f Camera::yAxis(0, 1, 0);

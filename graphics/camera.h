@@ -24,6 +24,7 @@ public:
 	Vector3f calculateLeft();
 	Vector3f calculateRight();
 	void rotateX(float);
+	void rotateY(float);
 
 private:
 	Vector3f m_position;
