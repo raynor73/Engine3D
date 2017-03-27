@@ -21,6 +21,9 @@ public:
 	Vector3f up() { return m_up; }
 
 	void move(const Vector3f &, float);
+	Vector3f calculateLeft();
+	Vector3f calculateRight();
+	void rotateX(float);
 
 private:
 	Vector3f m_position;

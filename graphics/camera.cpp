@@ -35,4 +35,24 @@ void Camera::move(const Vector3f &direction, float amount)
 	m_position = m_position + direction * amount;
 }
 
+Vector3f Camera::calculateLeft()
+{
+	Vector3f left = m_up.cross(m_forward);
+	left.normalize();
+	return left;
+}
+
+Vector3f Camera::calculateRight()
+{
+	Vector3f right = m_forward.cross(m_up);
+	right.normalize();
+	return right;
+}
+
+void Camera::rotateX(float angle)
+{
+	Vector3f hAxis = yAxis.cross(m_forward);
+	hAxis.normalize();
+}
+
 const Vector3f Camera::yAxis(0, 1, 0);

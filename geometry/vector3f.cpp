@@ -25,7 +25,7 @@ float Vector3f::dot(const Vector3f &other)
     return x * other.x + y * other.y + z * other.z;
 }
 
-Vector3f Vector3f::cross(const Vector3f &other)
+Vector3f Vector3f::cross(const Vector3f &other) const
 {
     float newX = y * other.z - z * other.y;
     float newY = z * other.x - x * other.z;
@@ -45,9 +45,9 @@ Vector3f *Vector3f::normalize()
     return this;
 }
 
-Vector3f Vector3f::rotate(float)
+Vector3f Vector3f::rotate(float angle, Vector3f &axis)
 {
-    return *this;
+
 }
 
 Vector3f Vector3f::operator +(const Vector3f &other)
