@@ -2,6 +2,7 @@
 #define TRANSFORM_H
 
 #include <QObject>
+#include "graphics/camera.h"
 #include "geometry/vector3f.h"
 #include "geometry/matrix4f.h"
 
@@ -9,7 +10,7 @@ class Transform : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Transform(float, float, float, float, float, QObject *parent = 0);
+	explicit Transform(Camera &, float, float, float, float, float, QObject *parent = 0);
 
 	Vector3f *translation() { return &m_translation; }
 	void setTranslation(const Vector3f &);
@@ -33,6 +34,8 @@ private:
 	float m_width;
 	float m_height;
 	float m_fov;
+
+	Camera &m_camera;
 };
 
 #endif // TRANSFORM_H

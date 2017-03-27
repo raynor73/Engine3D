@@ -12,6 +12,7 @@
 #include "openglwidget.h"
 #include "graphics/shader.h"
 #include "graphics/transform.h"
+#include "graphics/camera.h"
 
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
@@ -33,6 +34,7 @@ private:
 	Mesh *m_mesh;
 	Shader *m_shader;
 	Transform *m_transform;
+	Camera *m_camera;
 };
 
 #endif // TUTORIALSCENE_H

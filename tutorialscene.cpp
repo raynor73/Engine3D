@@ -38,8 +38,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_shader->linkProgram();
 	m_shader->addUniform("transform");
 
-	m_transform = new Transform(70, EngineConfig::DISPLAY_WIDTH, EngineConfig::DISPLAY_HEIGHT, 0.1,
-								1000);
+	m_camera = new Camera();
+	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
+								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
 }
 
 TutorialScene::~TutorialScene()
@@ -47,6 +48,7 @@ TutorialScene::~TutorialScene()
 	m_fpsTimer.stop();
 	m_controller->stopReadingUserInput();
 	delete m_transform;
+	delete m_camera;
 	delete m_shader;
 	delete m_mesh;
 	delete m_controller;

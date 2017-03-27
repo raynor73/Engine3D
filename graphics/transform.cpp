@@ -1,7 +1,9 @@
 #include "transform.h"
 
-Transform::Transform(float fov, float width, float height, float zNear, float zFar, QObject *parent) :
+Transform::Transform(Camera &camera, float fov, float width, float height, float zNear, float zFar,
+					 QObject *parent) :
 	QObject(parent),
+	m_camera(camera),
 	m_translation(Vector3f(0, 0, 0)),
 	m_rotation(Vector3f(0, 0, 0)),
 	m_scale(Vector3f(1, 1, 1)),
@@ -69,8 +71,12 @@ Matrix4f Transform::projectedTransformation()
 	Matrix4f projectionM;
 	projectionM.initProjection(m_fov, m_width, m_height, m_zNear, m_zFar);
 
-	Matrix4f cameraM;
-	//cameraM.init
+	Matrix4f cameraRotationM;
+	cameraRotationM.initCamera(m_camera.forward(), m_camera.up());
 
-	return projectionM * transformationM;
+	Matrix4f cameraTranslationM;
+	cameraTranslationM.initTranslation(-m_camera.position().x, -m_camera.position().y,
+									   -m_camera.position().z);
+
+	return projectionM * cameraRotationM * cameraTranslationM * transformationM;
 }

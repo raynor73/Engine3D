@@ -37,14 +37,14 @@ void Camera::move(const Vector3f &direction, float amount)
 
 Vector3f Camera::calculateLeft()
 {
-	Vector3f left = m_up.cross(m_forward);
+	Vector3f left = m_forward.cross(m_up);
 	left.normalize();
 	return left;
 }
 
 Vector3f Camera::calculateRight()
 {
-	Vector3f right = m_forward.cross(m_up);
+	Vector3f right = m_up.cross(m_forward);
 	right.normalize();
 	return right;
 }
