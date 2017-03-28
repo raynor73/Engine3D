@@ -24,14 +24,9 @@ float Vector2f::dot(const Vector2f &other)
     return x * other.x + y * other.y;
 }
 
-Vector2f *Vector2f::normalize()
+Vector2f Vector2f::normalized()
 {
-    float l = length();
-
-    x /= l;
-    y /= l;
-
-    return this;
+	return Vector2f(*this) / length();
 }
 
 Vector2f Vector2f::rotate(float angle)

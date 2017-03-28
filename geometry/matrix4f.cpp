@@ -122,10 +122,10 @@ Matrix4f *Matrix4f::initCamera(const Vector3f &forward, const Vector3f &up)
 	initIdentity();
 
 	Vector3f f = forward;
-	f.normalize();
+	f.normalized();
 
 	Vector3f r = up;
-	r.normalize();
+	r.normalized();
 	r = r.cross(f);
 
 	Vector3f u = f.cross(r);

@@ -17,9 +17,10 @@ public:
 	operator QString();
 	float length();
 	float dot(const Vector3f &);
+	Vector3f abs();
 	Vector3f cross(const Vector3f &) const;
-	Vector3f *normalize();
-	Vector3f *rotate(float, const Vector3f &);
+	Vector3f normalized();
+	Vector3f rotate(float, const Vector3f &);
 	Vector3f operator +(const Vector3f &);
 	Vector3f operator +(float);
 	Vector3f operator -(const Vector3f &);

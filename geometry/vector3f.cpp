@@ -27,6 +27,11 @@ float Vector3f::dot(const Vector3f &other)
     return x * other.x + y * other.y + z * other.z;
 }
 
+Vector3f Vector3f::abs()
+{
+	return Vector3f(std::abs(x), std::abs(y), std::abs(z));
+}
+
 Vector3f Vector3f::cross(const Vector3f &other) const
 {
     float newX = y * other.z - z * other.y;
@@ -36,18 +41,12 @@ Vector3f Vector3f::cross(const Vector3f &other) const
     return Vector3f(newX, newY, newZ);
 }
 
-Vector3f *Vector3f::normalize()
+Vector3f Vector3f::normalized()
 {
-    float l = length();
-
-    x /= l;
-    y /= l;
-    z /= l;
-
-    return this;
+	return Vector3f(*this) / length();
 }
 
-Vector3f *Vector3f::rotate(float angle, const Vector3f &axis)
+Vector3f Vector3f::rotate(float angle, const Vector3f &axis)
 {
 	float sinHalfAngle = std::sin(Utils::toRadians(angle / 2));
 	float cosHalfAngle = std::cos(Utils::toRadians(angle / 2));
@@ -62,11 +61,7 @@ Vector3f *Vector3f::rotate(float angle, const Vector3f &axis)
 
 	Quaternion w = rotation * (*this) * conjugate;
 
-	x = w.x;
-	y = w.y;
-	z = w.z;
-
-	return this;
+	return Vector3f(w.x, w.y, w.z);
 }
 
 Vector3f Vector3f::operator +(const Vector3f &other)

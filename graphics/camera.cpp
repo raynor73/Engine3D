@@ -7,8 +7,8 @@ Camera::Camera(const Vector3f &position, const Vector3f &formard, const Vector3f
 	m_forward(formard),
 	m_up(up)
 {
-	m_up.normalize();
-	m_forward.normalize();
+	m_up = m_up.normalized();
+	m_forward = m_forward.normalized();
 }
 
 Camera::Camera(QObject *parent) :
@@ -38,39 +38,29 @@ void Camera::move(const Vector3f &direction, float amount)
 Vector3f Camera::calculateLeft()
 {
 	Vector3f left = m_forward.cross(m_up);
-	left.normalize();
+	left.normalized();
 	return left;
 }
 
 Vector3f Camera::calculateRight()
 {
 	Vector3f right = m_up.cross(m_forward);
-	right.normalize();
+	right.normalized();
 	return right;
 }
 
 void Camera::rotateX(float angle)
 {
-	Vector3f hAxis = yAxis.cross(m_forward);
-	hAxis.normalize();
-
-	m_forward.rotate(angle, hAxis);
-	m_forward.normalize();
-
-	m_up = m_forward.cross(hAxis);
-	m_up.normalize();
+	Vector3f hAxis = yAxis.cross(m_forward).normalized();
+	m_forward = m_forward.rotate(angle, hAxis).normalized();
+	m_up = m_forward.cross(hAxis).normalized();
 }
 
 void Camera::rotateY(float angle)
 {
-	Vector3f hAxis = yAxis.cross(m_forward);
-	hAxis.normalize();
-
-	m_forward.rotate(angle, yAxis);
-	m_forward.normalize();
-
-	m_up = m_forward.cross(hAxis);
-	m_up.normalize();
+	Vector3f hAxis = yAxis.cross(m_forward).normalized();
+	m_forward = m_forward.rotate(angle, yAxis).normalized();
+	m_up = m_forward.cross(hAxis).normalized();
 }
 
 const Vector3f Camera::yAxis(0, 1, 0);

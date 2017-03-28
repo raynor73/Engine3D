@@ -6,6 +6,11 @@ void RenderUtils::clearScreen(QOPENGLFUNCTIONS_CLASSNAME &f)
 	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void RenderUtils::setClearColor(QOPENGLFUNCTIONS_CLASSNAME &f,const Vector3f &color)
+{
+	f.glClearColor(color.x, color.y, color.z, 1);
+}
+
 void RenderUtils::initGraphics(QOPENGLFUNCTIONS_CLASSNAME &f)
 {
 	f.glClearColor(0, 0, 0, 0);
