@@ -3,7 +3,8 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
-#include <geometry/vertex.h>
+#include <QImage>
+#include "geometry/vertex.h"
 
 namespace Utils
 {
@@ -58,9 +59,25 @@ void loadMesh(const QString &filename, Mesh &outMesh)
 	outMesh.setVertices(vertices, indices);
 }
 
-Texture loadTexture(const QString &filename)
+Texture loadTexture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename)
 {
+	QImage image;
+	image.load(QString(":/resources/textures/%1").arg(filename));
+	if (image.format() != QImage::Format_RGB888)
+		image.convertToFormat(QImage::Format_RGB888);
 
+	GLuint textureID;
+	f.glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width(), image.height(), 0, GL_RGB, GL_UNSIGNED_BYTE,
+				 image.constBits());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	return Texture(f, textureID);
 }
 
 }
