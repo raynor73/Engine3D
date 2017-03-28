@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     graphics/shader.cpp \
     utils.cpp \
     graphics/transform.cpp \
-    graphics/camera.cpp
+    graphics/camera.cpp \
+    graphics/texture.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     utils.h \
     qopenglfunctions_selector.h \
     graphics/transform.h \
-    graphics/camera.h
+    graphics/camera.h \
+    graphics/texture.h
 
 FORMS    += mainwindow.ui
 

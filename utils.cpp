@@ -58,4 +58,9 @@ void loadMesh(const QString &filename, Mesh &outMesh)
 	outMesh.setVertices(vertices, indices);
 }
 
+Texture loadTexture(const QString &filename)
+{
+
+}
+
 }
