@@ -86,3 +86,14 @@ Vector2f::operator QString()
 {
     return QString("%1; %2").arg(x, 0, 'f', 3).arg(y, 0, 'f', 3);
 }
+
+Vector2f &Vector2f::operator =(const Vector2f &other)
+{
+	if (&other == this)
+		return *this;
+
+	x = other.x;
+	y = other.y;
+
+	return *this;
+}

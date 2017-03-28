@@ -12,7 +12,7 @@ namespace Utils
 QString loadShader(const QString &);
 float toRadians(float);
 void loadMesh(const QString &, Mesh &);
-Texture loadTexture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &);
+Texture *newTexture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &);
 
 }
 

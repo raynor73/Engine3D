@@ -77,4 +77,5 @@ RESOURCES += \
 DISTFILES += \
     resources/shaders/basicvertex.vsh \
     resources/shaders/basicfragment.fsh \
-    resources/models/box.obj
+    resources/models/box.obj \
+    resources/textures/test.png

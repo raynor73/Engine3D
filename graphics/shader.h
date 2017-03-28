@@ -21,7 +21,7 @@ public:
 	void addUniform(const QString &);
 	void setUniformi(const QString &, int);
 	void setUniformf(const QString &, float);
-	void setUniform(const QString &, Vector3f &);
+	void setUniform(const QString &, const Vector3f &);
 	void setUniform(const QString &, Matrix4f &);
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();

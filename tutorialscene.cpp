@@ -8,6 +8,7 @@
 #include "renderutils.h"
 #include "engineconfig.h"
 #include "utils.h"
+#include "geometry/vector2f.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	Scene(parent),
@@ -27,7 +28,28 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
-	Utils::loadMesh("monkey.obj", *m_mesh);
+	QList<Vertex> vertices;
+	vertices += Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0));
+	vertices += Vertex(Vector3f(0, 1, 0), Vector2f(0.5, 0));
+	vertices += Vertex(Vector3f(1, -1, 0), Vector2f(1, 0));
+	vertices += Vertex(Vector3f(0, -1, 1), Vector2f(0, 0.5));
+	QVector<unsigned int> indices;
+	indices += 3;
+	indices += 1;
+	indices += 0;
+	indices += 2;
+	indices += 1;
+	indices += 3;
+	indices += 0;
+	indices += 1;
+	indices += 2;
+	indices += 0;
+	indices += 2;
+	indices += 3;
+	m_mesh->setVertices(vertices, indices);
+	//Utils::loadMesh("monkey.obj", *m_mesh);
+
+	m_texture = Utils::newTexture(*this, "test.png");
 
 	m_shader = new Shader(*this);
 	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
@@ -48,6 +70,7 @@ TutorialScene::~TutorialScene()
 	delete m_transform;
 	delete m_camera;
 	delete m_shader;
+	delete m_texture;
 	delete m_mesh;
 	delete m_controller;
 }
@@ -107,7 +130,8 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
-	Matrix4f transformation = m_transform->projectedTransformation();
-	m_shader->setUniform("transform", transformation);
+	Matrix4f transformationM = m_transform->projectedTransformation();
+	m_shader->setUniform("transform", transformationM);
+	m_texture->bind();
 	m_mesh->draw();
 }

@@ -2,12 +2,20 @@
 
 Vertex::Vertex(const Vector3f &position, QObject *parent) :
 	QObject(parent),
-	position(position)
+	position(position),
+	textureCoordinate(Vector2f(0, 0))
 {}
 
 Vertex::Vertex(const Vertex &other, QObject *parent) :
 	QObject(parent),
-	position(other.position)
+	position(other.position),
+	textureCoordinate(other.textureCoordinate)
+{}
+
+Vertex::Vertex(const Vector3f &position, const Vector2f &textureCoordinate, QObject *parent) :
+	QObject(parent),
+	position(position),
+	textureCoordinate(textureCoordinate)
 {}
 
 Vertex &Vertex::operator =(const Vertex &other)
@@ -16,6 +24,7 @@ Vertex &Vertex::operator =(const Vertex &other)
 		return *this;
 
 	position = other.position;
+	textureCoordinate = other.textureCoordinate;
 
 	return *this;
 }

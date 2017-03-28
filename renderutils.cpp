@@ -17,11 +17,20 @@ void RenderUtils::initGraphics(QOPENGLFUNCTIONS_CLASSNAME &f)
 
 	// TODO: Depth clamp
 
+	f.glEnable(GL_TEXTURE_2D);
 	f.glEnable(GL_FRAMEBUFFER_SRGB);
 
 	GLuint vertexArrayName;
 	f.glGenVertexArrays(1, &vertexArrayName);
 	f.glBindVertexArray(vertexArrayName);
+}
+
+void RenderUtils::enableTextures(QOPENGLFUNCTIONS_CLASSNAME &f, bool isEnabled)
+{
+	if (isEnabled)
+		f.glEnable(GL_TEXTURE_2D);
+	else
+		f.glDisable(GL_TEXTURE_2D);
 }
 
 QString RenderUtils::getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f)

@@ -13,6 +13,7 @@
 #include "graphics/shader.h"
 #include "graphics/transform.h"
 #include "graphics/camera.h"
+#include "graphics/texture.h"
 
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
@@ -32,6 +33,7 @@ private:
 	QTimer m_fpsTimer;
 	QElapsedTimer m_deltaTimer;
 	Mesh *m_mesh;
+	Texture *m_texture;
 	Shader *m_shader;
 	Transform *m_transform;
 	Camera *m_camera;

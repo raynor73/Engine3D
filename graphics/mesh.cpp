@@ -36,10 +36,13 @@ void Mesh::setVertices(const QList<Vertex> &vertices, const QVector<unsigned int
 	for (int i = 0; i < numberOfVertices; i++) {
 		int base = i * Vertex::SIZE;
 		const Vector3f &position = vertices.at(i).position;
+		const Vector2f &textureCoordinate = vertices.at(i).textureCoordinate;
 
 		m_floatBuffer[base] = position.x;
 		m_floatBuffer[base + 1] = position.y;
 		m_floatBuffer[base + 2] = position.z;
+		m_floatBuffer[base + 3] = textureCoordinate.x;
+		m_floatBuffer[base + 4] = textureCoordinate.y;
 	}
 
 	f.glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjectName);
@@ -52,13 +55,17 @@ void Mesh::setVertices(const QList<Vertex> &vertices, const QVector<unsigned int
 void Mesh::draw()
 {
 	f.glEnableVertexAttribArray(0);
+	f.glEnableVertexAttribArray(1);
 
 	f.glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjectName);
-	f.glVertexAttribPointer(0, Vertex::SIZE, GL_FLOAT, GL_FALSE, 0, 0);
+	f.glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+	f.glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+							reinterpret_cast<const void *>(3 * sizeof(float)));
 
 	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferObjectName);
 
 	f.glDrawElements(GL_TRIANGLES, m_numberOfIndices, GL_UNSIGNED_INT, 0);
 
 	f.glDisableVertexAttribArray(0);
+	f.glDisableVertexAttribArray(1);
 }

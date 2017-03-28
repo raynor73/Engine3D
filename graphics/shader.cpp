@@ -80,7 +80,7 @@ void Shader::setUniformf(const QString &uniformName, float value)
 	f.glUniform1f(m_uniformLocations[uniformName], value);
 }
 
-void Shader::setUniform(const QString &uniformName, Vector3f &value)
+void Shader::setUniform(const QString &uniformName, const Vector3f &value)
 {
 	f.glUniform3f(m_uniformLocations[uniformName], value.x, value.y, value.z);
 }

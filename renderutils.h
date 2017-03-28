@@ -6,12 +6,15 @@
 
 namespace RenderUtils
 {
+
 void clearScreen(QOPENGLFUNCTIONS_CLASSNAME &);
 void initGraphics(QOPENGLFUNCTIONS_CLASSNAME &);
 QString getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &);
 GLint glGetShader(QOPENGLFUNCTIONS_CLASSNAME &, GLuint, GLenum);
 GLint glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &, GLuint, GLenum);
 QString glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &, GLuint);
+void enableTextures(QOPENGLFUNCTIONS_CLASSNAME &, bool);
+
 }
 
 #endif // RENDERUTILS_H
