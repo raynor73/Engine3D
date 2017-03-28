@@ -4,7 +4,11 @@
 TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	QObject(parent),
 	m_userInput(userInput),
-	m_isReadingUserInput(false)
+	m_isReadingUserInput(false),
+	m_movementDirection(MovementDiretion::Idle),
+	m_strafeDirection(StrafeDirection::Idle),
+	m_pitchDirection(PitchDirection::Idle),
+	m_yawDirection(YawDirection::Idle)
 {}
 
 void TutorialController::connectToEvents()

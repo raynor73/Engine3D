@@ -15,8 +15,8 @@ public:
 	void bind();
 
 private:
-	int m_id;
 	QOPENGLFUNCTIONS_CLASSNAME &f;
+	int m_id;
 };
 
 #endif // TEXTURE_H

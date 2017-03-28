@@ -3,7 +3,6 @@
 Transform::Transform(Camera &camera, float fov, float width, float height, float zNear, float zFar,
 					 QObject *parent) :
 	QObject(parent),
-	m_camera(camera),
 	m_translation(Vector3f(0, 0, 0)),
 	m_rotation(Vector3f(0, 0, 0)),
 	m_scale(Vector3f(1, 1, 1)),
@@ -11,7 +10,8 @@ Transform::Transform(Camera &camera, float fov, float width, float height, float
 	m_zFar(zFar),
 	m_width(width),
 	m_height(height),
-	m_fov(fov)
+	m_fov(fov),
+	m_camera(camera)
 {}
 
 void Transform::setTranslation(const Vector3f &translation)

@@ -42,13 +42,13 @@ public slots:
 private:
 	UserInput &m_userInput;
 	bool m_isReadingUserInput;
-	void connectToEvents();
-	void disconnectFromEvents();
-
 	MovementDiretion::Variants m_movementDirection;
 	StrafeDirection::Variants m_strafeDirection;
 	PitchDirection::Variants m_pitchDirection;
 	YawDirection::Variants m_yawDirection;
+
+	void connectToEvents();
+	void disconnectFromEvents();
 };
 
 #endif // TUTORIALCONTROLLER_H
