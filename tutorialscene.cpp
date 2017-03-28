@@ -20,7 +20,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	RenderUtils::initGraphics(*this);
 
 	m_controller = new TutorialController(m_userInput);
-	m_controller->startReadingUserInput();
 
 	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
 		qDebug() << "FPS" << m_openGLWidget.fps();
@@ -46,7 +45,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 TutorialScene::~TutorialScene()
 {
 	m_fpsTimer.stop();
-	m_controller->stopReadingUserInput();
 	delete m_transform;
 	delete m_camera;
 	delete m_shader;
@@ -55,10 +53,14 @@ TutorialScene::~TutorialScene()
 }
 
 void TutorialScene::start()
-{}
+{
+	m_controller->startReadingUserInput();
+}
 
 void TutorialScene::stop()
-{}
+{
+	m_controller->stopReadingUserInput();
+}
 
 static float temp = 0;
 void TutorialScene::update()
@@ -75,7 +77,29 @@ void TutorialScene::update()
 
 	m_transform->setTranslation(sinValue, 0, 5);
 	m_transform->setRotation(0, sinValue * 180, 0);
-	//m_transform->setScale(0.7 * sinValue, 0.7 * sinValue, 0.7 * sinValue);
+
+	float moveAmount = 10 * dt;
+	float rotationAmount = 100 * dt;
+
+	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
+		m_camera->move(m_camera->forward(), moveAmount);
+	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
+		m_camera->move(m_camera->forward(), -moveAmount);
+
+	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
+		m_camera->move(m_camera->calculateLeft(), moveAmount);
+	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
+		m_camera->move(m_camera->calculateRight(), moveAmount);
+
+	if (m_controller->pitchDirection() == TutorialController::PitchDirection::LookUp)
+		m_camera->rotateX(-rotationAmount);
+	if (m_controller->pitchDirection() == TutorialController::PitchDirection::LookDown)
+		m_camera->rotateX(rotationAmount);
+
+	if (m_controller->yawDirection() == TutorialController::YawDirection::TurnLeft)
+		m_camera->rotateY(-rotationAmount);
+	if (m_controller->yawDirection() == TutorialController::YawDirection::TurnRight)
+		m_camera->rotateY(rotationAmount);
 }
 
 void TutorialScene::render()

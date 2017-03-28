@@ -8,20 +8,20 @@ class TutorialController : public QObject
 {
 	Q_OBJECT
 public:
-	enum MovementDiretion {
-		Forward, Backward, Idle
+	struct MovementDiretion {
+		enum Variants { Forward, Backward, Idle };
 	};
 
-	enum StrafeDirection {
-		Left, Right, Idle
+	struct StrafeDirection {
+		enum Variants { Left, Right, Idle };
 	};
 
-	enum PitchDirection {
-		LookDown, LookUp, Idle
+	struct PitchDirection {
+		enum Variants { LookDown, LookUp, Idle };
 	};
 
-	enum YawDirection {
-		LookLeft, LookRight, Idle
+	struct YawDirection {
+		enum Variants { TurnLeft, TurnRight, Idle };
 	};
 
 	explicit TutorialController(UserInput &userInput, QObject *parent = 0);
@@ -30,10 +30,10 @@ public:
 	void startReadingUserInput();
 	void stopReadingUserInput();
 
-	MovementDiretion movementDiretion() { return m_movementDirection; }
-	StrafeDirection strafeDirection() { return m_strafeDirection; }
-	PitchDirection pitchDirection() { return m_pitchDirection; }
-	YawDirection yawDirection() { return m_yawDirection; }
+	MovementDiretion::Variants movementDiretion() { return m_movementDirection; }
+	StrafeDirection::Variants strafeDirection() { return m_strafeDirection; }
+	PitchDirection::Variants pitchDirection() { return m_pitchDirection; }
+	YawDirection::Variants yawDirection() { return m_yawDirection; }
 
 public slots:
 	void onKeyEvent(QKeyEvent);
@@ -45,10 +45,10 @@ private:
 	void connectToEvents();
 	void disconnectFromEvents();
 
-	MovementDiretion m_movementDirection;
-	StrafeDirection m_strafeDirection;
-	PitchDirection m_pitchDirection;
-	YawDirection m_yawDirection;
+	MovementDiretion::Variants m_movementDirection;
+	StrafeDirection::Variants m_strafeDirection;
+	PitchDirection::Variants m_pitchDirection;
+	YawDirection::Variants m_yawDirection;
 };
 
 #endif // TUTORIALCONTROLLER_H
