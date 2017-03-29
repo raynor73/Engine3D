@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // TODO Think about if QOpenGLWidget::paintGL can be run before below connection
     connect(m_openglWidget, &OpenGLWidget::openGLReady, this, &MainWindow::onOpenGLReady);
 
-    m_userInput = new UserInput(this);
+	m_userInput = new UserInput(*m_openglWidget, this);
 }
 
 void MainWindow::onOpenGLReady()

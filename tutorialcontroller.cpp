@@ -1,5 +1,6 @@
-#include <QDebug>
 #include "tutorialcontroller.h"
+#include <QDebug>
+#include "engineconfig.h"
 
 TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	QObject(parent),
@@ -8,19 +9,44 @@ TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	m_movementDirection(MovementDiretion::Idle),
 	m_strafeDirection(StrafeDirection::Idle),
 	m_pitchDirection(PitchDirection::Idle),
-	m_yawDirection(YawDirection::Idle)
+	m_yawDirection(YawDirection::Idle),
+	m_isPointerGrabbed(false),
+	m_isPrevPointerPositionKnown(false)
 {}
 
 void TutorialController::connectToEvents()
 {
 	connect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
 	connect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
+
+	grabPointer();
 }
 
 TutorialController::~TutorialController()
 {
 	if (m_isReadingUserInput)
 		disconnectFromEvents();
+
+	if (m_isPointerGrabbed)
+		releasePointer();
+}
+
+void TutorialController::movePointerToCenter()
+{
+	m_userInput.setPointerPosition(EngineConfig::DISPLAY_WIDTH / 2, EngineConfig::DISPLAY_HEIGHT / 2);
+}
+
+void TutorialController::grabPointer()
+{
+	m_userInput.setPointerVisible(false);
+	movePointerToCenter();
+
+	m_isPointerGrabbed = true;
+}
+
+void TutorialController::releasePointer()
+{
+	m_isPointerGrabbed = false;
 }
 
 void TutorialController::startReadingUserInput()
@@ -115,6 +141,22 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 }
 
 void TutorialController::onMouseEvent(QMouseEvent event) {
+	if (m_isPointerGrabbed) {
+		int currentPointerX = m_userInput.pointerX();
+		int currentPointerY = m_userInput.pointerY();
+
+		if (m_isPrevPointerPositionKnown) {
+			m_pointerDeltaX = currentPointerX - m_prevPointerX;
+			m_pointerDeltaY = currentPointerY - m_prevPointerY;
+			qDebug() << m_pointerDeltaX << ";" << m_pointerDeltaY;
+			movePointerToCenter();
+		} else {
+			m_isPrevPointerPositionKnown = true;
+		}
+		m_prevPointerX = currentPointerX;
+		m_prevPointerY = currentPointerY;
+	}
+
 	if (event.button() == Qt::RightButton) {
 		if (event.type() == QEvent::MouseButtonPress)
 			qDebug("Right mouse button pressed at %d; %d", m_userInput.pointerX(), m_userInput.pointerY());

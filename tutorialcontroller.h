@@ -34,6 +34,8 @@ public:
 	StrafeDirection::Variants strafeDirection() { return m_strafeDirection; }
 	PitchDirection::Variants pitchDirection() { return m_pitchDirection; }
 	YawDirection::Variants yawDirection() { return m_yawDirection; }
+	int pointerDeltaX() { return m_pointerDeltaX; }
+	int pointerDeltaY() { return m_pointerDeltaY; }
 
 public slots:
 	void onKeyEvent(QKeyEvent);
@@ -46,9 +48,18 @@ private:
 	StrafeDirection::Variants m_strafeDirection;
 	PitchDirection::Variants m_pitchDirection;
 	YawDirection::Variants m_yawDirection;
+	bool m_isPointerGrabbed;
+	bool m_isPrevPointerPositionKnown;
+	int m_prevPointerX;
+	int m_prevPointerY;
+	int m_pointerDeltaX;
+	int m_pointerDeltaY;
 
 	void connectToEvents();
 	void disconnectFromEvents();
+	void grabPointer();
+	void releasePointer();
+	void movePointerToCenter();
 };
 
 #endif // TUTORIALCONTROLLER_H
