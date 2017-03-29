@@ -140,6 +140,7 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 	}
 }
 
+static int xSum = 0;
 void TutorialController::onMouseEvent(QMouseEvent event) {
 	if (m_isPointerGrabbed) {
 		int currentPointerX = m_userInput.pointerX();
@@ -148,8 +149,11 @@ void TutorialController::onMouseEvent(QMouseEvent event) {
 		if (m_isPrevPointerPositionKnown) {
 			m_pointerDeltaX = currentPointerX - m_prevPointerX;
 			m_pointerDeltaY = currentPointerY - m_prevPointerY;
-			qDebug() << m_pointerDeltaX << ";" << m_pointerDeltaY;
+
 			movePointerToCenter();
+
+			xSum += m_pointerDeltaX;
+			qDebug() << xSum << event.source();
 		} else {
 			m_isPrevPointerPositionKnown = true;
 		}
