@@ -22,6 +22,7 @@ public:
 
 signals:
 	void onKeyEvent(QKeyEvent);
+	void onMouseEvent(QMouseEvent);
 
 protected:
 	virtual bool eventFilter(QObject *, QEvent *);

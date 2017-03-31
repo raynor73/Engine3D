@@ -94,6 +94,8 @@ void TutorialScene::update()
 
 	m_deltaTimer.start();
 
+	m_controller->updatePointer();
+
 	temp += dt;
 
 	float sinValue = std::sin(temp);

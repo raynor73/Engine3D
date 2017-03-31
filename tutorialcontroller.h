@@ -30,6 +30,7 @@ public:
 
 	void startReadingUserInput();
 	void stopReadingUserInput();
+	void updatePointer();
 
 	MovementDiretion::Variants movementDiretion() { return m_movementDirection; }
 	StrafeDirection::Variants strafeDirection() { return m_strafeDirection; }
@@ -39,6 +40,7 @@ public:
 
 public slots:
 	void onKeyEvent(QKeyEvent);
+	void onMouseEvent(QMouseEvent);
 
 private:
 	UserInput &m_userInput;

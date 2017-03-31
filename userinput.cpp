@@ -38,6 +38,14 @@ void UserInput::setPointerVisible(bool isVisible)
 bool UserInput::eventFilter(QObject *object, QEvent *event)
 {
 	switch (event->type()) {
+	case QEvent::MouseButtonDblClick:
+	case QEvent::MouseButtonPress:
+	case QEvent::MouseButtonRelease: {
+		QMouseEvent mouseEvent = *static_cast<QMouseEvent *>(event);
+		emit onMouseEvent(mouseEvent);
+		return true;
+	}
+
 	case QEvent::KeyPress:
 	case QEvent::KeyRelease: {
 		QKeyEvent keyEvent = *static_cast<QKeyEvent *>(event);
