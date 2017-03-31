@@ -2,6 +2,7 @@
 #define TUTORIALCONTROLLER_H
 
 #include <QObject>
+#include <QPoint>
 #include "userinput.h"
 
 class TutorialController : public QObject
@@ -34,12 +35,10 @@ public:
 	StrafeDirection::Variants strafeDirection() { return m_strafeDirection; }
 	PitchDirection::Variants pitchDirection() { return m_pitchDirection; }
 	YawDirection::Variants yawDirection() { return m_yawDirection; }
-	int pointerDeltaX() { return m_pointerDeltaX; }
-	int pointerDeltaY() { return m_pointerDeltaY; }
+	QPoint pointerDelta() { return m_pointerDelta; }
 
 public slots:
 	void onKeyEvent(QKeyEvent);
-	void onMouseEvent(QMouseEvent);
 
 private:
 	UserInput &m_userInput;
@@ -50,10 +49,8 @@ private:
 	YawDirection::Variants m_yawDirection;
 	bool m_isPointerGrabbed;
 	bool m_isPrevPointerPositionKnown;
-	int m_prevPointerX;
-	int m_prevPointerY;
-	int m_pointerDeltaX;
-	int m_pointerDeltaY;
+	QPoint m_prevPointerPosition;
+	QPoint m_pointerDelta;
 
 	void connectToEvents();
 	void disconnectFromEvents();

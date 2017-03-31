@@ -2,6 +2,7 @@
 #define USERINPUT_H
 
 #include <QObject>
+#include <QPoint>
 #include <QWidget>
 #include <QEvent>
 #include <QKeyEvent>
@@ -15,21 +16,17 @@ public:
 	explicit UserInput(QWidget &, QObject *parent = 0);
 	~UserInput();
 
-	int pointerX() { return m_pointerX; }
-	int pointerY() { return m_pointerY; }
-	void setPointerPosition(int, int);
+	QPoint pointerPosition();
+	void setPointerPosition(const QPoint &);
 	void setPointerVisible(bool);
 
 signals:
 	void onKeyEvent(QKeyEvent);
-	void onMouseEvent(QMouseEvent);
 
 protected:
 	virtual bool eventFilter(QObject *, QEvent *);
 
 private:
-	int m_pointerX;
-	int m_pointerY;
 	QWidget &m_openGLSurface;
 };
 

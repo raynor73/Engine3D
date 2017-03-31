@@ -17,9 +17,14 @@ UserInput::~UserInput()
 	qApp->removeEventFilter(this);
 }
 
-void UserInput::setPointerPosition(int x, int y)
+QPoint UserInput::pointerPosition()
 {
-	QCursor::setPos(m_openGLSurface.mapToGlobal(QPoint(x, y)));
+	return m_openGLSurface.mapFromGlobal(QCursor::pos());
+}
+
+void UserInput::setPointerPosition(const QPoint &position)
+{
+	QCursor::setPos(m_openGLSurface.mapToGlobal(position));
 }
 
 void UserInput::setPointerVisible(bool isVisible)
@@ -33,38 +38,6 @@ void UserInput::setPointerVisible(bool isVisible)
 bool UserInput::eventFilter(QObject *object, QEvent *event)
 {
 	switch (event->type()) {
-	case QEvent::MouseButtonDblClick:
-	case QEvent::MouseButtonPress:
-	case QEvent::MouseButtonRelease: {
-		QMouseEvent mouseEvent = *static_cast<QMouseEvent *>(event);
-		emit onMouseEvent(mouseEvent);
-		return true;
-	}
-
-	case QEvent::MouseMove: {
-		QMouseEvent mouseEvent = *static_cast<QMouseEvent *>(event);
-		m_pointerX = mouseEvent.x();
-		m_pointerY = mouseEvent.y();
-
-		int width = EngineConfig::DISPLAY_WIDTH;
-		int height = EngineConfig::DISPLAY_HEIGHT;
-
-		if (m_pointerX >= width)
-			m_pointerX = width - 1;
-
-		if (m_pointerY >= height)
-			m_pointerY = height - 1;
-
-		if (m_pointerX < 0)
-			m_pointerX = 0;
-
-		if (m_pointerY < 0)
-			m_pointerY = 0;
-
-		emit onMouseEvent(mouseEvent);
-		return true;
-	}
-
 	case QEvent::KeyPress:
 	case QEvent::KeyRelease: {
 		QKeyEvent keyEvent = *static_cast<QKeyEvent *>(event);

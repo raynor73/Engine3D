@@ -17,7 +17,6 @@ TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 void TutorialController::connectToEvents()
 {
 	connect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
-	connect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
 
 	grabPointer();
 }
@@ -33,7 +32,7 @@ TutorialController::~TutorialController()
 
 void TutorialController::movePointerToCenter()
 {
-	m_userInput.setPointerPosition(EngineConfig::DISPLAY_WIDTH / 2, EngineConfig::DISPLAY_HEIGHT / 2);
+	m_userInput.setPointerPosition(QPoint(EngineConfig::DISPLAY_WIDTH / 2, EngineConfig::DISPLAY_HEIGHT / 2));
 }
 
 void TutorialController::grabPointer()
@@ -58,7 +57,6 @@ void TutorialController::startReadingUserInput()
 void TutorialController::disconnectFromEvents()
 {
 	disconnect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
-	disconnect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
 }
 
 void TutorialController::stopReadingUserInput()
@@ -142,23 +140,25 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 
 static int xSum = 0;
 void TutorialController::onMouseEvent(QMouseEvent event) {
-	if (m_isPointerGrabbed) {
-		int currentPointerX = m_userInput.pointerX();
-		int currentPointerY = m_userInput.pointerY();
+	if (event.type() == QEvent::MouseMove) {
+		if (m_isPointerGrabbed) {
+			QPoint currentPointerPosition = m_userInput.pointerPosition();
 
-		if (m_isPrevPointerPositionKnown) {
-			m_pointerDeltaX = currentPointerX - m_prevPointerX;
-			m_pointerDeltaY = currentPointerY - m_prevPointerY;
+			if (m_isPrevPointerPositionKnown) {
+				m_pointerDelta = currentPointerPosition - m_prevPointerPosition;
 
-			movePointerToCenter();
+				movePointerToCenter();
 
-			xSum += m_pointerDeltaX;
-			qDebug() << xSum << event.source();
-		} else {
-			m_isPrevPointerPositionKnown = true;
+				xSum += m_pointerDelta.x();
+				qDebug() << xSum << m_pointerDelta.x();
+			} else {
+				m_isPrevPointerPositionKnown = true;
+			}
+
+			m_prevPointerPosition = currentPointerPosition;
 		}
-		m_prevPointerX = currentPointerX;
-		m_prevPointerY = currentPointerY;
+
+		return;
 	}
 
 	if (event.button() == Qt::RightButton) {

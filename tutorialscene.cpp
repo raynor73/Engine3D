@@ -22,10 +22,10 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_controller = new TutorialController(m_userInput);
 
-	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
+	/*connect(&m_fpsTimer, &QTimer::timeout, [this]() {
 		qDebug() << "FPS" << m_openGLWidget.fps();
 	});
-	m_fpsTimer.start(1000);
+	m_fpsTimer.start(1000);*/
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
