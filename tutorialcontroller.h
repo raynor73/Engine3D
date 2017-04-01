@@ -37,6 +37,11 @@ public:
 	PitchDirection::Variants pitchDirection() { return m_pitchDirection; }
 	YawDirection::Variants yawDirection() { return m_yawDirection; }
 	QPoint pointerDelta() { return m_pointerDelta; }
+	bool isPointerGrabbed() { return m_isPointerGrabbed; }
+	bool isGrabPointerRequested() { return m_isGrabPointerRequested; }
+	bool isReleasePointerRequested() { return m_isReleasePointerRequested; }
+	void grabPointer();
+	void releasePointer();
 
 public slots:
 	void onKeyEvent(QKeyEvent);
@@ -51,13 +56,13 @@ private:
 	YawDirection::Variants m_yawDirection;
 	bool m_isPointerGrabbed;
 	bool m_isPrevPointerPositionKnown;
+	bool m_isGrabPointerRequested;
+	bool m_isReleasePointerRequested;
 	QPoint m_prevPointerPosition;
 	QPoint m_pointerDelta;
 
 	void connectToEvents();
 	void disconnectFromEvents();
-	void grabPointer();
-	void releasePointer();
 	void movePointerToCenter();
 };
 

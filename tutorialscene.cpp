@@ -22,10 +22,10 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_controller = new TutorialController(m_userInput);
 
-	/*connect(&m_fpsTimer, &QTimer::timeout, [this]() {
+	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
 		qDebug() << "FPS" << m_openGLWidget.fps();
 	});
-	m_fpsTimer.start(1000);*/
+	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
@@ -88,6 +88,8 @@ void TutorialScene::stop()
 static float temp = 0;
 void TutorialScene::update()
 {
+	float sensitivity = 0.5;
+
 	float dt = 0;
 	if (m_deltaTimer.isValid())
 		dt = m_deltaTimer.nsecsElapsed() / 1000000000.0f;
@@ -125,6 +127,18 @@ void TutorialScene::update()
 		m_camera->rotateY(-rotationAmount);
 	if (m_controller->yawDirection() == TutorialController::YawDirection::TurnRight)
 		m_camera->rotateY(rotationAmount);
+
+	if (m_controller->isGrabPointerRequested())
+		m_controller->grabPointer();
+
+	if (m_controller->isReleasePointerRequested())
+		m_controller->releasePointer();
+
+	if (m_controller->isPointerGrabbed()) {
+		QPoint delta = m_controller->pointerDelta();
+		m_camera->rotateX(delta.y() * sensitivity);
+		m_camera->rotateY(delta.x() * sensitivity);
+	}
 }
 
 void TutorialScene::render()
