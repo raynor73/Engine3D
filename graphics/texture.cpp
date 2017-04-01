@@ -16,3 +16,14 @@ void Texture::bind()
 {
 	f.glBindTexture(GL_TEXTURE_2D, m_id);
 }
+
+Texture &Texture::operator =(const Texture &other)
+{
+	if (&other == this)
+		return *this;
+
+	f = other.f;
+	m_id = other.m_id;
+
+	return *this;
+}

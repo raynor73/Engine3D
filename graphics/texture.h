@@ -14,6 +14,8 @@ public:
 	int id() { return m_id; }
 	void bind();
 
+	Texture &operator =(const Texture &);
+
 private:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 	int m_id;

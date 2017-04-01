@@ -43,7 +43,9 @@ SOURCES += main.cpp\
     utils.cpp \
     graphics/transform.cpp \
     graphics/camera.cpp \
-    graphics/texture.cpp
+    graphics/texture.cpp \
+    graphics/basicshader.cpp \
+    graphics/material.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -65,7 +67,11 @@ HEADERS  += mainwindow.h \
     qopenglfunctions_selector.h \
     graphics/transform.h \
     graphics/camera.h \
-    graphics/texture.h
+    graphics/texture.h \
+    graphics/basicshader.h \
+    graphics/material.h
+
+INCLUDEPATH += $$PWD
 
 FORMS    += mainwindow.ui
 

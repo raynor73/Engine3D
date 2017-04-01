@@ -16,7 +16,7 @@ public:
 	Matrix4f(const Matrix4f &);
 	~Matrix4f();
 
-	std::array<float, DATA_SIZE> getM();
+	std::array<float, DATA_SIZE> getM() const;
 	void setM(const std::array<float, DATA_SIZE> &);
 	float get(int, int);
 	void set(int, int, float);

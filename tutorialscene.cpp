@@ -49,16 +49,11 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_mesh->setVertices(vertices, indices);
 	//Utils::loadMesh("monkey.obj", *m_mesh);
 
-	m_texture = Utils::newTexture(*this, "test.png");
+	Texture *texture = Utils::newTexture(*this, "test.png");
+	m_material = new Material(*texture, Vector3f(1, 1, 1));
+	delete texture;
 
-	m_shader = new Shader(*this);
-	QString vertexShaderText = Utils::loadShader("basicvertex.vsh");
-	m_shader->setVertexShader(vertexShaderText);
-	QString fragmentShaderText = Utils::loadShader("basicfragment.fsh");
-	m_shader->setFragmentShader(fragmentShaderText);
-	m_shader->linkProgram();
-	m_shader->addUniform("transform");
-
+	m_shader = new BasicShader(*this);
 	m_camera = new Camera();
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
@@ -70,7 +65,7 @@ TutorialScene::~TutorialScene()
 	delete m_transform;
 	delete m_camera;
 	delete m_shader;
-	delete m_texture;
+	delete m_material;
 	delete m_mesh;
 	delete m_controller;
 }
@@ -135,8 +130,6 @@ void TutorialScene::render()
 	RenderUtils::clearScreen(*this);
 
 	m_shader->bind();
-	Matrix4f transformationM = m_transform->projectedTransformation();
-	m_shader->setUniform("transform", transformationM);
-	m_texture->bind();
+	m_shader->updateUniforms(m_transform->transformation(), m_transform->projectedTransformation(), *m_material);
 	m_mesh->draw();
 }

@@ -17,17 +17,17 @@ Shader::~Shader()
 	f.glDeleteProgram(m_programReference);
 }
 
-void Shader::setVertexShader(QString &text)
+void Shader::setVertexShader(const QString &text)
 {
 	compileShader(text, GL_VERTEX_SHADER);
 }
 
-void Shader::setGeometryShader(QString &text)
+void Shader::setGeometryShader(const QString &text)
 {
 	compileShader(text, GL_GEOMETRY_SHADER);
 }
 
-void Shader::setFragmentShader(QString &text)
+void Shader::setFragmentShader(const QString &text)
 {
 	compileShader(text, GL_FRAGMENT_SHADER);
 }
@@ -46,7 +46,7 @@ void Shader::bind()
 	f.glUseProgram(m_programReference);
 }
 
-void Shader::compileShader(QString &text, GLenum type)
+void Shader::compileShader(const QString &text, GLenum type)
 {
 	GLuint shaderReference = f.glCreateShader(type);
 	Q_ASSERT(shaderReference != 0);
@@ -85,7 +85,7 @@ void Shader::setUniform(const QString &uniformName, const Vector3f &value)
 	f.glUniform3f(m_uniformLocations[uniformName], value.x, value.y, value.z);
 }
 
-void Shader::setUniform(const QString &uniformName, Matrix4f &value)
+void Shader::setUniform(const QString &uniformName, const Matrix4f &value)
 {
 	f.glUniformMatrix4fv(m_uniformLocations[uniformName], 1, GL_TRUE, value.getM().data());
 }

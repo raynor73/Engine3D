@@ -10,7 +10,7 @@
 #include "userinput.h"
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
-#include "graphics/shader.h"
+#include "graphics/basicshader.h"
 #include "graphics/transform.h"
 #include "graphics/camera.h"
 #include "graphics/texture.h"
@@ -33,7 +33,7 @@ private:
 	QTimer m_fpsTimer;
 	QElapsedTimer m_deltaTimer;
 	Mesh *m_mesh;
-	Texture *m_texture;
+	Material *m_material;
 	Shader *m_shader;
 	Transform *m_transform;
 	Camera *m_camera;

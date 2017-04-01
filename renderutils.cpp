@@ -66,3 +66,9 @@ QString RenderUtils::glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint sh
 
 	return QString::fromLocal8Bit(buffer);
 }
+
+void RenderUtils::unbindTextures(QOPENGLFUNCTIONS_CLASSNAME &f)
+{
+	f.glBindTexture(GL_TEXTURE_2D, 0);
+}
+

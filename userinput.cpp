@@ -51,8 +51,8 @@ bool UserInput::eventFilter(QObject *object, QEvent *event)
 		QKeyEvent keyEvent = *static_cast<QKeyEvent *>(event);
 		if (!keyEvent.isAutoRepeat()) {
 			emit onKeyEvent(keyEvent);
-			return true;
 		}
+		return true;
 	}
 
 	default:

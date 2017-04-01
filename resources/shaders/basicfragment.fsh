@@ -2,11 +2,18 @@
 
 in vec2 textureCoordinate0;
 
+uniform vec3 color;
 uniform sampler2D sampler;
 
 out vec4 fragmentColor;
 
 void main()
 {
-    fragmentColor = texture(sampler, textureCoordinate0.xy);
+	vec4 textureColor = texture(sampler, textureCoordinate0.xy);
+
+	// TODO Find out how to check if texture color exists
+	/*if (textureColor == 0)
+		fragmentColor = vec4(color, 1);
+	else*/
+	fragmentColor = textureColor * vec4(color, 1);
 }

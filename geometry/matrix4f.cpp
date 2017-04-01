@@ -20,7 +20,7 @@ int Matrix4f::offset(int row, int column)
 	return row * SIZE + column;
 }
 
-std::array<float, Matrix4f::DATA_SIZE> Matrix4f::getM()
+std::array<float, Matrix4f::DATA_SIZE> Matrix4f::getM() const
 {
 	return m__data;
 }
