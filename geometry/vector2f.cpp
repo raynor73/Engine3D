@@ -24,6 +24,11 @@ float Vector2f::dot(const Vector2f &other)
     return x * other.x + y * other.y;
 }
 
+Vector2f Vector2f::abs()
+{
+	return Vector2f(std::abs(x), std::abs(y));
+}
+
 Vector2f Vector2f::normalized()
 {
 	return Vector2f(*this) / length();

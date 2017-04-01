@@ -17,6 +17,7 @@ public:
 	operator QString();
 	float length();
 	float dot(const Vector2f &);
+	Vector2f abs();
 	Vector2f normalized();
 	Vector2f rotate(float);
 	Vector2f operator +(const Vector2f &);

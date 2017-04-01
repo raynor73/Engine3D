@@ -87,6 +87,5 @@ void Shader::setUniform(const QString &uniformName, const Vector3f &value)
 
 void Shader::setUniform(const QString &uniformName, Matrix4f &value)
 {
-	f.glUniformMatrix4fv(m_uniformLocations[uniformName], 1, GL_TRUE,
-			reinterpret_cast<float *>(value.getM()));
+	f.glUniformMatrix4fv(m_uniformLocations[uniformName], 1, GL_TRUE, value.getM().data());
 }

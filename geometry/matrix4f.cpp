@@ -6,51 +6,57 @@
 Matrix4f::Matrix4f(QObject *parent) : QObject(parent)
 {}
 
-Matrix4f::Matrix4f(const Matrix4f &other) : Matrix4f(other.parent())
+Matrix4f::Matrix4f(const Matrix4f &other) :
+	QObject(other.parent())
 {
-	std::copy(&other.m_data[0][0], &other.m_data[0][0] + SIZE * SIZE, &m_data[0][0]);
+	m__data = other.m__data;
 }
 
 Matrix4f::~Matrix4f()
 {}
 
-float (*Matrix4f::getM())[SIZE]
+int Matrix4f::offset(int row, int column)
 {
-	return m_data;
+	return row * SIZE + column;
 }
 
-void Matrix4f::setM(float (*data)[SIZE])
+std::array<float, Matrix4f::DATA_SIZE> Matrix4f::getM()
 {
-	std::copy(&data[0][0], &data[0][0] + SIZE * SIZE, &m_data[0][0]);
+	return m__data;
+}
+
+void Matrix4f::setM(const std::array<float, DATA_SIZE> &data)
+{
+	m__data = data;
 }
 
 float  Matrix4f::get(int row, int column)
 {
-    return m_data[row][column];
+	return m__data[offset(row, column)];
 }
 
 void Matrix4f::set(int row, int column, float value)
 {
-    m_data[row][column] = value;
+	m__data[offset(row, column)] = value;
 }
 
 Matrix4f *Matrix4f::initIdentity()
 {
-    for (int i = 0; i < SIZE; i++) {
-        std::fill_n(&m_data[i][0], SIZE, 0);
-        m_data[i][i] = 1;
-    }
+	m__data.fill(0);
+	for (int i = 0; i < SIZE; i++) {
+		m__data[offset(i, i)] = 1;
+	}
 
-    return this;
+	return this;
 }
 
 Matrix4f *Matrix4f::initTranslation(float x, float y, float z)
 {
 	initIdentity();
 
-	m_data[0][3] = x;
-	m_data[1][3] = y;
-	m_data[2][3] = z;
+	m__data[offset(0, 3)] = x;
+	m__data[offset(1, 3)] = y;
+	m__data[offset(2, 3)] = z;
 
 	return this;
 }
@@ -92,9 +98,9 @@ Matrix4f *Matrix4f::initScale(float x, float y, float z)
 {
 	initIdentity();
 
-	m_data[0][0] = x;
-	m_data[1][1] = y;
-	m_data[2][2] = z;
+	m__data[offset(0, 0)] = x;
+	m__data[offset(1, 1)] = y;
+	m__data[offset(2, 2)] = z;
 
 	return this;
 }
@@ -107,12 +113,12 @@ Matrix4f *Matrix4f::initProjection(float fov, float width, float height, float z
 	auto tanHalfFov = std::tan(Utils::toRadians(fov / 2));
 	auto zRange = zNear - zFar;
 
-	m_data[0][0] = 1.0 / (tanHalfFov * aspectRatio);
-	m_data[1][1] = 1.0 / tanHalfFov;
-	m_data[3][3] = 0;
-	m_data[3][2] = 1;
-	m_data[2][2] = (-zNear - zFar) / zRange;
-	m_data[2][3] = 2 * zFar * zNear / zRange;
+	m__data[offset(0, 0)] = 1.0 / (tanHalfFov * aspectRatio);
+	m__data[offset(1, 1)] = 1.0 / tanHalfFov;
+	m__data[offset(3, 3)] = 0;
+	m__data[offset(3, 2)] = 1;
+	m__data[offset(2, 2)] = (-zNear - zFar) / zRange;
+	m__data[offset(2, 3)] = 2 * zFar * zNear / zRange;
 
 	return this;
 }
@@ -130,17 +136,17 @@ Matrix4f *Matrix4f::initCamera(const Vector3f &forward, const Vector3f &up)
 
 	Vector3f u = f.cross(r);
 
-	m_data[0][0] = r.x;
-	m_data[0][1] = r.y;
-	m_data[0][2] = r.z;
+	m__data[offset(0, 0)] = r.x;
+	m__data[offset(0, 1)] = r.y;
+	m__data[offset(0, 2)] = r.z;
 
-	m_data[1][0] = u.x;
-	m_data[1][1] = u.y;
-	m_data[1][2] = u.z;
+	m__data[offset(1, 0)] = u.x;
+	m__data[offset(1, 1)] = u.y;
+	m__data[offset(1, 2)] = u.z;
 
-	m_data[2][0] = f.x;
-	m_data[2][1] = f.y;
-	m_data[2][2] = f.z;
+	m__data[offset(2, 0)] = f.x;
+	m__data[offset(2, 1)] = f.y;
+	m__data[offset(2, 2)] = f.z;
 
 	return this;
 }
@@ -151,10 +157,10 @@ Matrix4f Matrix4f::operator *(const Matrix4f &other)
 
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
-			m.set(i, j, m_data[i][0] * other.m_data[0][j] +
-					m_data[i][1] * other.m_data[1][j] +
-					m_data[i][2] * other.m_data[2][j] +
-					m_data[i][3] * other.m_data[3][j]);
+			m.set(i, j, m__data[offset(i, 0)] * other.m__data[offset(0, j)] +
+					m__data[offset(i, 1)] * other.m__data[offset(1, j)] +
+					m__data[offset(i, 2)] * other.m__data[offset(2, j)] +
+					m__data[offset(i, 3)] * other.m__data[offset(3, j)]);
 		}
 	}
 

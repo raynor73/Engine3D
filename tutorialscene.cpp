@@ -106,7 +106,6 @@ void TutorialScene::update()
 	m_transform->setRotation(0, sinValue * 180, 0);
 
 	float moveAmount = 10 * dt;
-	float rotationAmount = 100 * dt;
 
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
 		m_camera->move(m_camera->forward(), moveAmount);
@@ -117,16 +116,6 @@ void TutorialScene::update()
 		m_camera->move(m_camera->calculateLeft(), moveAmount);
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
 		m_camera->move(m_camera->calculateRight(), moveAmount);
-
-	if (m_controller->pitchDirection() == TutorialController::PitchDirection::LookUp)
-		m_camera->rotateX(-rotationAmount);
-	if (m_controller->pitchDirection() == TutorialController::PitchDirection::LookDown)
-		m_camera->rotateX(rotationAmount);
-
-	if (m_controller->yawDirection() == TutorialController::YawDirection::TurnLeft)
-		m_camera->rotateY(-rotationAmount);
-	if (m_controller->yawDirection() == TutorialController::YawDirection::TurnRight)
-		m_camera->rotateY(rotationAmount);
 
 	if (m_controller->isGrabPointerRequested())
 		m_controller->grabPointer();
