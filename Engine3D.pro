@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     graphics/camera.cpp \
     graphics/texture.cpp \
     graphics/basicshader.cpp \
-    graphics/material.cpp
+    graphics/material.cpp \
+    graphics/phongshader.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -69,7 +70,8 @@ HEADERS  += mainwindow.h \
     graphics/camera.h \
     graphics/texture.h \
     graphics/basicshader.h \
-    graphics/material.h
+    graphics/material.h \
+    graphics/phongshader.h
 
 INCLUDEPATH += $$PWD
 
@@ -85,4 +87,6 @@ DISTFILES += \
     resources/shaders/basicfragment.fsh \
     resources/models/box.obj \
     resources/models/monkey.obj \
-    resources/textures/test.png
+    resources/textures/test.png \
+    resources/shaders/phongvertex.vsh \
+    resources/shaders/phongfragment.fsh

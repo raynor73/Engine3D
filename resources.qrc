@@ -5,5 +5,7 @@
         <file>resources/models/box.obj</file>
         <file>resources/models/monkey.obj</file>
         <file>resources/textures/test.png</file>
+        <file>resources/shaders/phongfragment.fsh</file>
+        <file>resources/shaders/phongvertex.vsh</file>
     </qresource>
 </RCC>

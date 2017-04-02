@@ -9,6 +9,7 @@
 #include "engineconfig.h"
 #include "utils.h"
 #include "geometry/vector2f.h"
+#include "graphics/phongshader.h"
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	Scene(parent),
@@ -53,7 +54,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_material = new Material(*texture, Vector3f(1, 1, 1));
 	delete texture;
 
-	m_shader = new BasicShader(*this);
+	m_shader = new PhongShader(*this);
 	m_camera = new Camera();
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);

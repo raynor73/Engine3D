@@ -4,7 +4,6 @@
 
 BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shader(f, parent)
 {
-	// TODO Make singleton?
 	setVertexShader(Utils::loadShader("basicvertex.vsh"));
 	setFragmentShader(Utils::loadShader("basicfragment.fsh"));
 	linkProgram();

@@ -10,10 +10,11 @@
 #include "userinput.h"
 #include "tutorialcontroller.h"
 #include "openglwidget.h"
-#include "graphics/basicshader.h"
 #include "graphics/transform.h"
 #include "graphics/camera.h"
 #include "graphics/texture.h"
+#include <graphics/shader.h>
+#include <graphics/material.h>
 
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
