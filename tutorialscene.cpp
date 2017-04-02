@@ -54,7 +54,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_material = new Material(*texture, Vector3f(1, 1, 1));
 	delete texture;
 
-	m_shader = new PhongShader(*this);
+	PhongShader *phongShader = new PhongShader(*this);
+	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
+	m_shader = phongShader;
 	m_camera = new Camera();
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);

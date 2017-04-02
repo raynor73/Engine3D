@@ -2,14 +2,17 @@
 #include <utils.h>
 #include <renderutils.h>
 
-PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shader(f, parent)
+PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
+	Shader(f, parent),
+	m_ambientLight(Vector3f(1, 1, 1))
 {
 	setVertexShader(Utils::loadShader("phongvertex.vsh"));
 	setFragmentShader(Utils::loadShader("phongfragment.fsh"));
 	linkProgram();
 
 	addUniform("transform");
-	addUniform("color");
+	addUniform("baseColor");
+	addUniform("ambientLight");
 }
 
 void PhongShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatrix, const Material &material)
@@ -20,5 +23,6 @@ void PhongShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatr
 		RenderUtils::unbindTextures(f);
 
 	setUniform("transform", projectedMatrix);
-	setUniform("color", material.color());
+	setUniform("baseColor", material.color());
+	setUniform("ambientLight", m_ambientLight);
 }
