@@ -29,7 +29,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
-	QList<Vertex> vertices;
+	/*QList<Vertex> vertices;
 	vertices += Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0));
 	vertices += Vertex(Vector3f(0, 1, 0), Vector2f(0.5, 0));
 	vertices += Vertex(Vector3f(1, -1, 0), Vector2f(1, 0));
@@ -51,15 +51,17 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	Texture *texture = Utils::newTexture(*this, "test.png");
 	m_material = new Material(texture, Vector3f(1, 1, 1));
-	delete texture;
-	/*Utils::loadMesh("monkey.obj", *m_mesh, true);
-	m_material = new Material(Vector3f(0, 0.5, 0));*/
+	delete texture;*/
+	Utils::loadMesh("monkey.obj", *m_mesh, true);
+	m_material = new Material(Vector3f(0, 0.5, 0));
 
-	PhongShader *phongShader = new PhongShader(*this);
-	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
-	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, 1)));
-	m_shader = phongShader;
 	m_camera = new Camera();
+
+	PhongShader *phongShader = new PhongShader(*this, m_camera);
+	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
+	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
+	m_shader = phongShader;
+
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
 }

@@ -9,16 +9,16 @@ Material::Material(const Vector3f &color, QObject *parent) :
 	m_texture(NULL),
 	m_color(color),
 	m_specularIntensity(2),
-	m_specularExponent(32)
+	m_specularPower(32)
 {}
 
-Material::Material(const Texture *texture, const Vector3f &color, float specularIntensity, float specularExponent,
+Material::Material(const Texture *texture, const Vector3f &color, float specularIntensity, float specularPower,
 				   QObject *parent) :
 	QObject(parent),
 	m_texture(new Texture(*texture)),
 	m_color(color),
 	m_specularIntensity(specularIntensity),
-	m_specularExponent(specularExponent)
+	m_specularPower(specularPower)
 {}
 
 Material::~Material()

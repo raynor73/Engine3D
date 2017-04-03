@@ -18,17 +18,17 @@ public:
 	Texture *texture() const { return m_texture; }
 	Vector3f color() const { return m_color; }
 	float specularIntensity() const { return m_specularIntensity; }
-	float specularExponent() const { return m_specularExponent; }
+	float specularPower() const { return m_specularPower; }
 	void setTexture(const Texture *);
 	void setColor(const Vector3f &);
 	void setSpecularIntensity(float specularIntensity) { m_specularIntensity = specularIntensity; }
-	void setSpecularExponent(float specularExponent) { m_specularExponent = specularExponent; }
+	void setSpecularPower(float specularExponent) { m_specularPower = specularExponent; }
 
 private:
 	Texture *m_texture;
 	Vector3f m_color;
 	float m_specularIntensity;
-	float m_specularExponent;
+	float m_specularPower;
 };
 
 #endif // MATERIAL_H

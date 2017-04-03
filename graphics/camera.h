@@ -14,9 +14,9 @@ public:
 	explicit Camera(const Vector3f &, const Vector3f &, const Vector3f &, QObject *parent = 0);
 
 	void setPosition(const Vector3f &);
-	Vector3f position() { return m_position; }
+	Vector3f position() const { return m_position; }
 	void setForward(const Vector3f &);
-	Vector3f forward() { return m_forward; }
+	Vector3f forward() const { return m_forward; }
 	void setUp(const Vector3f &);
 	Vector3f up() { return m_up; }
 
