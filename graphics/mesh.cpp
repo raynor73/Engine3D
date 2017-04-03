@@ -29,7 +29,7 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &indices, bool shouldCalculateNormals)
 {
 	if (shouldCalculateNormals)
-		calculaterNormals(vertices, indices);
+		calculateNormals(vertices, indices);
 
 	if (m_temporaryVertexBuffer != NULL)
 		delete m_temporaryVertexBuffer;
@@ -86,7 +86,7 @@ void Mesh::draw()
 	f.glDisableVertexAttribArray(2);
 }
 
-void Mesh::calculaterNormals(QList<Vertex> &vertices, const QVector<unsigned int> &indices)
+void Mesh::calculateNormals(QList<Vertex> &vertices, const QVector<unsigned int> &indices)
 {
 	for (int i = 0; i < indices.size(); i += 3) {
 		int i0 = indices[i];

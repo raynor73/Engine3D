@@ -25,7 +25,7 @@ private:
 	int m_numberOfIndices;
 	unsigned char *m_temporaryVertexBuffer;
 
-	void calculaterNormals(QList<Vertex> &, const QVector<unsigned int> &);
+	void calculateNormals(QList<Vertex> &, const QVector<unsigned int> &);
 };
 
 #endif // MESH_H

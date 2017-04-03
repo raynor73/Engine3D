@@ -50,7 +50,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_mesh->setVertices(vertices, indices, true);
 
 	Texture *texture = Utils::newTexture(*this, "test.png");
-	m_material = new Material(*texture, Vector3f(1, 1, 1));
+	m_material = new Material(texture, Vector3f(1, 1, 1));
 	delete texture;
 
 	PhongShader *phongShader = new PhongShader(*this);
