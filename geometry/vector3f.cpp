@@ -17,7 +17,7 @@ Vector3f::Vector3f(const Vector3f &other) :
     z(other.z)
 {}
 
-float Vector3f::length()
+float Vector3f::length() const
 {
     return sqrtf(x * x + y * y + z * z);
 }
@@ -41,7 +41,7 @@ Vector3f Vector3f::cross(const Vector3f &other) const
     return Vector3f(newX, newY, newZ);
 }
 
-Vector3f Vector3f::normalized()
+Vector3f Vector3f::normalized() const
 {
 	return Vector3f(*this) / length();
 }
@@ -74,7 +74,7 @@ Vector3f Vector3f::operator +(float a)
     return Vector3f(x + a, y + a, z + a);
 }
 
-Vector3f Vector3f::operator -(const Vector3f &other)
+Vector3f Vector3f::operator -(const Vector3f &other) const
 {
     return Vector3f(x - other.x, y - other.y, z - other.z);
 }
@@ -117,6 +117,15 @@ Vector3f &Vector3f::operator =(const Vector3f &other)
 	x = other.x;
 	y = other.y;
 	z = other.z;
+
+	return *this;
+}
+
+Vector3f &Vector3f::operator +=(const Vector3f &other)
+{
+	x += other.x;
+	y += other.y;
+	z += other.z;
 
 	return *this;
 }

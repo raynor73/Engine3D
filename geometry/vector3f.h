@@ -15,21 +15,22 @@ public:
 	Vector3f(const Vector3f &);
 
 	operator QString();
-	float length();
+	float length() const;
 	float dot(const Vector3f &);
 	Vector3f abs();
 	Vector3f cross(const Vector3f &) const;
-	Vector3f normalized();
+	Vector3f normalized() const;
 	Vector3f rotate(float, const Vector3f &);
 	Vector3f operator +(const Vector3f &);
 	Vector3f operator +(float);
-	Vector3f operator -(const Vector3f &);
+	Vector3f operator -(const Vector3f &) const;
 	Vector3f operator -(float);
 	Vector3f operator *(const Vector3f &);
 	Vector3f operator *(float) const;
 	Vector3f operator /(const Vector3f &);
 	Vector3f operator /(float);
 	Vector3f &operator =(const Vector3f &);
+	Vector3f &operator +=(const Vector3f &);
 };
 
 #endif // VECTOR3F_H

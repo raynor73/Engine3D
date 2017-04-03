@@ -13,7 +13,8 @@ public:
 	explicit Mesh(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
 	~Mesh();
 
-	void setVertices(const QList<Vertex> &, const QVector<unsigned int> &);
+	void setVertices(QList<Vertex> &, const QVector<unsigned int> &);
+	void setVertices(QList<Vertex> &, const QVector<unsigned int> &, bool);
 	void draw();
 
 private:
@@ -23,6 +24,8 @@ private:
 	GLuint m_indexBufferObjectName;
 	int m_numberOfIndices;
 	unsigned char *m_temporaryVertexBuffer;
+
+	void calculaterNormals(QList<Vertex> &, const QVector<unsigned int> &);
 };
 
 #endif // MESH_H
