@@ -1,10 +1,7 @@
 #version 330 core
 
 in vec2 textureCoordinate0;
-
-uniform vec3 baseColor;
-uniform vec3 ambientLight;
-uniform sampler2D sampler;
+in vec3 normal0;
 
 out vec4 fragmentColor;
 
@@ -19,6 +16,12 @@ struct DirectionalLight
 	BaseLight base;
 	vec3 direction;
 };
+
+uniform vec3 baseColor;
+uniform vec3 ambientLight;
+uniform sampler2D sampler;
+
+uniform DirectionalLight directionalLight;
 
 vec4 calculateLight(BaseLight base, vec3 direction, vec3 normal)
 {
@@ -45,6 +48,9 @@ void main()
 
 	if (textureColor != vec4(0, 0, 0, 1))
 		color *= textureColor;
+
+	vec3 normal = normalize(normal0);
+	totalLight += calculateDirectionalLight(directionalLight, normal);
 
 	fragmentColor = color * totalLight;
 }

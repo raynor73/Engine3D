@@ -105,6 +105,7 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 
 		case Qt::Key_Escape:
 			m_isReleasePointerRequested = true;
+			m_isGrabPointerRequested = false;
 			break;
 		}
 	} else {
@@ -165,6 +166,6 @@ void TutorialController::updatePointer()
 }
 
 void TutorialController::onMouseEvent(QMouseEvent event) {
-	if (event.button() == Qt::LeftButton)
+	if (event.button() == Qt::LeftButton && !m_isPointerGrabbed)
 		m_isGrabPointerRequested = event.type() == QEvent::MouseButtonPress;
 }

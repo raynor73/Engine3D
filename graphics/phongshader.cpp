@@ -4,7 +4,8 @@
 
 PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	Shader(f, parent),
-	m_ambientLight(Vector3f(1, 1, 1))
+	m_ambientLight(Vector3f(1, 1, 1)),
+	m_directionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0), Vector3f(0, 0, 0)))
 {
 	setVertexShader(Utils::loadShader("phongvertex.vsh"));
 	setFragmentShader(Utils::loadShader("phongfragment.fsh"));
@@ -13,6 +14,10 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	addUniform("transform");
 	addUniform("baseColor");
 	addUniform("ambientLight");
+
+	addUniform("directionalLight.base.color");
+	addUniform("directionalLight.base.intensity");
+	addUniform("directionalLight.direction");
 }
 
 void PhongShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatrix, const Material &material)
@@ -25,4 +30,17 @@ void PhongShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatr
 	setUniform("transform", projectedMatrix);
 	setUniform("baseColor", material.color());
 	setUniform("ambientLight", m_ambientLight);
+	setUniform("directionalLight", m_directionalLight);
+}
+
+void PhongShader::setUniform(const QString &uniformName, const BaseLight &baseLight)
+{
+	setUniform(uniformName + ".color", baseLight.color());
+	setUniformf(uniformName + ".intensity", baseLight.intensity());
+}
+
+void PhongShader::setUniform(const QString &uniformName, const DirectionalLight &directionalLight)
+{
+	setUniform(uniformName + ".base", directionalLight.base());
+	setUniform(uniformName + ".direction", directionalLight.direction());
 }

@@ -48,7 +48,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	indices += 2;
 	indices += 3;
 	m_mesh->setVertices(vertices, indices);
-	//Utils::loadMesh("monkey.obj", *m_mesh);
 
 	Texture *texture = Utils::newTexture(*this, "test.png");
 	m_material = new Material(*texture, Vector3f(1, 1, 1));
