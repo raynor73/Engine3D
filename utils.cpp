@@ -28,7 +28,7 @@ float toRadians(float degrees)
 	return degrees * M_PI / 180;
 }
 
-void loadMesh(const QString &filename, Mesh &outMesh)
+void loadMesh(const QString &filename, Mesh &outMesh, bool shouldCalculateNormals)
 {
 	QFile meshFile(QString(":/resources/models/%1").arg(filename));
 	meshFile.open(QFile::ReadOnly | QFile::Text);
@@ -56,7 +56,7 @@ void loadMesh(const QString &filename, Mesh &outMesh)
 
 	meshFile.close();
 
-	outMesh.setVertices(vertices, indices);
+	outMesh.setVertices(vertices, indices, shouldCalculateNormals);
 }
 
 Texture *newTexture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename)

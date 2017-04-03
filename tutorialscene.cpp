@@ -52,6 +52,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	Texture *texture = Utils::newTexture(*this, "test.png");
 	m_material = new Material(texture, Vector3f(1, 1, 1));
 	delete texture;
+	/*Utils::loadMesh("monkey.obj", *m_mesh, true);
+	m_material = new Material(Vector3f(0, 0.5, 0));*/
 
 	PhongShader *phongShader = new PhongShader(*this);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));

@@ -5,7 +5,11 @@ Material::Material(const Texture *texture, const Vector3f &color, QObject *paren
 {}
 
 Material::Material(const Vector3f &color, QObject *parent) :
-	Material(NULL, color, parent)
+	QObject(parent),
+	m_texture(NULL),
+	m_color(color),
+	m_specularIntensity(2),
+	m_specularExponent(32)
 {}
 
 Material::Material(const Texture *texture, const Vector3f &color, float specularIntensity, float specularExponent,
