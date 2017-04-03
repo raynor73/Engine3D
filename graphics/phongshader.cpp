@@ -12,6 +12,7 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	linkProgram();
 
 	addUniform("transform");
+	addUniform("transformProjected");
 	addUniform("baseColor");
 	addUniform("ambientLight");
 
@@ -20,14 +21,15 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	addUniform("directionalLight.direction");
 }
 
-void PhongShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatrix, const Material &material)
+void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &projectedMatrix, const Material &material)
 {
 	if (material.texture() != NULL)
 		material.texture()->bind();
 	else
 		RenderUtils::unbindTextures(f);
 
-	setUniform("transform", projectedMatrix);
+	setUniform("transformProjected", projectedMatrix);
+	setUniform("transform", worldMatrix);
 	setUniform("baseColor", material.color());
 	setUniform("ambientLight", m_ambientLight);
 	setUniform("directionalLight", m_directionalLight);

@@ -47,7 +47,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	indices += 0;
 	indices += 2;
 	indices += 3;
-	m_mesh->setVertices(vertices, indices);
+	m_mesh->setVertices(vertices, indices, true);
 
 	Texture *texture = Utils::newTexture(*this, "test.png");
 	m_material = new Material(*texture, Vector3f(1, 1, 1));
@@ -55,6 +55,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	PhongShader *phongShader = new PhongShader(*this);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
+	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, 1)));
 	m_shader = phongShader;
 	m_camera = new Camera();
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,

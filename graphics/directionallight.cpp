@@ -3,7 +3,7 @@
 DirectionalLight::DirectionalLight(const BaseLight &base, const Vector3f &direction, QObject *parent) :
 	QObject(parent),
 	m_base(base),
-	m_direction(direction)
+	m_direction(direction.normalized())
 {}
 
 DirectionalLight::DirectionalLight(const DirectionalLight &other) :

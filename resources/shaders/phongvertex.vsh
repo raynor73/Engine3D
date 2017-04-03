@@ -8,9 +8,10 @@ out vec2 textureCoordinate0;
 out vec3 normal0;
 
 uniform mat4 transform;
+uniform mat4 transformProjected;
 
 void main() {
-	gl_Position = transform * vec4(position, 1);
+	gl_Position = transformProjected * vec4(position, 1);
 	textureCoordinate0 = textureCoordinate;
-	normal0 = normal;
+	normal0 = (transform * vec4(normal, 0)).xyz;
 }
