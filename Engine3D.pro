@@ -86,6 +86,8 @@ CONFIG += c++11
 RESOURCES += \
     resources.qrc
 
+win32: LIBS += -lopengl32
+
 DISTFILES += \
     resources/shaders/basicvertex.vsh \
     resources/shaders/basicfragment.fsh \
