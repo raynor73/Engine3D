@@ -11,7 +11,9 @@ TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	m_pitchDirection(PitchDirection::Idle),
 	m_yawDirection(YawDirection::Idle),
 	m_isPointerGrabbed(false),
-	m_isPrevPointerPositionKnown(false)
+	m_isPrevPointerPositionKnown(false),
+	m_isGrabPointerRequested(false),
+	m_isReleasePointerRequested(false)
 {}
 
 void TutorialController::connectToEvents()
