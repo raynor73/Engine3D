@@ -10,6 +10,7 @@
 #include "utils.h"
 #include "geometry/vector2f.h"
 #include "graphics/phongshader.h"
+#include <graphics/pointlight.h>
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	Scene(parent),
@@ -59,8 +60,15 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	PhongShader *phongShader = new PhongShader(*this, m_camera);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
-	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
+	//phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
+
+	PointLight pointLight1(BaseLight(Vector3f(1, 0, 0), 0.8), Attenuation(0, 0, 1), Vector3f(-2, 0, 3));
+	PointLight pointLight2(BaseLight(Vector3f(0, 0, 1), 0.8), Attenuation(0, 0, 1), Vector3f(2, 0, 7));
+	QList<PointLight> pointLights;
+	pointLights += pointLight1;
+	pointLights += pointLight2;
+	phongShader->setPointLights(pointLights);
 
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);

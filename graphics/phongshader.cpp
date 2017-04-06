@@ -26,6 +26,22 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 	addUniform("directionalLight.base.color");
 	addUniform("directionalLight.base.intensity");
 	addUniform("directionalLight.direction");
+
+	for (int i = 0; i < MAX_POINT_LIGHTS; i++) {
+		addUniform(QString("pointLights[%1].base.color").arg(i));
+		addUniform(QString("pointLights[%1].base.intensity").arg(i));
+		addUniform(QString("pointLights[%1].attenuation.constant").arg(i));
+		addUniform(QString("pointLights[%1].attenuation.linear").arg(i));
+		addUniform(QString("pointLights[%1].attenuation.exponent").arg(i));
+		addUniform(QString("pointLights[%1].position").arg(i));
+	}
+}
+
+void PhongShader::setPointLights(const QList<PointLight> &pointLights)
+{
+	Q_ASSERT(pointLights.size() <= MAX_POINT_LIGHTS);
+
+	m_pointLights = pointLights;
 }
 
 void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &projectedMatrix, const Material &material)
@@ -41,6 +57,8 @@ void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &pr
 
 	setUniform("ambientLight", m_ambientLight);
 	setUniform("directionalLight", m_directionalLight);
+	for (int i = 0; i < m_pointLights.size(); i++)
+		setUniform(QString("pointLights[%1]").arg(i), m_pointLights.at(i));
 
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
@@ -58,4 +76,13 @@ void PhongShader::setUniform(const QString &uniformName, const DirectionalLight 
 {
 	setUniform(uniformName + ".base", directionalLight.base());
 	setUniform(uniformName + ".direction", directionalLight.direction());
+}
+
+void PhongShader::setUniform(const QString &uniformName, const PointLight &pointLight)
+{
+	setUniform(uniformName + ".base", pointLight.baseLight());
+	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
+	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
+	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
+	setUniform(uniformName + ".position", pointLight.position());
 }
