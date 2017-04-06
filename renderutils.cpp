@@ -19,11 +19,8 @@ void RenderUtils::initGraphics(QOPENGLFUNCTIONS_CLASSNAME &f)
 	f.glCullFace(GL_BACK);
 	f.glEnable(GL_CULL_FACE);
 	f.glEnable(GL_DEPTH_TEST);
-
-	// TODO: Depth clamp
-
+	f.glEnable(GL_DEPTH_CLAMP);
 	f.glEnable(GL_TEXTURE_2D);
-	f.glEnable(GL_FRAMEBUFFER_SRGB);
 
 	GLuint vertexArrayName;
 	f.glGenVertexArrays(1, &vertexArrayName);
