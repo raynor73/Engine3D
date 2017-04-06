@@ -48,7 +48,9 @@ SOURCES += main.cpp\
     graphics/material.cpp \
     graphics/phongshader.cpp \
     graphics/baselight.cpp \
-    graphics/directionallight.cpp
+    graphics/directionallight.cpp \
+    graphics/attenuation.cpp \
+    graphics/pointlight.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -75,7 +77,9 @@ HEADERS  += mainwindow.h \
     graphics/material.h \
     graphics/phongshader.h \
     graphics/baselight.h \
-    graphics/directionallight.h
+    graphics/directionallight.h \
+    graphics/attenuation.h \
+    graphics/pointlight.h
 
 INCLUDEPATH += $$PWD
 

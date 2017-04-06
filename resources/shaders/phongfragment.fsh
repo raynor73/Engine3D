@@ -73,7 +73,7 @@ vec4 calculateDirectionalLight(DirectionalLight directionalLight, vec3 normal)
 	return calculateLight(directionalLight.base, -directionalLight.direction, normal);
 }
 
-vec4 calculatePointLight(PointLight pointLight, vec4 normal)
+vec4 calculatePointLight(PointLight pointLight, vec3 normal)
 {
 	vec3 direction = worldPosition0 - pointLight.position;
 	float distance = length(direction);
