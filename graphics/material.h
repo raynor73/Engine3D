@@ -12,6 +12,7 @@ class Material : public QObject
 public:
 	Material(const Texture *, const Vector3f &, QObject *parent = 0);
 	Material(const Vector3f &, QObject *parent = 0);
+	Material(const Vector3f &, float, float, QObject *parent = 0);
 	Material(const Texture *, const Vector3f &, float, float, QObject *parent = 0);
 	~Material();
 

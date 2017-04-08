@@ -30,12 +30,33 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_fpsTimer.start(1000);
 
 	m_mesh = new Mesh(*this);
-	/*QList<Vertex> vertices;
-	vertices += Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0));
+	QList<Vertex> vertices;
+	QVector<unsigned int> indices;
+	Texture *texture = Utils::newTexture(*this, "test.png");
+	m_material = new Material(texture, Vector3f(1, 1, 1), 1, 8);
+	delete texture;
+
+	float fieldDepth = 10;
+	float fieldWidth = 10;
+
+	vertices += Vertex(Vector3f(-fieldWidth, 0, -fieldDepth), Vector2f(0, 0));
+	vertices += Vertex(Vector3f(-fieldWidth, 0, fieldDepth * 3), Vector2f(0, 1));
+	vertices += Vertex(Vector3f(fieldWidth * 3, 0, -fieldDepth), Vector2f(1, 0));
+	vertices += Vertex(Vector3f(fieldWidth * 3, 0, fieldDepth * 3), Vector2f(1, 1));
+
+	indices += 0;
+	indices += 1;
+	indices += 2;
+	indices += 2;
+	indices += 1;
+	indices += 3;
+
+	m_mesh->setVertices(vertices, indices, true);
+
+	/*vertices += Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0));
 	vertices += Vertex(Vector3f(0, 1, 0), Vector2f(0.5, 0));
 	vertices += Vertex(Vector3f(1, -1, 0), Vector2f(1, 0));
 	vertices += Vertex(Vector3f(0, -1, 1), Vector2f(0, 0.5));
-	QVector<unsigned int> indices;
 	indices += 3;
 	indices += 1;
 	indices += 0;
@@ -50,11 +71,11 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	indices += 3;
 	m_mesh->setVertices(vertices, indices, true);
 
-	Texture *texture = Utils::newTexture(*this, "test.png");
 	m_material = new Material(texture, Vector3f(1, 1, 1));
-	delete texture;*/
-	Utils::loadMesh("monkey.obj", *m_mesh, true);
-	m_material = new Material(Vector3f(0, 0.5, 0));
+	*/
+
+	/*Utils::loadMesh("monkey.obj", *m_mesh, true);
+	m_material = new Material(Vector3f(1, 1, 1));*/
 
 	m_camera = new Camera();
 
@@ -63,12 +84,13 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	//phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
 
-	PointLight pointLight1(BaseLight(Vector3f(1, 0, 0), 0.8), Attenuation(0, 0, 1), Vector3f(-2, 0, 3));
-	PointLight pointLight2(BaseLight(Vector3f(0, 0, 1), 0.8), Attenuation(0, 0, 1), Vector3f(2, 0, 7));
-	QList<PointLight> pointLights;
-	pointLights += pointLight1;
-	pointLights += pointLight2;
-	phongShader->setPointLights(pointLights);
+	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
+											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5));
+	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
+											 Attenuation(0, 0, 1), Vector3f(2, 0, 7));
+	m_pointLights += pointLight1;
+	m_pointLights += pointLight2;
+	phongShader->setPointLights(m_pointLights);
 
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
@@ -78,6 +100,7 @@ TutorialScene::~TutorialScene()
 {
 	m_fpsTimer.stop();
 	delete m_transform;
+	qDeleteAll(m_pointLights);
 	delete m_camera;
 	delete m_shader;
 	delete m_material;
@@ -110,10 +133,13 @@ void TutorialScene::update()
 
 	temp += dt;
 
-	float sinValue = std::sin(temp);
+	//float sinValue = std::sin(temp);
 
-	m_transform->setTranslation(sinValue, 0, 5);
-	m_transform->setRotation(0, sinValue * 180, 0);
+	m_transform->setTranslation(0, -1, 5);
+	//m_transform->setRotation(0, sinValue * 180, 0);
+
+	m_pointLights.at(0)->setPosition(Vector3f(3, 0, 8 * std::sin(temp) + 10));
+	m_pointLights.at(1)->setPosition(Vector3f(7, 0, 8 * std::cos(temp) + 10));
 
 	float moveAmount = 10 * dt;
 

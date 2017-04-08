@@ -24,7 +24,7 @@ public:
 	void setDirectionalLight(const DirectionalLight &directionalLight) { m_directionalLight = directionalLight; }
 	const Camera *camera() const { return m_camera; }
 	void setCamera(const Camera *camera) { Q_ASSERT(camera != NULL); m_camera = camera; }
-	void setPointLights(const QList<PointLight> &);
+	void setPointLights(const QList<PointLight *> &);
 
 	using Shader::setUniform;
 	void setUniform(const QString &, const BaseLight &);
@@ -34,7 +34,7 @@ public:
 private:
 	Vector3f m_ambientLight;
 	DirectionalLight m_directionalLight;
-	QList<PointLight> m_pointLights;
+	QList<PointLight *> m_pointLights;
 	const Camera *m_camera;
 };
 

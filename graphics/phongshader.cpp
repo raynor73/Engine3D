@@ -14,6 +14,8 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 	setFragmentShader(Utils::loadShader("phongfragment.fsh"));
 	linkProgram();
 
+	RenderUtils::printUniforms(f, m_programReference);
+
 	addUniform("transform");
 	addUniform("transformProjected");
 	addUniform("baseColor");
@@ -37,7 +39,7 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 	}
 }
 
-void PhongShader::setPointLights(const QList<PointLight> &pointLights)
+void PhongShader::setPointLights(const QList<PointLight *> &pointLights)
 {
 	Q_ASSERT(pointLights.size() <= MAX_POINT_LIGHTS);
 
@@ -58,7 +60,7 @@ void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &pr
 	setUniform("ambientLight", m_ambientLight);
 	setUniform("directionalLight", m_directionalLight);
 	for (int i = 0; i < m_pointLights.size(); i++)
-		setUniform(QString("pointLights[%1]").arg(i), m_pointLights.at(i));
+		setUniform(QString("pointLights[%1]").arg(i), *m_pointLights.at(i));
 
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());

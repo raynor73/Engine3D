@@ -17,6 +17,7 @@ QString glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &, GLuint);
 void setClearColor(QOPENGLFUNCTIONS_CLASSNAME &, const Vector3f &);
 void enableTextures(QOPENGLFUNCTIONS_CLASSNAME &, bool);
 void unbindTextures(QOPENGLFUNCTIONS_CLASSNAME &);
+void printUniforms(QOPENGLFUNCTIONS_CLASSNAME &, GLuint);
 
 }
 

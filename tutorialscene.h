@@ -15,6 +15,7 @@
 #include "graphics/texture.h"
 #include <graphics/shader.h>
 #include <graphics/material.h>
+#include <graphics/pointlight.h>
 
 class TutorialScene : public Scene, protected QOPENGLFUNCTIONS_CLASSNAME
 {
@@ -38,6 +39,7 @@ private:
 	Shader *m_shader;
 	Transform *m_transform;
 	Camera *m_camera;
+	QList<PointLight *> m_pointLights;
 };
 
 #endif // TUTORIALSCENE_H

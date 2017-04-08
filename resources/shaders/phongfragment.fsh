@@ -87,7 +87,7 @@ vec4 calculatePointLight(PointLight pointLight, vec3 normal)
 			pointLight.attenuation.exponent * distance * distance +
 			0.0001;
 
-	return vec4(0, 1, 0, 1);// color / attenuation;
+	return color / attenuation;
 }
 
 void main()

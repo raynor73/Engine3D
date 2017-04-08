@@ -31,9 +31,9 @@ public:
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
+	GLuint m_programReference;
 
 private:
-	GLuint m_programReference;
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
 
