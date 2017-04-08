@@ -14,8 +14,6 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 	setFragmentShader(Utils::loadShader("phongfragment.fsh"));
 	linkProgram();
 
-	RenderUtils::printUniforms(f, m_programReference);
-
 	addUniform("transform");
 	addUniform("transformProjected");
 	addUniform("baseColor");
@@ -36,6 +34,7 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 		addUniform(QString("pointLights[%1].attenuation.linear").arg(i));
 		addUniform(QString("pointLights[%1].attenuation.exponent").arg(i));
 		addUniform(QString("pointLights[%1].position").arg(i));
+		addUniform(QString("pointLights[%1].range").arg(i));
 	}
 }
 
@@ -87,4 +86,5 @@ void PhongShader::setUniform(const QString &uniformName, const PointLight &point
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
 	setUniform(uniformName + ".position", pointLight.position());
+	setUniformf(uniformName + ".range", pointLight.range());
 }

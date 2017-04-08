@@ -85,9 +85,9 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_shader = phongShader;
 
 	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5));
+											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 6);
 	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(2, 0, 7));
+											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 6);
 	m_pointLights += pointLight1;
 	m_pointLights += pointLight2;
 	phongShader->setPointLights(m_pointLights);
