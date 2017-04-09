@@ -12,6 +12,7 @@
 #include <graphics/material.h>
 #include <graphics/shader.h>
 #include <graphics/transform.h>
+#include "tutorialcontroller.h"
 
 class TerrainScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME
 {
@@ -30,8 +31,8 @@ public:
 private:
 	OpenGLWidget &m_openGLWidget;
 	UserInput &m_userInput;
-	TutorialController
 	QTimer m_fpsTimer;
+	TutorialController *m_controller;
 	Mesh *m_mesh;
 	Material *m_material;
 	Shader *m_shader;
