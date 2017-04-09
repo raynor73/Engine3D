@@ -35,6 +35,13 @@ struct PointLight
 	float range;
 };
 
+struct SpotLight
+{
+	PointLight pointLight;
+	vec3 direction;
+	float cutoff;
+};
+
 uniform vec3 baseColor;
 uniform vec3 eyePosition;
 uniform vec3 ambientLight;
@@ -93,6 +100,12 @@ vec4 calculatePointLight(PointLight pointLight, vec3 normal)
 			0.0001;
 
 	return color / attenuation;
+}
+
+vec4 calculateSpotLight(SpotLight spotLight, vec3 normal)
+{
+	vec3 direction = worldPosition0 - spotLight.pointLight.position;
+
 }
 
 void main()
