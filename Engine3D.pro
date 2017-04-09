@@ -50,7 +50,9 @@ SOURCES += main.cpp\
     graphics/baselight.cpp \
     graphics/directionallight.cpp \
     graphics/attenuation.cpp \
-    graphics/pointlight.cpp
+    graphics/pointlight.cpp \
+    terrainscene.cpp \
+    scenewithtimemeasurement.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -79,7 +81,9 @@ HEADERS  += mainwindow.h \
     graphics/baselight.h \
     graphics/directionallight.h \
     graphics/attenuation.h \
-    graphics/pointlight.h
+    graphics/pointlight.h \
+    terrainscene.h \
+    scenewithtimemeasurement.h
 
 INCLUDEPATH += $$PWD
 

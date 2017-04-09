@@ -7,5 +7,6 @@
         <file>resources/textures/test.png</file>
         <file>resources/shaders/phongfragment.fsh</file>
         <file>resources/shaders/phongvertex.vsh</file>
+        <file>resources/models/terrain0.obj</file>
     </qresource>
 </RCC>

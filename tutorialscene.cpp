@@ -13,7 +13,7 @@
 #include <graphics/pointlight.h>
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
-	Scene(parent),
+	SceneWithTimeMeasurement(parent),
 	m_openGLWidget(openGLWidget),
 	m_userInput(userInput)
 {
@@ -119,15 +119,9 @@ void TutorialScene::stop()
 }
 
 static float temp = 0;
-void TutorialScene::update()
+void TutorialScene::update(float dt)
 {
 	float sensitivity = 0.5;
-
-	float dt = 0;
-	if (m_deltaTimer.isValid())
-		dt = m_deltaTimer.nsecsElapsed() / 1000000000.0f;
-
-	m_deltaTimer.start();
 
 	m_controller->updatePointer();
 
