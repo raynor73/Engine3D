@@ -15,6 +15,7 @@
 #include <graphics/shader.h>
 #include <graphics/material.h>
 #include <graphics/pointlight.h>
+#include <graphics/spotlight.h>
 #include "scenewithtimemeasurement.h"
 
 class TutorialScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME
@@ -39,6 +40,7 @@ private:
 	Transform *m_transform;
 	Camera *m_camera;
 	QList<PointLight *> m_pointLights;
+	QList<SpotLight *> m_spotLights;
 };
 
 #endif // TUTORIALSCENE_H

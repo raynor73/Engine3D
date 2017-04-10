@@ -7,12 +7,14 @@
 #include <graphics/directionallight.h>
 #include <graphics/camera.h>
 #include "pointlight.h"
+#include "spotlight.h"
 #include "qopenglfunctions_selector.h"
 
 class PhongShader : public Shader
 {
 public:
 	static const int MAX_POINT_LIGHTS = 4;
+	static const int MAX_SPOT_LIGHTS = 4;
 
 	PhongShader(QOPENGLFUNCTIONS_CLASSNAME &, const Camera *, QObject *parent = 0);
 
@@ -25,16 +27,19 @@ public:
 	const Camera *camera() const { return m_camera; }
 	void setCamera(const Camera *camera) { Q_ASSERT(camera != NULL); m_camera = camera; }
 	void setPointLights(const QList<PointLight *> &);
+	void setSpotLights(const QList<SpotLight *> &);
 
 	using Shader::setUniform;
 	void setUniform(const QString &, const BaseLight &);
 	void setUniform(const QString &, const DirectionalLight &);
 	void setUniform(const QString &, const PointLight &);
+	void setUniform(const QString &, SpotLight &);
 
 private:
 	Vector3f m_ambientLight;
 	DirectionalLight m_directionalLight;
 	QList<PointLight *> m_pointLights;
+	QList<SpotLight *> m_spotLights;
 	const Camera *m_camera;
 };
 

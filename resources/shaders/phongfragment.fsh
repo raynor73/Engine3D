@@ -111,7 +111,7 @@ vec4 calculateSpotLight(SpotLight spotLight, vec3 normal)
 
 	vec4 color = vec4(0, 0, 0, 0);
 
-	if (spotFactor > SpotLight.cutoff) {
+	if (spotFactor > spotLight.cutoff) {
 		color = calculatePointLight(spotLight.pointLight, normal) *
 		        (1 - (1 - spotFactor) / (1 - spotLight.cutoff));
 	}
@@ -137,7 +137,7 @@ void main()
 
 	for (int i = 0; i < MAX_SPOT_LIGHTS; i++)
 		if (spotLights[i].pointLight.base.intensity > 0)
-			totalLight += calculatePointLight(spotLights[i], normal);
+			totalLight += calculateSpotLight(spotLights[i], normal);
 
 	fragmentColor = color * totalLight;
 }

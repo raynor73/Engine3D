@@ -36,6 +36,19 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 		addUniform(QString("pointLights[%1].position").arg(i));
 		addUniform(QString("pointLights[%1].range").arg(i));
 	}
+
+	for (int i = 0; i < MAX_SPOT_LIGHTS; i++) {
+		addUniform(QString("spotLights[%1].pointLight.base.color").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.base.intensity").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.attenuation.constant").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.attenuation.linear").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.attenuation.exponent").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.position").arg(i));
+		addUniform(QString("spotLights[%1].pointLight.range").arg(i));
+
+		addUniform(QString("spotLights[%1].direction").arg(i));
+		addUniform(QString("spotLights[%1].cutoff").arg(i));
+	}
 }
 
 void PhongShader::setPointLights(const QList<PointLight *> &pointLights)
@@ -43,6 +56,13 @@ void PhongShader::setPointLights(const QList<PointLight *> &pointLights)
 	Q_ASSERT(pointLights.size() <= MAX_POINT_LIGHTS);
 
 	m_pointLights = pointLights;
+}
+
+void PhongShader::setSpotLights(const QList<SpotLight *> &spotLights)
+{
+	Q_ASSERT(spotLights.size() <= MAX_SPOT_LIGHTS);
+
+	m_spotLights = spotLights;
 }
 
 void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &projectedMatrix, const Material &material)
@@ -60,6 +80,8 @@ void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &pr
 	setUniform("directionalLight", m_directionalLight);
 	for (int i = 0; i < m_pointLights.size(); i++)
 		setUniform(QString("pointLights[%1]").arg(i), *m_pointLights.at(i));
+	for (int i = 0; i < m_spotLights.size(); i++)
+		setUniform(QString("spotLights[%1]").arg(i), *m_spotLights.at(i));
 
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
@@ -87,4 +109,12 @@ void PhongShader::setUniform(const QString &uniformName, const PointLight &point
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
 	setUniform(uniformName + ".position", pointLight.position());
 	setUniformf(uniformName + ".range", pointLight.range());
+}
+
+void PhongShader::setUniform(const QString &uniformName, SpotLight &spotLight)
+{
+	setUniform(uniformName + ".pointLight", spotLight.pointLight());
+
+	setUniform(uniformName + ".direction", spotLight.direction());
+	setUniformf(uniformName + ".cutoff", spotLight.cutoff());
 }

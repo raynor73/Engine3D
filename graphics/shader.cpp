@@ -57,6 +57,7 @@ void Shader::compileShader(const QString &text, GLenum type)
 	f.glShaderSource(shaderReference, 1, &rawText, &textLength);
 	f.glCompileShader(shaderReference);
 
+	qDebug() << RenderUtils::glGetShaderInfoLog(f, shaderReference);
 	Q_ASSERT(RenderUtils::glGetShader(f, shaderReference, GL_COMPILE_STATUS) == GL_TRUE);
 
 	f.glAttachShader(m_programReference, shaderReference);

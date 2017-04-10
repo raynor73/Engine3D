@@ -85,12 +85,18 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_shader = phongShader;
 
 	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 6);
+											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 10);
 	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 6);
+											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 10);
 	m_pointLights += pointLight1;
 	m_pointLights += pointLight2;
-	phongShader->setPointLights(m_pointLights);
+	//phongShader->setPointLights(m_pointLights);
+
+	SpotLight *spotLight1 = new SpotLight(
+				PointLight(BaseLight(Vector3f(0, 1, 1), 0.8), Attenuation(0, 0, 0.1), Vector3f(-2, 0, 5), 30),
+				Vector3f(1, 1, 1), 0.7);
+	m_spotLights += spotLight1;
+	phongShader->setSpotLights(m_spotLights);
 
 	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
 								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
@@ -101,6 +107,7 @@ TutorialScene::~TutorialScene()
 	m_fpsTimer.stop();
 	delete m_transform;
 	qDeleteAll(m_pointLights);
+	qDeleteAll(m_spotLights);
 	delete m_camera;
 	delete m_shader;
 	delete m_material;
@@ -158,6 +165,9 @@ void TutorialScene::update(float dt)
 		m_camera->rotateX(delta.y() * sensitivity);
 		m_camera->rotateY(delta.x() * sensitivity);
 	}
+
+	m_spotLights.at(0)->pointLight().setPosition(m_camera->position());
+	m_spotLights.at(0)->setDirection(m_camera->forward());
 }
 
 void TutorialScene::render()

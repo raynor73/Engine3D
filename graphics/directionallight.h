@@ -15,7 +15,7 @@ public:
 	BaseLight base() const { return m_base; }
 	Vector3f direction() const { return m_direction;}
 	void setBase(const BaseLight &base) { m_base = base; }
-	void setDirection(const Vector3f &direction) { m_direction = direction; }
+	void setDirection(const Vector3f &direction) { m_direction = direction.normalized(); }
 
 	DirectionalLight &operator =(const DirectionalLight &);
 
