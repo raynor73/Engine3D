@@ -1,6 +1,7 @@
 #version 330 core
 
 const int MAX_POINT_LIGHTS = 4;
+const int MAX_SPOT_LIGHTS = 4;
 
 in vec2 textureCoordinate0;
 in vec3 normal0;
@@ -52,6 +53,7 @@ uniform float specularPower;
 
 uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
+uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 vec4 calculateLight(BaseLight base, vec3 direction, vec3 normal)
 {
@@ -104,8 +106,17 @@ vec4 calculatePointLight(PointLight pointLight, vec3 normal)
 
 vec4 calculateSpotLight(SpotLight spotLight, vec3 normal)
 {
-	vec3 direction = worldPosition0 - spotLight.pointLight.position;
+	vec3 direction = normalize(worldPosition0 - spotLight.pointLight.position);
+	float spotFactor = dot(direction, spotLight.direction);
 
+	vec4 color = vec4(0, 0, 0, 0);
+
+	if (spotFactor > SpotLight.cutoff) {
+		color = calculatePointLight(spotLight.pointLight, normal) *
+		        (1 - (1 - spotFactor) / (1 - spotLight.cutoff));
+	}
+
+	return color;
 }
 
 void main()
@@ -123,6 +134,10 @@ void main()
 	for (int i = 0; i < MAX_POINT_LIGHTS; i++)
 		if (pointLights[i].base.intensity > 0)
 			totalLight += calculatePointLight(pointLights[i], normal);
+
+	for (int i = 0; i < MAX_SPOT_LIGHTS; i++)
+		if (spotLights[i].pointLight.base.intensity > 0)
+			totalLight += calculatePointLight(spotLights[i], normal);
 
 	fragmentColor = color * totalLight;
 }
