@@ -1,5 +1,4 @@
 #include "phongshader.h"
-#include <utils.h>
 #include <renderutils.h>
 
 PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QObject *parent) :
@@ -10,8 +9,8 @@ PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QO
 {
 	Q_ASSERT(camera != NULL);
 
-	setVertexShader(Utils::loadShader("phongvertex.vsh"));
-	setFragmentShader(Utils::loadShader("phongfragment.fsh"));
+	setVertexShaderFromFile("phongvertex.vsh");
+	setFragmentShaderFromFile("phongfragment.fsh");
 	linkProgram();
 
 	addUniform("transform");

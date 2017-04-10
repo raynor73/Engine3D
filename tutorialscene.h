@@ -35,6 +35,7 @@ private:
 	TutorialController *m_controller;
 	QTimer m_fpsTimer;
 	Mesh *m_mesh;
+	Texture *m_texture;
 	Material *m_material;
 	Shader *m_shader;
 	Transform *m_transform;

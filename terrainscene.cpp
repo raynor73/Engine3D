@@ -22,12 +22,7 @@ TerrainScene::TerrainScene(OpenGLWidget &openGLWidget, UserInput &userInput, QOb
 	});
 	m_fpsTimer.start(1000);
 
-	m_mesh = new Mesh(*this);
-	QList<Vertex> vertices;
-	QVector<unsigned int> indices;
-	m_material = new Material(Vector3f(1, 1, 1), 1, 8);
-
-	Utils::loadMesh("terrain0.obj", *m_mesh, true);
+	m_mesh = new Mesh(*this, "terrain0.obj", true);
 	m_material = new Material(Vector3f(1, 1, 1));
 
 	m_camera = new Camera();

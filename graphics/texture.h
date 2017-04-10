@@ -8,7 +8,8 @@ class Texture : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Texture(QOPENGLFUNCTIONS_CLASSNAME &, int, QObject *parent = 0);
+	Texture(QOPENGLFUNCTIONS_CLASSNAME &, int, QObject *parent = 0);
+	Texture(QOPENGLFUNCTIONS_CLASSNAME &, const QString &, QObject *parent = 0);
 	Texture(const Texture &);
 
 	int id() { return m_id; }

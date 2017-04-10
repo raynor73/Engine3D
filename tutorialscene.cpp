@@ -32,9 +32,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
-	Texture *texture = Utils::newTexture(*this, "test.png");
-	m_material = new Material(texture, Vector3f(1, 1, 1), 1, 8);
-	delete texture;
+	m_texture = new Texture(*this, "test.png");
+	m_material = new Material(m_texture, Vector3f(1, 1, 1), 1, 8);
 
 	float fieldDepth = 10;
 	float fieldWidth = 10;
@@ -81,7 +80,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	PhongShader *phongShader = new PhongShader(*this, m_camera);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
-	//phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
+	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.1), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
 
 	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
@@ -90,7 +89,7 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 10);
 	m_pointLights += pointLight1;
 	m_pointLights += pointLight2;
-	//phongShader->setPointLights(m_pointLights);
+	phongShader->setPointLights(m_pointLights);
 
 	SpotLight *spotLight1 = new SpotLight(
 				PointLight(BaseLight(Vector3f(0, 1, 1), 0.8), Attenuation(0, 0, 0.1), Vector3f(-2, 0, 5), 30),
@@ -111,6 +110,7 @@ TutorialScene::~TutorialScene()
 	delete m_camera;
 	delete m_shader;
 	delete m_material;
+	delete m_texture;
 	delete m_mesh;
 	delete m_controller;
 }

@@ -32,10 +32,15 @@ public:
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 	GLuint m_programReference;
+	void setVertexShaderFromFile(const QString &);
+	void setGeometryShaderFromFile(const QString &);
+	void setFragmentShaderFromFile(const QString &);
 
 private:
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
+
+	static QString loadShader(const QString &);
 
 	void compileShader(const QString &, GLenum);
 };

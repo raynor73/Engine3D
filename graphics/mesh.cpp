@@ -1,5 +1,22 @@
 #include <QVector>
+#include <QFile>
+#include <QTextStream>
 #include "mesh.h"
+
+Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, bool shouldCalculateNormals, QObject *parent) :
+	QObject(parent),
+	f(f),
+	m_numberOfIndices(0),
+	m_temporaryVertexBuffer(NULL)
+{
+	f.glGenBuffers(1, &m_vertexBufferObjectName);
+	f.glGenBuffers(1, &m_indexBufferObjectName);
+
+	loadMesh(filename, shouldCalculateNormals);
+}
+
+Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) : Mesh(f, filename, false, parent)
+{}
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
@@ -105,4 +122,35 @@ void Mesh::calculateNormals(QList<Vertex> &vertices, const QVector<unsigned int>
 
 	for (int i = 0; i < vertices.size(); i++)
 		vertices[i].normal = vertices[i].normal.normalized();
+}
+
+void Mesh::loadMesh(const QString &filename, bool shouldCalculateNormals)
+{
+	QFile meshFile(QString(":/resources/models/%1").arg(filename));
+	meshFile.open(QFile::ReadOnly | QFile::Text);
+	QList<Vertex> vertices;
+	QVector<unsigned int> indices;
+
+	QTextStream meshStream(&meshFile);
+
+	while (!meshStream.atEnd()) {
+		auto line = meshStream.readLine();
+		auto tokens = line.split(' ');
+
+		if (tokens.size() == 4) {
+			if (tokens.at(0) == "v") {
+				auto x = tokens.at(1).toFloat();
+				auto y = tokens.at(2).toFloat();
+				auto z = tokens.at(3).toFloat();
+				vertices += Vertex(Vector3f(x, y, z));
+			} else if (tokens.at(0) == "f") {
+				for (int i = 1; i <= 3; i++)
+					indices += tokens.at(i).toInt() - 1;
+			}
+		}
+	}
+
+	meshFile.close();
+
+	setVertices(vertices, indices, shouldCalculateNormals);
 }

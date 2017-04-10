@@ -10,7 +10,9 @@ class Mesh : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Mesh(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
+	Mesh(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
+	Mesh(QOPENGLFUNCTIONS_CLASSNAME &, const QString &, QObject *parent = 0);
+	Mesh(QOPENGLFUNCTIONS_CLASSNAME &, const QString &, bool, QObject *parent = 0);
 	~Mesh();
 
 	void setVertices(QList<Vertex> &, const QVector<unsigned int> &);
@@ -25,6 +27,7 @@ private:
 	int m_numberOfIndices;
 	unsigned char *m_temporaryVertexBuffer;
 
+	void loadMesh(const QString &, bool);
 	void calculateNormals(QList<Vertex> &, const QVector<unsigned int> &);
 };
 

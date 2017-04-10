@@ -1,11 +1,10 @@
 #include "basicshader.h"
-#include "utils.h"
 #include <renderutils.h>
 
 BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shader(f, parent)
 {
-	setVertexShader(Utils::loadShader("basicvertex.vsh"));
-	setFragmentShader(Utils::loadShader("basicfragment.fsh"));
+	setVertexShaderFromFile("basicvertex.vsh");
+	setFragmentShaderFromFile("basicfragment.fsh");
 	linkProgram();
 
 	addUniform("transform");

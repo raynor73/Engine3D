@@ -1,6 +1,7 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QDebug>
+#include <QFile>
 #include "shader.h"
 #include "renderutils.h"
 
@@ -15,6 +16,21 @@ Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 Shader::~Shader()
 {
 	f.glDeleteProgram(m_programReference);
+}
+
+void Shader::setVertexShaderFromFile(const QString &filename)
+{
+	compileShader(loadShader(filename), GL_VERTEX_SHADER);
+}
+
+void Shader::setGeometryShaderFromFile(const QString &filename)
+{
+	compileShader(loadShader(filename), GL_GEOMETRY_SHADER);
+}
+
+void Shader::setFragmentShaderFromFile(const QString &filename)
+{
+	compileShader(loadShader(filename), GL_FRAGMENT_SHADER);
 }
 
 void Shader::setVertexShader(const QString &text)
@@ -89,4 +105,18 @@ void Shader::setUniform(const QString &uniformName, const Vector3f &value)
 void Shader::setUniform(const QString &uniformName, const Matrix4f &value)
 {
 	f.glUniformMatrix4fv(m_uniformLocations[uniformName], 1, GL_TRUE, value.getM().data());
+}
+
+QString Shader::loadShader(const QString &filename)
+{
+	QFile shaderFile(QString(":/resources/shaders/%1").arg(filename));
+	shaderFile.open(QFile::ReadOnly | QFile::Text);
+
+	QTextStream shaderStream(&shaderFile);
+
+	QString shaderText = shaderStream.readAll();
+
+	shaderFile.close();
+
+	return shaderText;
 }
