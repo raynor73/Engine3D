@@ -24,70 +24,70 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    openglwidget.cpp \
-    scene.cpp \
-    defaultscene.cpp \
-    userinput.cpp \
-    tutorialscene.cpp \
-    tutorialcontroller.cpp \
-    geometry/vector2f.cpp \
-    geometry/vector3f.cpp \
-    geometry/matrix4f.cpp \
-    geometry/quaternion.cpp \
-    renderutils.cpp \
-    geometry/vertex.cpp \
-    graphics/mesh.cpp \
-    graphics/shader.cpp \
-    utils.cpp \
-    graphics/transform.cpp \
-    graphics/camera.cpp \
-    graphics/texture.cpp \
-    graphics/basicshader.cpp \
-    graphics/material.cpp \
-    graphics/phongshader.cpp \
-    graphics/baselight.cpp \
-    graphics/directionallight.cpp \
-    graphics/attenuation.cpp \
-    graphics/pointlight.cpp \
-    terrainscene.cpp \
-    scenewithtimemeasurement.cpp \
-    graphics/spotlight.cpp \
-    basetutorialscene.cpp \
-    tutorialscenemonkey.cpp
+engine/rendering/mainwindow.cpp \
+engine/rendering/openglwidget.cpp \
+game/scene.cpp \
+game/defaultscene.cpp \
+engine/core/userinput.cpp \
+game/tutorialscene.cpp \
+game/tutorialcontroller.cpp \
+engine/core/vector2f.cpp \
+engine/core/vector3f.cpp \
+engine/core/matrix4f.cpp \
+engine/core/quaternion.cpp \
+engine/rendering/renderutils.cpp \
+engine/rendering/vertex.cpp \
+engine/rendering/mesh.cpp \
+engine/rendering/shader.cpp \
+utils.cpp \
+engine/core/transform.cpp \
+engine/rendering/camera.cpp \
+engine/rendering/texture.cpp \
+engine/rendering/basicshader.cpp \
+engine/rendering/material.cpp \
+engine/rendering/phongshader.cpp \
+engine/rendering/baselight.cpp \
+engine/rendering/directionallight.cpp \
+engine/rendering/attenuation.cpp \
+engine/rendering/pointlight.cpp \
+game/terrainscene.cpp \
+game/scenewithtimemeasurement.cpp \
+engine/rendering/spotlight.cpp \
+game/basetutorialscene.cpp \
+game/tutorialscenemonkey.cpp
 
-HEADERS  += mainwindow.h \
-    openglwidget.h \
-    scene.h \
-    defaultscene.h \
-    userinput.h \
-    tutorialscene.h \
-    tutorialcontroller.h \
-    geometry/vector2f.h \
-    geometry/vector3f.h \
-    geometry/matrix4f.h \
-    geometry/quaternion.h \
-    renderutils.h \
-    geometry/vertex.h \
-    graphics/mesh.h \
-    graphics/shader.h \
-    utils.h \
-    qopenglfunctions_selector.h \
-    graphics/transform.h \
-    graphics/camera.h \
-    graphics/texture.h \
-    graphics/basicshader.h \
-    graphics/material.h \
-    graphics/phongshader.h \
-    graphics/baselight.h \
-    graphics/directionallight.h \
-    graphics/attenuation.h \
-    graphics/pointlight.h \
-    terrainscene.h \
-    scenewithtimemeasurement.h \
-    graphics/spotlight.h \
-    basetutorialscene.h \
-    tutorialscenemonkey.h
+HEADERS  += engine/rendering/mainwindow.h \
+engine/rendering/openglwidget.h \
+game/scene.h \
+game/defaultscene.h \
+engine/core/userinput.h \
+game/tutorialscene.h \
+gamse/tutorialcontroller.h \
+engine/core/vector2f.h \
+engine/core/vector3f.h \
+engine/core/matrix4f.h \
+engine/core/quaternion.h \
+engine/rendering/renderutils.h \
+engine/core/vertex.h \
+engine/core/mesh.h \
+engine/rendering/shader.h \
+utils.h \
+engine/rendering/qopenglfunctions_selector.h \
+engine/rendering/transform.h \
+engine/rendering/camera.h \
+engine/rendering/texture.h \
+engine/rendering/basicshader.h \
+engine/rendering/material.h \
+engine/rendering/phongshader.h \
+engine/rendering/baselight.h \
+engine/rendering/directionallight.h \
+engine/rendering/attenuation.h \
+engine/rendering/pointlight.h \
+game/terrainscene.h \
+game/scenewithtimemeasurement.h \
+engine/rendering/spotlight.h \
+game/basetutorialscene.h \
+game/tutorialscenemonkey.h
 
 INCLUDEPATH += $$PWD
 
