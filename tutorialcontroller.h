@@ -25,7 +25,7 @@ public:
 		enum Variants { TurnLeft, TurnRight, Idle };
 	};
 
-	explicit TutorialController(UserInput &userInput, QObject *parent = 0);
+	explicit TutorialController(UserInput &, int, int, QObject *parent = 0);
 	~TutorialController();
 
 	void startReadingUserInput();
@@ -42,6 +42,8 @@ public:
 	bool isReleasePointerRequested() { return m_isReleasePointerRequested; }
 	void grabPointer();
 	void releasePointer();
+	void setDisplayWidth(int displayWidth) { m_displayWidth = displayWidth; }
+	void setDisplayHeight(int displayHeight) { m_displayHeight = displayHeight; }
 
 public slots:
 	void onKeyEvent(QKeyEvent);
@@ -60,6 +62,8 @@ private:
 	bool m_isReleasePointerRequested;
 	QPoint m_prevPointerPosition;
 	QPoint m_pointerDelta;
+	int m_displayWidth;
+	int m_displayHeight;
 
 	void connectToEvents();
 	void disconnectFromEvents();

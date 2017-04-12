@@ -1,5 +1,4 @@
 #include "basetutorialscene.h"
-#include "engineconfig.h"
 #include "renderutils.h"
 #include <QDebug>
 
@@ -13,7 +12,7 @@ BaseTutorialScene::BaseTutorialScene(OpenGLWidget &openGLWidget, UserInput &user
 	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
 	RenderUtils::initGraphics(*this);
 
-	m_controller = new TutorialController(m_userInput);
+	m_controller = new TutorialController(m_userInput, openGLWidget.width(), openGLWidget.height());
 
 	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
 		qDebug() << "FPS" << m_openGLWidget.fps();
@@ -21,7 +20,7 @@ BaseTutorialScene::BaseTutorialScene(OpenGLWidget &openGLWidget, UserInput &user
 	m_fpsTimer.start(1000);
 
 	m_camera = new Camera();
-	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH, EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
+	m_transform = new Transform(*m_camera, 70, openGLWidget.width(), openGLWidget.height(), 0.1, 1000);
 }
 
 BaseTutorialScene::~BaseTutorialScene()

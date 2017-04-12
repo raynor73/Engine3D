@@ -1,8 +1,7 @@
 #include "tutorialcontroller.h"
 #include <QDebug>
-#include "engineconfig.h"
 
-TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
+TutorialController::TutorialController(UserInput &userInput, int displayWidth, int displayHeight, QObject *parent) :
 	QObject(parent),
 	m_userInput(userInput),
 	m_isReadingUserInput(false),
@@ -13,7 +12,9 @@ TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	m_isPointerGrabbed(false),
 	m_isPrevPointerPositionKnown(false),
 	m_isGrabPointerRequested(false),
-	m_isReleasePointerRequested(false)
+	m_isReleasePointerRequested(false),
+	m_displayWidth(displayWidth),
+	m_displayHeight(displayHeight)
 {}
 
 void TutorialController::connectToEvents()
@@ -33,7 +34,7 @@ TutorialController::~TutorialController()
 
 void TutorialController::movePointerToCenter()
 {
-	m_userInput.setPointerPosition(QPoint(EngineConfig::DISPLAY_WIDTH / 2, EngineConfig::DISPLAY_HEIGHT / 2));
+	m_userInput.setPointerPosition(QPoint(m_displayWidth / 2, m_displayHeight / 2));
 }
 
 void TutorialController::grabPointer()
@@ -156,8 +157,8 @@ void TutorialController::updatePointer()
 	if (m_isPointerGrabbed) {
 		QPoint currentPointerPosition = m_userInput.pointerPosition();
 
-		if (EngineConfig::DISPLAY_WIDTH / 2 != currentPointerPosition.x() || EngineConfig::DISPLAY_HEIGHT / 2 != currentPointerPosition.y()) {
-			m_prevPointerPosition = QPoint(EngineConfig::DISPLAY_WIDTH / 2, EngineConfig::DISPLAY_HEIGHT / 2);
+		if (m_displayWidth / 2 != currentPointerPosition.x() || m_displayHeight / 2 != currentPointerPosition.y()) {
+			m_prevPointerPosition = QPoint(m_displayWidth / 2, m_displayHeight / 2);
 			m_pointerDelta = currentPointerPosition - m_prevPointerPosition;
 		} else {
 			m_pointerDelta = QPoint(0, 0);

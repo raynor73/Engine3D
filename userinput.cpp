@@ -3,7 +3,6 @@
 #include <QPoint>
 #include <QCursor>
 #include "userinput.h"
-#include "engineconfig.h"
 
 UserInput::UserInput(QWidget &openGLSurface, QObject *parent) :
 	QObject(parent),

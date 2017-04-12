@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	format.setProfile(QSurfaceFormat::CoreProfile);
 	QSurfaceFormat::setDefaultFormat(format);
 
-	MainWindow w;
+	MainWindow w(800, 600, 60);
 	w.show();
 
 	return a.exec();

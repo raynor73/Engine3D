@@ -12,20 +12,20 @@ class MainWindow;
 
 class MainWindow : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	MainWindow(int, int, float, QWidget *parent = 0);
+	~MainWindow();
 
 public slots:
-    void onOpenGLReady();
+	void onOpenGLReady();
 
 private:
-    Ui::MainWindow *ui;
-    OpenGLWidget *m_openglWidget;
-    Scene *m_scene;
-    UserInput *m_userInput;
+	Ui::MainWindow *ui;
+	OpenGLWidget *m_openglWidget;
+	Scene *m_scene;
+	UserInput *m_userInput;
 };
 
 #endif // MAINWINDOW_H
