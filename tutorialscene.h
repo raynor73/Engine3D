@@ -16,32 +16,24 @@
 #include <graphics/material.h>
 #include <graphics/pointlight.h>
 #include <graphics/spotlight.h>
-#include "scenewithtimemeasurement.h"
+#include "basetutorialscene.h"
 
-class TutorialScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME
+class TutorialScene : public BaseTutorialScene
 {
 	Q_OBJECT
 
 public:
 	TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
-	~TutorialScene();
+	virtual ~TutorialScene();
 
-	virtual void start();
-	virtual void stop();
 	virtual void update(float);
 	virtual void render();
 
 private:
-	OpenGLWidget &m_openGLWidget;
-	UserInput &m_userInput;
-	TutorialController *m_controller;
-	QTimer m_fpsTimer;
 	Mesh *m_mesh;
 	Texture *m_texture;
 	Material *m_material;
 	Shader *m_shader;
-	Transform *m_transform;
-	Camera *m_camera;
 	QList<PointLight *> m_pointLights;
 	QList<SpotLight *> m_spotLights;
 };

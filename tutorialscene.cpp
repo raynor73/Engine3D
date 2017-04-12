@@ -6,29 +6,13 @@
 #include <QTextStream>
 #include "tutorialscene.h"
 #include "renderutils.h"
-#include "engineconfig.h"
-#include "utils.h"
 #include "geometry/vector2f.h"
 #include "graphics/phongshader.h"
 #include <graphics/pointlight.h>
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
-	SceneWithTimeMeasurement(parent),
-	m_openGLWidget(openGLWidget),
-	m_userInput(userInput)
+	BaseTutorialScene(openGLWidget, userInput, parent)
 {
-	initializeOpenGLFunctions();
-
-	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
-	RenderUtils::initGraphics(*this);
-
-	m_controller = new TutorialController(m_userInput);
-
-	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
-		qDebug() << "FPS" << m_openGLWidget.fps();
-	});
-	m_fpsTimer.start(1000);
-
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
@@ -52,32 +36,6 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 
 	m_mesh->setVertices(vertices, indices, true);
 
-	/*vertices += Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0));
-	vertices += Vertex(Vector3f(0, 1, 0), Vector2f(0.5, 0));
-	vertices += Vertex(Vector3f(1, -1, 0), Vector2f(1, 0));
-	vertices += Vertex(Vector3f(0, -1, 1), Vector2f(0, 0.5));
-	indices += 3;
-	indices += 1;
-	indices += 0;
-	indices += 2;
-	indices += 1;
-	indices += 3;
-	indices += 0;
-	indices += 1;
-	indices += 2;
-	indices += 0;
-	indices += 2;
-	indices += 3;
-	m_mesh->setVertices(vertices, indices, true);
-
-	m_material = new Material(texture, Vector3f(1, 1, 1));
-	*/
-
-	/*Utils::loadMesh("monkey.obj", *m_mesh, true);
-	m_material = new Material(Vector3f(1, 1, 1));*/
-
-	m_camera = new Camera();
-
 	PhongShader *phongShader = new PhongShader(*this, m_camera);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
 	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.1), Vector3f(1, 1, -1)));
@@ -96,75 +54,29 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 				Vector3f(1, 1, 1), 0.7);
 	m_spotLights += spotLight1;
 	phongShader->setSpotLights(m_spotLights);
-
-	m_transform = new Transform(*m_camera, 70, EngineConfig::DISPLAY_WIDTH,
-								EngineConfig::DISPLAY_HEIGHT, 0.1, 1000);
 }
 
 TutorialScene::~TutorialScene()
 {
-	m_fpsTimer.stop();
-	delete m_transform;
 	qDeleteAll(m_pointLights);
 	qDeleteAll(m_spotLights);
-	delete m_camera;
 	delete m_shader;
 	delete m_material;
 	delete m_texture;
 	delete m_mesh;
-	delete m_controller;
-}
-
-void TutorialScene::start()
-{
-	m_controller->startReadingUserInput();
-}
-
-void TutorialScene::stop()
-{
-	m_controller->stopReadingUserInput();
 }
 
 static float temp = 0;
 void TutorialScene::update(float dt)
 {
-	float sensitivity = 0.5;
-
-	m_controller->updatePointer();
+	BaseTutorialScene::update(dt);
 
 	temp += dt;
 
-	//float sinValue = std::sin(temp);
-
 	m_transform->setTranslation(0, -1, 5);
-	//m_transform->setRotation(0, sinValue * 180, 0);
 
 	m_pointLights.at(0)->setPosition(Vector3f(3, 0, 8 * std::sin(temp) + 10));
 	m_pointLights.at(1)->setPosition(Vector3f(7, 0, 8 * std::cos(temp) + 10));
-
-	float moveAmount = 10 * dt;
-
-	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
-		m_camera->move(m_camera->forward(), moveAmount);
-	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
-		m_camera->move(m_camera->forward(), -moveAmount);
-
-	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
-		m_camera->move(m_camera->calculateLeft(), moveAmount);
-	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
-		m_camera->move(m_camera->calculateRight(), moveAmount);
-
-	if (m_controller->isGrabPointerRequested())
-		m_controller->grabPointer();
-
-	if (m_controller->isReleasePointerRequested())
-		m_controller->releasePointer();
-
-	if (m_controller->isPointerGrabbed()) {
-		QPoint delta = m_controller->pointerDelta();
-		m_camera->rotateX(delta.y() * sensitivity);
-		m_camera->rotateY(delta.x() * sensitivity);
-	}
 
 	m_spotLights.at(0)->pointLight().setPosition(m_camera->position());
 	m_spotLights.at(0)->setDirection(m_camera->forward());

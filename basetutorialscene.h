@@ -22,13 +22,15 @@ public:
 	virtual void stop();
 	virtual void update(float);
 
+protected:
+	Transform *m_transform;
+	Camera *m_camera;
+
 private:
 	OpenGLWidget &m_openGLWidget;
 	UserInput &m_userInput;
 	TutorialController *m_controller;
 	QTimer m_fpsTimer;
-	Transform *m_transform;
-	Camera *m_camera;
 };
 
 #endif // BASETUTORIALSCENE_H

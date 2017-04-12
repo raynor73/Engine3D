@@ -5,6 +5,7 @@
 #include "engineconfig.h"
 #include "tutorialscene.h"
 #include "terrainscene.h"
+#include "tutorialscenemonkey.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QWidget(parent),
@@ -24,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::onOpenGLReady()
 {
-	m_scene = new TutorialScene(*m_openglWidget, *m_userInput);
+	m_scene = new TutorialSceneMonkey(*m_openglWidget, *m_userInput);
+	//m_scene = new TutorialScene(*m_openglWidget, *m_userInput);
 	//m_scene = new TerrainScene(*m_openglWidget, *m_userInput);
 	m_scene->start();
 	m_openglWidget->setScene(m_scene);
