@@ -53,7 +53,8 @@ SOURCES += main.cpp\
     graphics/pointlight.cpp \
     terrainscene.cpp \
     scenewithtimemeasurement.cpp \
-    graphics/spotlight.cpp
+    graphics/spotlight.cpp \
+    basetutorialscene.cpp
 
 HEADERS  += mainwindow.h \
     engineconfig.h \
@@ -85,7 +86,8 @@ HEADERS  += mainwindow.h \
     graphics/pointlight.h \
     terrainscene.h \
     scenewithtimemeasurement.h \
-    graphics/spotlight.h
+    graphics/spotlight.h \
+    basetutorialscene.h
 
 INCLUDEPATH += $$PWD
 

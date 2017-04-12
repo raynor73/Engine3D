@@ -20,8 +20,10 @@
 
 class TutorialScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME
 {
+	Q_OBJECT
+
 public:
-	explicit TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
+	TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
 	~TutorialScene();
 
 	virtual void start();
