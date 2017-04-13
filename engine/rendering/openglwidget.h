@@ -4,34 +4,32 @@
 #include <QObject>
 #include <QWidget>
 #include <QOpenGLWidget>
-#include <engine/rendering/qopenglfunctions_selector.h>
 #include <QElapsedTimer>
-#include <game/scene.h>
 
 class OpenGLWidget : public QOpenGLWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit OpenGLWidget(QWidget *, float);
-    void setScene(Scene *);
-    float fps() { return m_fps; }
+	explicit OpenGLWidget(QWidget *, float);
+	void setScene(Scene *);
+	float fps() { return m_fps; }
 
 signals:
-    void openGLReady();
+	void openGLReady();
+	void render();
 
 protected:
-    void initializeGL();
-    void resizeGL(int, int);
-    void paintGL();
+	void initializeGL();
+	void resizeGL(int, int);
+	void paintGL();
 
 private:
-    int m_fpsPeriod;
-    float m_fps;
-    QElapsedTimer m_renderTimer;
-    QElapsedTimer m_fpsTimer;
-    Scene *m_scene;
-    bool m_isOpenGLReadySignalEmitted;
+	int m_fpsPeriod;
+	float m_fps;
+	QElapsedTimer m_renderTimer;
+	QElapsedTimer m_fpsTimer;
+	bool m_isOpenGLReadySignalEmitted;
 };
 
 #endif // OPENGLWIDGET_H

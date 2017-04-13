@@ -54,7 +54,8 @@ game/terrainscene.cpp \
 game/scenewithtimemeasurement.cpp \
 engine/rendering/spotlight.cpp \
 game/basetutorialscene.cpp \
-game/tutorialscenemonkey.cpp
+game/tutorialscenemonkey.cpp \
+    engine/core/coreengine.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
@@ -87,7 +88,8 @@ game/terrainscene.h \
 game/scenewithtimemeasurement.h \
 engine/rendering/spotlight.h \
 game/basetutorialscene.h \
-game/tutorialscenemonkey.h
+game/tutorialscenemonkey.h \
+    engine/core/coreengine.h
 
 INCLUDEPATH += $$PWD
 

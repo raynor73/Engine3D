@@ -1,18 +1,12 @@
 #include <QTimer>
-#include <QDebug>
 #include <engine/rendering/openglwidget.h>
 
-OpenGLWidget::OpenGLWidget(QWidget *parent, float fpsLimit) :
+OpenGLWidget::OpenGLWidget(QWidget *parent, float maxFps) :
 	QOpenGLWidget(parent),
-	m_fpsPeriod(1000 / fpsLimit),
+	m_fpsPeriod(1000 / maxFps),
 	m_scene(NULL),
 	m_isOpenGLReadySignalEmitted(false)
 {}
-
-void OpenGLWidget::setScene(Scene *scene)
-{
-	m_scene = scene;
-}
 
 void OpenGLWidget::initializeGL() {}
 
@@ -31,10 +25,7 @@ void OpenGLWidget::paintGL()
 
 	m_renderTimer.start();
 
-	if (m_scene != NULL) {
-		m_scene->update();
-		m_scene->render();
-	}
+	emit render();
 
 	int delay = m_fpsPeriod - m_renderTimer.elapsed();
 	QTimer::singleShot(delay > 0 ? delay : 1, this, SLOT(update()));
