@@ -1,6 +1,6 @@
-#include "tutorialscenemonkey.h"
-#include <graphics/phongshader.h>
-#include "renderutils.h"
+#include <game/tutorialscenemonkey.h>
+#include <engine/rendering/phongshader.h>
+#include <engine/rendering/renderutils.h>
 #include <cmath>
 
 TutorialSceneMonkey::TutorialSceneMonkey(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :

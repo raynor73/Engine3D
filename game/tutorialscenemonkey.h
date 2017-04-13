@@ -2,10 +2,10 @@
 #define TUTORIALSCENEMONKEY_H
 
 #include "basetutorialscene.h"
-#include <graphics/mesh.h>
-#include <graphics/texture.h>
-#include <graphics/material.h>
-#include <graphics/shader.h>
+#include <engine/rendering/mesh.h>
+#include <engine/rendering/texture.h>
+#include <engine/rendering/material.h>
+#include <engine/rendering/shader.h>
 
 class TutorialSceneMonkey : public BaseTutorialScene
 {

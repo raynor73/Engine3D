@@ -1,7 +1,6 @@
 #include <QTimer>
 #include <QDebug>
-#include "openglwidget.h"
-#include "defaultscene.h"
+#include <engine/rendering/openglwidget.h>
 
 OpenGLWidget::OpenGLWidget(QWidget *parent, float fpsLimit) :
 	QOpenGLWidget(parent),

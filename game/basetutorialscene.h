@@ -1,13 +1,13 @@
 #ifndef BASETUTORIALSCENE_H
 #define BASETUTORIALSCENE_H
 
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include "scenewithtimemeasurement.h"
-#include "openglwidget.h"
-#include "userinput.h"
+#include <engine/rendering/openglwidget.h>
+#include <engine/core/userinput.h>
 #include "tutorialcontroller.h"
-#include <graphics/camera.h>
-#include <graphics/transform.h>
+#include <engine/rendering/camera.h>
+#include <engine/core/transform.h>
 #include <QTimer>
 
 class BaseTutorialScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME

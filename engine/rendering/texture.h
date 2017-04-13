@@ -2,7 +2,7 @@
 #define TEXTURE_H
 
 #include <QObject>
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 
 class Texture : public QObject
 {

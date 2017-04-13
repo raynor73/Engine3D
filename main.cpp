@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include <engine/rendering/mainwindow.h>
 #include <QApplication>
 #include <QSurfaceFormat>
 

@@ -1,5 +1,5 @@
 #include "basetutorialscene.h"
-#include "renderutils.h"
+#include <engine/rendering/renderutils.h>
 #include <QDebug>
 
 BaseTutorialScene::BaseTutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :

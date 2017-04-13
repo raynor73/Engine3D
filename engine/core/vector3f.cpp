@@ -1,7 +1,7 @@
 #include <cmath>
-#include "vector3f.h"
-#include "utils.h"
-#include "geometry/quaternion.h"
+#include <engine/core/vector3f.h>
+#include <utils.h>
+#include <engine/core/quaternion.h>
 
 Vector3f::Vector3f(float x, float y, float z, QObject *parent) :
     QObject(parent),

@@ -2,8 +2,8 @@
 #define VERTEX_H
 
 #include <QObject>
-#include "vector3f.h"
-#include "vector2f.h"
+#include <engine/core/vector3f.h>
+#include <engine/core/vector2f.h>
 
 class Vertex : public QObject
 {

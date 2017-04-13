@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
-#include "openglwidget.h"
-#include "userinput.h"
-#include "scene.h"
+#include <engine/rendering/openglwidget.h>
+#include <engine/core/userinput.h>
+#include <game/scene.h>
 
 namespace Ui {
 class MainWindow;

@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QPoint>
 #include <QCursor>
-#include "userinput.h"
+#include <engine/core/userinput.h>
 
 UserInput::UserInput(QWidget &openGLSurface, QObject *parent) :
 	QObject(parent),

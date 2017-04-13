@@ -2,9 +2,9 @@
 #define TRANSFORM_H
 
 #include <QObject>
-#include "graphics/camera.h"
-#include "geometry/vector3f.h"
-#include "geometry/matrix4f.h"
+#include <engine/rendering/camera.h>
+#include <engine/core/vector3f.h>
+#include <engine/core/matrix4f.h>
 
 class Transform : public QObject
 {

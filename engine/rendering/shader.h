@@ -4,10 +4,10 @@
 #include <QObject>
 #include <QString>
 #include <QMap>
-#include <graphics/material.h>
-#include "geometry/vector3f.h"
-#include "geometry/matrix4f.h"
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/material.h>
+#include <engine/core/vector3f.h>
+#include <engine/core/matrix4f.h>
+#include <engine/rendering/qopenglfunctions_selector.h>
 
 class Shader : public QObject
 {

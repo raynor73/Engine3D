@@ -1,7 +1,7 @@
 #ifndef SCENEWITHTIMEMEASUREMENT_H
 #define SCENEWITHTIMEMEASUREMENT_H
 
-#include "scene.h"
+#include <game/scene.h>
 #include <QElapsedTimer>
 
 class SceneWithTimeMeasurement : public Scene

@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QWidget>
 #include <QOpenGLWidget>
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include <QElapsedTimer>
-#include "scene.h"
+#include <game/scene.h>
 
 class OpenGLWidget : public QOpenGLWidget
 {

@@ -2,16 +2,16 @@
 #define TERRAINSCENE_H
 
 #include "scenewithtimemeasurement.h"
-#include "qopenglfunctions_selector.h"
-#include "openglwidget.h"
-#include "userinput.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
+#include <engine/rendering/openglwidget.h>
+#include <engine/core/userinput.h>
 #include "tutorialcontroller.h"
-#include <graphics/camera.h>
+#include <engine/rendering/camera.h>
 #include <QTimer>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
-#include <graphics/shader.h>
-#include <graphics/transform.h>
+#include <engine/rendering/mesh.h>
+#include <engine/rendering/material.h>
+#include <engine/rendering/shader.h>
+#include <engine/core/transform.h>
 #include "tutorialcontroller.h"
 
 class TerrainScene : public SceneWithTimeMeasurement, protected QOPENGLFUNCTIONS_CLASSNAME

@@ -1,6 +1,6 @@
 #include <cmath>
-#include "utils.h"
-#include "vector2f.h"
+#include <utils.h>
+#include <engine/core/vector2f.h>
 
 Vector2f::Vector2f(float x, float y, QObject *parent) :
     QObject(parent),

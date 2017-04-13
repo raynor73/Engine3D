@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <cmath>
-#include "utils.h"
+#include <utils.h>
 #include "matrix4f.h"
 
 Matrix4f::Matrix4f(QObject *parent) : QObject(parent)

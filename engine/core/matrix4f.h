@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <array>
-#include "geometry/vector3f.h"
+#include <engine/core/vector3f.h>
 
 class Matrix4f : public QObject
 {

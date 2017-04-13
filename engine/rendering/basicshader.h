@@ -1,7 +1,7 @@
 #ifndef BASICSHADER_H
 #define BASICSHADER_H
 
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include "shader.h"
 
 class BasicShader : public Shader

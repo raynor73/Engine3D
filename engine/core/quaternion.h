@@ -2,7 +2,7 @@
 #define QUATERNION_H
 
 #include <QObject>
-#include "vector3f.h"
+#include <engine/core/vector3f.h>
 
 class Quaternion : public QObject
 {

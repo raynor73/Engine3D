@@ -2,13 +2,13 @@
 #define PHONGSHADER_H
 
 #include <QList>
-#include <graphics/shader.h>
-#include <geometry/vector3f.h>
-#include <graphics/directionallight.h>
-#include <graphics/camera.h>
+#include <engine/rendering/shader.h>
+#include <engine/core/vector3f.h>
+#include <engine/rendering/directionallight.h>
+#include <engine/rendering/camera.h>
 #include "pointlight.h"
 #include "spotlight.h"
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 
 class PhongShader : public Shader
 {

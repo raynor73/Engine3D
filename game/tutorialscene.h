@@ -2,20 +2,20 @@
 #define TUTORIALSCENE_H
 
 #include <QObject>
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include <QTimer>
 #include <QElapsedTimer>
-#include "graphics/mesh.h"
-#include "userinput.h"
+#include <engine/rendering/mesh.h>
+#include <engine/core/userinput.h>
 #include "tutorialcontroller.h"
-#include "openglwidget.h"
-#include "graphics/transform.h"
-#include "graphics/camera.h"
-#include "graphics/texture.h"
-#include <graphics/shader.h>
-#include <graphics/material.h>
-#include <graphics/pointlight.h>
-#include <graphics/spotlight.h>
+#include <engine/rendering/openglwidget.h>
+#include <engine/core/transform.h>
+#include <engine/rendering/camera.h>
+#include <engine/rendering/texture.h>
+#include <engine/rendering/shader.h>
+#include <engine/rendering/material.h>
+#include <engine/rendering/pointlight.h>
+#include <engine/rendering/spotlight.h>
 #include "basetutorialscene.h"
 
 class TutorialScene : public BaseTutorialScene

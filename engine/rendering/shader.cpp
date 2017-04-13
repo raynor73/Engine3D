@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QFile>
 #include "shader.h"
-#include "renderutils.h"
+#include <engine/rendering/renderutils.h>
 
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),

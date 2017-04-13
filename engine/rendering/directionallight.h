@@ -2,8 +2,8 @@
 #define DIRECTIONALLIGHT_H
 
 #include <QObject>
-#include <geometry/vector3f.h>
-#include <graphics/baselight.h>
+#include <engine/core/vector3f.h>
+#include <engine/rendering/baselight.h>
 
 class DirectionalLight : public QObject
 {

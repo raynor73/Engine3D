@@ -1,9 +1,9 @@
-#include "terrainscene.h"
-#include "renderutils.h"
+#include <game/terrainscene.h>
+#include <engine/rendering/renderutils.h>
 #include <QDebug>
-#include "utils.h"
-#include <graphics/directionallight.h>
-#include <graphics/phongshader.h>
+#include <utils.h>
+#include <engine/rendering/directionallight.h>
+#include <engine/rendering/phongshader.h>
 
 TerrainScene::TerrainScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	SceneWithTimeMeasurement(parent),

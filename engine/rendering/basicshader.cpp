@@ -1,5 +1,5 @@
 #include "basicshader.h"
-#include <renderutils.h>
+#include <engine/rendering/renderutils.h>
 
 BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shader(f, parent)
 {

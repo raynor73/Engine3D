@@ -2,7 +2,7 @@
 #define BASELIGHT_H
 
 #include <QObject>
-#include <geometry/vector3f.h>
+#include <engine/core/vector3f.h>
 
 class BaseLight : public QObject
 {

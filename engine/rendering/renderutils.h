@@ -1,9 +1,9 @@
 #ifndef RENDERUTILS_H
 #define RENDERUTILS_H
 
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include <QString>
-#include "geometry/vector3f.h"
+#include <engine/core/vector3f.h>
 
 namespace RenderUtils
 {

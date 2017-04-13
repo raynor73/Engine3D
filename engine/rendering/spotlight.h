@@ -2,8 +2,8 @@
 #define SPOTLIGHT_H
 
 #include <QObject>
-#include <graphics/pointlight.h>
-#include <geometry/vector3f.h>
+#include <engine/rendering/pointlight.h>
+#include <engine/core/vector3f.h>
 
 class SpotLight : public QObject
 {

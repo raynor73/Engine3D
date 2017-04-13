@@ -2,9 +2,9 @@
 #include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "tutorialscene.h"
-#include "terrainscene.h"
-#include "tutorialscenemonkey.h"
+#include <game/tutorialscene.h>
+#include <game/terrainscene.h>
+#include <game/tutorialscenemonkey.h>
 
 MainWindow::MainWindow(int initialWidth, int initialHeight, float maxFps, QWidget *parent) :
 	QWidget(parent),

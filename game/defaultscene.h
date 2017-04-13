@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QOpenGLFunctions>
-#include "scene.h"
+#include <game/scene.h>
 
 class DefaultScene : public Scene, protected QOpenGLFunctions
 {

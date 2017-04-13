@@ -4,7 +4,7 @@
 #include <QObject>
 #include "baselight.h"
 #include "attenuation.h"
-#include <geometry/vector3f.h>
+#include <engine/core/vector3f.h>
 
 class PointLight : public QObject
 {

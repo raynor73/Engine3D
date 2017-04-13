@@ -2,9 +2,9 @@
 #define MESH_H
 
 #include <QObject>
-#include "qopenglfunctions_selector.h"
+#include <engine/rendering/qopenglfunctions_selector.h>
 #include <QList>
-#include "geometry/vertex.h"
+#include <engine/rendering/vertex.h>
 
 class Mesh : public QObject
 {

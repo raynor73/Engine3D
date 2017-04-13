@@ -62,18 +62,18 @@ game/scene.h \
 game/defaultscene.h \
 engine/core/userinput.h \
 game/tutorialscene.h \
-gamse/tutorialcontroller.h \
+game/tutorialcontroller.h \
 engine/core/vector2f.h \
 engine/core/vector3f.h \
 engine/core/matrix4f.h \
 engine/core/quaternion.h \
 engine/rendering/renderutils.h \
-engine/core/vertex.h \
-engine/core/mesh.h \
+engine/rendering/vertex.h \
+engine/rendering/mesh.h \
 engine/rendering/shader.h \
 utils.h \
 engine/rendering/qopenglfunctions_selector.h \
-engine/rendering/transform.h \
+engine/core/transform.h \
 engine/rendering/camera.h \
 engine/rendering/texture.h \
 engine/rendering/basicshader.h \
@@ -91,7 +91,7 @@ game/tutorialscenemonkey.h
 
 INCLUDEPATH += $$PWD
 
-FORMS    += mainwindow.ui
+FORMS    += engine/rendering/mainwindow.ui
 
 CONFIG += c++11
 

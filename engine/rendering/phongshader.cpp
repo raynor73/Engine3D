@@ -1,5 +1,5 @@
 #include "phongshader.h"
-#include <renderutils.h>
+#include <engine/rendering/renderutils.h>
 
 PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QObject *parent) :
 	Shader(f, parent),

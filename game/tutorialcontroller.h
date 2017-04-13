@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QPoint>
-#include "userinput.h"
+#include <engine/core/userinput.h>
 
 class TutorialController : public QObject
 {

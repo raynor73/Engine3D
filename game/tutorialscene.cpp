@@ -4,11 +4,11 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
-#include "tutorialscene.h"
-#include "renderutils.h"
-#include "geometry/vector2f.h"
-#include "graphics/phongshader.h"
-#include <graphics/pointlight.h>
+#include <game/tutorialscene.h>
+#include <engine/rendering/renderutils.h>
+#include <engine/core/vector2f.h>
+#include <engine/rendering/phongshader.h>
+#include <engine/rendering/pointlight.h>
 
 TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
 	BaseTutorialScene(openGLWidget, userInput, parent)
