@@ -10,12 +10,16 @@ class CoreEngine : public QObject
 	Q_OBJECT
 public:
 	CoreEngine(int, int, float, const QString &, QObject *parent = 0);
+	~CoreEngine();
 
 	Scene *scene() const { return m_scene; }
-	void setScene(Scene *scene) { m_scene = scene; }
+
+public slots:
+	void onOpenGLReady();
 
 private:
 	Scene *m_scene;
+	bool m_isOpenGLReady;
 };
 
 #endif // COREENGINE_H

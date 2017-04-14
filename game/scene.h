@@ -10,6 +10,8 @@ class Scene : public QObject
 public:
 	explicit Scene(QObject *parent = 0);
 
+	virtual void makeOpenGLDependentSetup() = 0;
+	virtual void onOpenGLResized(int, int) = 0;
 	virtual void start() = 0;
 	virtual void stop() = 0;
 	virtual void update() = 0;

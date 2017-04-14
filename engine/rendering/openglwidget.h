@@ -12,11 +12,11 @@ class OpenGLWidget : public QOpenGLWidget
 
 public:
 	explicit OpenGLWidget(QWidget *, float);
-	void setScene(Scene *);
 	float fps() { return m_fps; }
 
 signals:
 	void openGLReady();
+	void openGLResized(int, int);
 	void render();
 
 protected:
@@ -29,7 +29,7 @@ private:
 	float m_fps;
 	QElapsedTimer m_renderTimer;
 	QElapsedTimer m_fpsTimer;
-	bool m_isOpenGLReadySignalEmitted;
+	//bool m_isOpenGLReadySignalEmitted;
 };
 
 #endif // OPENGLWIDGET_H

@@ -18,13 +18,16 @@ public:
 	MainWindow(int, int, float, QWidget *parent = 0);
 	~MainWindow();
 
-public slots:
-	void onOpenGLReady();
+	OpenGLWidget *openGLWidget() { return m_openglWidget; }
+	UserInput *userInput() { return m_userInput; }
+
+/*public slots:
+	void onOpenGLReady();*/
 
 private:
 	Ui::MainWindow *ui;
 	OpenGLWidget *m_openglWidget;
-	Scene *m_scene;
+	//Scene *m_scene;
 	UserInput *m_userInput;
 };
 
