@@ -10,7 +10,7 @@ class Transform : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Transform(Camera &, float, float, float, float, float, QObject *parent = 0);
+	explicit Transform(Camera &, float, float, float, QObject *parent = 0);
 
 	Vector3f *translation() { return &m_translation; }
 	void setTranslation(const Vector3f &);
@@ -23,6 +23,7 @@ public:
 	void setScale(float, float, float);
 	Matrix4f transformation();
 	Matrix4f projectedTransformation();
+	void setDisplaySize(float, float);
 
 private:
 	Vector3f m_translation;
@@ -31,11 +32,13 @@ private:
 
 	float m_zNear;
 	float m_zFar;
-	float m_width;
-	float m_height;
+	float m_displayWidth;
+	float m_displayHeight;
 	float m_fov;
 
 	Camera &m_camera;
+
+	bool m_isDisplaySizeKnown;
 };
 
 #endif // TRANSFORM_H

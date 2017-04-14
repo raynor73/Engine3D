@@ -13,9 +13,15 @@ TutorialController::TutorialController(UserInput &userInput, int displayWidth, i
 	m_isPrevPointerPositionKnown(false),
 	m_isGrabPointerRequested(false),
 	m_isReleasePointerRequested(false),
-	m_displayWidth(displayWidth),
-	m_displayHeight(displayHeight)
+	m_isDisplaySizeKnown(false)
 {}
+
+void TutorialController::setDisplaySize(int displayWidht, int displayHeight)
+{
+	m_displayWidth = displayWidht;
+	m_displayHeight = displayHeight;
+	m_isDisplaySizeKnown = true;
+}
 
 void TutorialController::connectToEvents()
 {
@@ -154,6 +160,8 @@ void TutorialController::onKeyEvent(QKeyEvent event)
 
 void TutorialController::updatePointer()
 {
+	Q_ASSERT(m_isDisplaySizeKnown);
+
 	if (m_isPointerGrabbed) {
 		QPoint currentPointerPosition = m_userInput.pointerPosition();
 

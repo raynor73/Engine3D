@@ -11,7 +11,7 @@ public:
 	static const Vector3f yAxis;
 
 	explicit Camera(QObject *parent = 0);
-	explicit Camera(const Vector3f &, const Vector3f &, const Vector3f &, QObject *parent = 0);
+	Camera(const Vector3f &, const Vector3f &, const Vector3f &, QObject *parent = 0);
 
 	void setPosition(const Vector3f &);
 	Vector3f position() const { return m_position; }

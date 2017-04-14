@@ -2,33 +2,41 @@
 #include <engine/rendering/renderutils.h>
 #include <QDebug>
 
-BaseTutorialScene::BaseTutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
+BaseTutorialScene::BaseTutorialScene(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
 	SceneWithTimeMeasurement(parent),
-	m_openGLWidget(openGLWidget),
+	m_coreEngine(coreEngine),
 	m_userInput(userInput)
 {
-	initializeOpenGLFunctions();
-
-	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
-	RenderUtils::initGraphics(*this);
-
-	m_controller = new TutorialController(m_userInput, openGLWidget.width(), openGLWidget.height());
-
 	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
-		qDebug() << "FPS" << m_openGLWidget.fps();
+		qDebug() << "FPS" << m_coreEngine.fps();
 	});
 	m_fpsTimer.start(1000);
 
 	m_camera = new Camera();
-	m_transform = new Transform(*m_camera, 70, openGLWidget.width(), openGLWidget.height(), 0.1, 1000);
+	m_transform = new Transform(*m_camera, 70, 0.1, 1000);
+	m_controller = new TutorialController(m_userInput);
 }
 
 BaseTutorialScene::~BaseTutorialScene()
 {
 	m_fpsTimer.stop();
+	delete m_controller;
 	delete m_transform;
 	delete m_camera;
-	delete m_controller;
+}
+
+void BaseTutorialScene::makeOpenGLDependentSetup()
+{
+	initializeOpenGLFunctions();
+
+	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
+	RenderUtils::initGraphics(*this);
+}
+
+void BaseTutorialScene::onOpenGLResized(int width, int height)
+{
+	m_transform->setDisplaySize(width, height);
+	m_controller->setDisplaySize(width, height);
 }
 
 void BaseTutorialScene::start()

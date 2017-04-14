@@ -3,9 +3,7 @@
 
 OpenGLWidget::OpenGLWidget(QWidget *parent, float maxFps) :
 	QOpenGLWidget(parent),
-	m_fpsPeriod(1000 / maxFps),
-	m_scene(NULL),
-	m_isOpenGLReadySignalEmitted(false)
+	m_fpsPeriod(1000 / maxFps)
 {}
 
 void OpenGLWidget::initializeGL()

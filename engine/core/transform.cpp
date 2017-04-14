@@ -1,6 +1,6 @@
 #include "transform.h"
 
-Transform::Transform(Camera &camera, float fov, float width, float height, float zNear, float zFar,
+Transform::Transform(Camera &camera, float fov, float zNear, float zFar,
 					 QObject *parent) :
 	QObject(parent),
 	m_translation(Vector3f(0, 0, 0)),
@@ -8,11 +8,17 @@ Transform::Transform(Camera &camera, float fov, float width, float height, float
 	m_scale(Vector3f(1, 1, 1)),
 	m_zNear(zNear),
 	m_zFar(zFar),
-	m_width(width),
-	m_height(height),
 	m_fov(fov),
-	m_camera(camera)
+	m_camera(camera),
+	m_isDisplaySizeKnown(false)
 {}
+
+void Transform::setDisplaySize(float displayWidth, float displayHeight)
+{
+	m_displayWidth = displayWidth;
+	m_displayHeight = displayHeight;
+	m_isDisplaySizeKnown = true;
+}
 
 void Transform::setTranslation(const Vector3f &translation)
 {
@@ -66,10 +72,12 @@ Matrix4f Transform::transformation()
 
 Matrix4f Transform::projectedTransformation()
 {
+	Q_ASSERT(m_isDisplaySizeKnown);
+
 	Matrix4f transformationM = transformation();
 
 	Matrix4f projectionM;
-	projectionM.initProjection(m_fov, m_width, m_height, m_zNear, m_zFar);
+	projectionM.initProjection(m_fov, m_displayWidth, m_displayHeight, m_zNear, m_zFar);
 
 	Matrix4f cameraRotationM;
 	cameraRotationM.initCamera(m_camera.forward(), m_camera.up());
