@@ -1,7 +1,7 @@
 #include "tutorialcontroller.h"
 #include <QDebug>
 
-TutorialController::TutorialController(UserInput &userInput, int displayWidth, int displayHeight, QObject *parent) :
+TutorialController::TutorialController(UserInput &userInput, QObject *parent) :
 	QObject(parent),
 	m_userInput(userInput),
 	m_isReadingUserInput(false),

@@ -25,7 +25,7 @@ public:
 		enum Variants { TurnLeft, TurnRight, Idle };
 	};
 
-	explicit TutorialController(UserInput &, int, int, QObject *parent = 0);
+	explicit TutorialController(UserInput &, QObject *parent = 0);
 	~TutorialController();
 
 	void startReadingUserInput();

@@ -10,9 +10,52 @@
 #include <engine/rendering/phongshader.h>
 #include <engine/rendering/pointlight.h>
 
-TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
-	BaseTutorialScene(openGLWidget, userInput, parent)
+TutorialScene::TutorialScene(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
+	BaseTutorialScene(coreEngine, userInput, parent),
+	m_mesh(NULL),
+	m_texture(NULL),
+	m_material(NULL),
+	m_shader(NULL)
 {
+	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
+											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 10);
+	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
+											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 10);
+	m_pointLights += pointLight1;
+	m_pointLights += pointLight2;
+
+	SpotLight *spotLight1 = new SpotLight(
+				PointLight(BaseLight(Vector3f(0, 1, 1), 0.8), Attenuation(0, 0, 0.1), Vector3f(-2, 0, 5), 30),
+				Vector3f(1, 1, 1), 0.7);
+	m_spotLights += spotLight1;
+}
+
+TutorialScene::~TutorialScene()
+{
+	qDeleteAll(m_pointLights);
+	qDeleteAll(m_spotLights);
+	if (m_shader != NULL) {
+		delete m_shader;
+		m_shader = NULL;
+	}
+	if (m_material != NULL) {
+		delete m_material;
+		m_material = NULL;
+	}
+	if (m_texture != NULL) {
+		delete m_texture;
+		m_texture = NULL;
+	}
+	if (m_mesh != NULL) {
+		delete m_mesh;
+		m_mesh = NULL;
+	}
+}
+
+void TutorialScene::makeOpenGLDependentSetup()
+{
+	BaseTutorialScene::makeOpenGLDependentSetup();
+
 	m_mesh = new Mesh(*this);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
@@ -41,29 +84,8 @@ TutorialScene::TutorialScene(OpenGLWidget &openGLWidget, UserInput &userInput, Q
 	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.1), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
 
-	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 10);
-	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
-											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 10);
-	m_pointLights += pointLight1;
-	m_pointLights += pointLight2;
 	phongShader->setPointLights(m_pointLights);
-
-	SpotLight *spotLight1 = new SpotLight(
-				PointLight(BaseLight(Vector3f(0, 1, 1), 0.8), Attenuation(0, 0, 0.1), Vector3f(-2, 0, 5), 30),
-				Vector3f(1, 1, 1), 0.7);
-	m_spotLights += spotLight1;
 	phongShader->setSpotLights(m_spotLights);
-}
-
-TutorialScene::~TutorialScene()
-{
-	qDeleteAll(m_pointLights);
-	qDeleteAll(m_spotLights);
-	delete m_shader;
-	delete m_material;
-	delete m_texture;
-	delete m_mesh;
 }
 
 static float temp = 0;

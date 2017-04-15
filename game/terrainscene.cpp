@@ -14,7 +14,7 @@ TerrainScene::TerrainScene(OpenGLWidget &openGLWidget, UserInput &userInput, QOb
 
 	RenderUtils::initGraphics(*this);
 
-	m_controller = new TutorialController(m_userInput, openGLWidget.width(), openGLWidget.height());
+	m_controller = new TutorialController(m_userInput);
 
 	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
 		qDebug() << "FPS" << m_openGLWidget.fps();
@@ -32,7 +32,7 @@ TerrainScene::TerrainScene(OpenGLWidget &openGLWidget, UserInput &userInput, QOb
 													  Vector3f(1, 1, -1)));
 	m_shader = phongShader;
 
-	m_transform = new Transform(*m_camera, 70, openGLWidget.width(), openGLWidget.height(), 0.1, 1000);
+	m_transform = new Transform(*m_camera, 70, 0.1, 1000);
 }
 
 TerrainScene::~TerrainScene()

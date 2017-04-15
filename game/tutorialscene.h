@@ -16,16 +16,18 @@
 #include <engine/rendering/material.h>
 #include <engine/rendering/pointlight.h>
 #include <engine/rendering/spotlight.h>
-#include "basetutorialscene.h"
+#include <game/basetutorialscene.h>
+#include <engine/core/coreengine.h>
 
 class TutorialScene : public BaseTutorialScene
 {
 	Q_OBJECT
 
 public:
-	TutorialScene(OpenGLWidget &, UserInput &, QObject *parent = 0);
+	TutorialScene(CoreEngine &, UserInput &, QObject *parent = 0);
 	virtual ~TutorialScene();
 
+	virtual void makeOpenGLDependentSetup();
 	virtual void update(float);
 	virtual void render();
 

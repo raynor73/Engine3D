@@ -3,8 +3,8 @@
 #include <engine/rendering/renderutils.h>
 #include <cmath>
 
-TutorialSceneMonkey::TutorialSceneMonkey(OpenGLWidget &openGLWidget, UserInput &userInput, QObject *parent) :
-	BaseTutorialScene(openGLWidget, userInput, parent)
+TutorialSceneMonkey::TutorialSceneMonkey(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
+	BaseTutorialScene(coreEngine, userInput, parent)
 {
 	m_mesh = new Mesh(*this, "monkey.obj", true);
 	m_material = new Material(Vector3f(0, 1, 0));
