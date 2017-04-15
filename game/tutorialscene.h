@@ -17,14 +17,13 @@
 #include <engine/rendering/pointlight.h>
 #include <engine/rendering/spotlight.h>
 #include <game/basetutorialscene.h>
-#include <engine/core/coreengine.h>
 
 class TutorialScene : public BaseTutorialScene
 {
 	Q_OBJECT
 
 public:
-	TutorialScene(CoreEngine &, UserInput &, QObject *parent = 0);
+	TutorialScene(UserInput &, QObject *parent = 0);
 	virtual ~TutorialScene();
 
 	virtual void makeOpenGLDependentSetup();

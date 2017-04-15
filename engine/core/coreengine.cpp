@@ -34,6 +34,9 @@ CoreEngine::~CoreEngine()
 
 void CoreEngine::setScene(Scene *scene)
 {
+	if (m_scene != NULL)
+		m_scene->stop();
+
 	m_scene = scene;
 
 	if (m_isOpenGLReady)
@@ -41,6 +44,11 @@ void CoreEngine::setScene(Scene *scene)
 
 	if (m_isOpenGLSizeKnown)
 		m_scene->onOpenGLResized(m_openGLWidth, m_openGLHeight);
+
+	if (m_isOpenGLReady && m_isOpenGLSizeKnown) {
+		m_scene->start();
+		m_isSceneStarted = true;
+	}
 }
 
 void CoreEngine::onOpenGLReady()
@@ -57,8 +65,12 @@ void CoreEngine::onOpenGLResized(int width, int height)
 	m_openGLWidth = width;
 	m_openGLHeight = height;
 
-	if (m_scene != NULL)
+	if (m_scene != NULL) {
 		m_scene->onOpenGLResized(m_openGLWidth, m_openGLHeight);
+
+		if (!m_isSceneStarted)
+			m_scene->start();
+	}
 }
 
 void CoreEngine::onRender()

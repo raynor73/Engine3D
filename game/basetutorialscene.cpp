@@ -2,15 +2,16 @@
 #include <engine/rendering/renderutils.h>
 #include <QDebug>
 
-BaseTutorialScene::BaseTutorialScene(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
+BaseTutorialScene::BaseTutorialScene(UserInput &userInput, QObject *parent) :
 	SceneWithTimeMeasurement(parent),
-	m_coreEngine(coreEngine),
-	m_userInput(userInput)
+	m_openGLFunctions(NULL),
+	m_userInput(userInput),
+	m_fpsCounter(0)
 {
 	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
-		qDebug() << "FPS" << m_coreEngine.fps();
+		qDebug() << "FPS" << m_fpsCounter;
+		m_fpsCounter = 0;
 	});
-	m_fpsTimer.start(1000);
 
 	m_camera = new Camera();
 	m_transform = new Transform(*m_camera, 70, 0.1, 1000);
@@ -23,14 +24,19 @@ BaseTutorialScene::~BaseTutorialScene()
 	delete m_controller;
 	delete m_transform;
 	delete m_camera;
+	if (m_openGLFunctions != NULL) {
+		delete m_openGLFunctions;
+		m_openGLFunctions = NULL;
+	}
 }
 
 void BaseTutorialScene::makeOpenGLDependentSetup()
 {
-	initializeOpenGLFunctions();
+	m_openGLFunctions = new QOPENGLFUNCTIONS_CLASSNAME();
+	m_openGLFunctions->initializeOpenGLFunctions();
 
-	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*this);
-	RenderUtils::initGraphics(*this);
+	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*m_openGLFunctions);
+	RenderUtils::initGraphics(*m_openGLFunctions);
 }
 
 void BaseTutorialScene::onOpenGLResized(int width, int height)
@@ -42,11 +48,13 @@ void BaseTutorialScene::onOpenGLResized(int width, int height)
 void BaseTutorialScene::start()
 {
 	m_controller->startReadingUserInput();
+	m_fpsTimer.start(1000);
 }
 
 void BaseTutorialScene::stop()
 {
 	m_controller->stopReadingUserInput();
+	m_fpsTimer.stop();
 }
 
 void BaseTutorialScene::update(float dt)
@@ -78,4 +86,9 @@ void BaseTutorialScene::update(float dt)
 		m_camera->rotateX(delta.y() * sensitivity);
 		m_camera->rotateY(delta.x() * sensitivity);
 	}
+}
+
+void BaseTutorialScene::render()
+{
+	m_fpsCounter++;
 }

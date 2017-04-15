@@ -10,8 +10,8 @@
 #include <engine/rendering/phongshader.h>
 #include <engine/rendering/pointlight.h>
 
-TutorialScene::TutorialScene(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
-	BaseTutorialScene(coreEngine, userInput, parent),
+TutorialScene::TutorialScene(UserInput &userInput, QObject *parent) :
+	BaseTutorialScene(userInput, parent),
 	m_mesh(NULL),
 	m_texture(NULL),
 	m_material(NULL),
@@ -56,10 +56,10 @@ void TutorialScene::makeOpenGLDependentSetup()
 {
 	BaseTutorialScene::makeOpenGLDependentSetup();
 
-	m_mesh = new Mesh(*this);
+	m_mesh = new Mesh(*m_openGLFunctions);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
-	m_texture = new Texture(*this, "test.png");
+	m_texture = new Texture(*m_openGLFunctions, "test.png");
 	m_material = new Material(m_texture, Vector3f(1, 1, 1), 1, 8);
 
 	float fieldDepth = 10;
@@ -79,7 +79,7 @@ void TutorialScene::makeOpenGLDependentSetup()
 
 	m_mesh->setVertices(vertices, indices, true);
 
-	PhongShader *phongShader = new PhongShader(*this, m_camera);
+	PhongShader *phongShader = new PhongShader(*m_openGLFunctions, m_camera);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
 	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.1), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
@@ -106,7 +106,9 @@ void TutorialScene::update(float dt)
 
 void TutorialScene::render()
 {
-	RenderUtils::clearScreen(*this);
+	BaseTutorialScene::render();
+
+	RenderUtils::clearScreen(*m_openGLFunctions);
 
 	m_shader->bind();
 	m_shader->updateUniforms(m_transform->transformation(), m_transform->projectedTransformation(), *m_material);

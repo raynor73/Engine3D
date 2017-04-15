@@ -6,15 +6,16 @@
 #include <engine/rendering/texture.h>
 #include <engine/rendering/material.h>
 #include <engine/rendering/shader.h>
-#include <engine/core/coreengine.h>
+#include <engine/core/userinput.h>
 
 class TutorialSceneMonkey : public BaseTutorialScene
 {
 	Q_OBJECT
 public:
-	TutorialSceneMonkey(CoreEngine &, UserInput &, QObject *parent = 0);
+	TutorialSceneMonkey(UserInput &, QObject *parent = 0);
 	virtual ~TutorialSceneMonkey();
 
+	virtual void makeOpenGLDependentSetup();
 	virtual void update(float);
 	virtual void render();
 

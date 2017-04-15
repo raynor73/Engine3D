@@ -3,23 +3,40 @@
 #include <engine/rendering/renderutils.h>
 #include <cmath>
 
-TutorialSceneMonkey::TutorialSceneMonkey(CoreEngine &coreEngine, UserInput &userInput, QObject *parent) :
-	BaseTutorialScene(coreEngine, userInput, parent)
+TutorialSceneMonkey::TutorialSceneMonkey(UserInput &userInput, QObject *parent) :
+	BaseTutorialScene(userInput, parent),
+	m_mesh(NULL),
+	m_material(NULL),
+	m_shader(NULL)
 {
-	m_mesh = new Mesh(*this, "monkey.obj", true);
 	m_material = new Material(Vector3f(0, 1, 0));
-
-	PhongShader *phongShader = new PhongShader(*this, m_camera);
-	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
-	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
-	m_shader = phongShader;
 }
 
 TutorialSceneMonkey::~TutorialSceneMonkey()
 {
-	delete m_shader;
+	if (m_shader != NULL) {
+		delete m_shader;
+		m_shader = NULL;
+	}
+
+	if (m_mesh != NULL) {
+		delete m_mesh;
+		m_mesh = NULL;
+	}
+
 	delete m_material;
-	delete m_mesh;
+}
+
+void TutorialSceneMonkey::makeOpenGLDependentSetup()
+{
+	BaseTutorialScene::makeOpenGLDependentSetup();
+
+	m_mesh = new Mesh(*m_openGLFunctions, "monkey.obj", true);
+
+	PhongShader *phongShader = new PhongShader(*m_openGLFunctions, m_camera);
+	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
+	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8), Vector3f(1, 1, -1)));
+	m_shader = phongShader;
 }
 
 static float temp = 0;
@@ -36,7 +53,9 @@ void TutorialSceneMonkey::update(float dt)
 
 void TutorialSceneMonkey::render()
 {
-	RenderUtils::clearScreen(*this);
+	BaseTutorialScene::render();
+
+	RenderUtils::clearScreen(*m_openGLFunctions);
 
 	m_shader->bind();
 	m_shader->updateUniforms(m_transform->transformation(), m_transform->projectedTransformation(), *m_material);
