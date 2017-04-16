@@ -14,7 +14,7 @@ BaseTutorialScene::BaseTutorialScene(UserInput &userInput, QObject *parent) :
 	});
 
 	m_camera = new Camera();
-	m_transform = new Transform(*m_camera, 70, 0.1, 1000);
+	m_transform = new Transform(m_camera, 70, 0.1, 1000);
 	m_controller = new TutorialController(m_userInput);
 }
 

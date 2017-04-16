@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include <game/scene.h>
+#include <engine/core/scene.h>
 #include <engine/rendering/mainwindow.h>
 #include <engine/core/userinput.h>
 

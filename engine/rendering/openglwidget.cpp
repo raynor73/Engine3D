@@ -18,11 +18,6 @@ void OpenGLWidget::resizeGL(int width, int height)
 
 void OpenGLWidget::paintGL()
 {
-	/*if (!m_isOpenGLReadySignalEmitted) {
-		emit openGLReady();
-		m_isOpenGLReadySignalEmitted = true;
-	}*/
-
 	if (m_fpsTimer.isValid())
 		m_fps = 1000.0f / m_fpsTimer.elapsed();
 	m_fpsTimer.start();

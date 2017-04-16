@@ -26,7 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
 engine/rendering/mainwindow.cpp \
 engine/rendering/openglwidget.cpp \
-game/scene.cpp \
+engine/core/scene.cpp \
 game/defaultscene.cpp \
 engine/core/userinput.cpp \
 game/tutorialscene.cpp \
@@ -55,11 +55,15 @@ game/scenewithtimemeasurement.cpp \
 engine/rendering/spotlight.cpp \
 game/basetutorialscene.cpp \
 game/tutorialscenemonkey.cpp \
-    engine/core/coreengine.cpp
+    engine/core/coreengine.cpp \
+    engine/core/gameobject.cpp \
+    engine/core/gamecomponent.cpp \
+    game/tutorialscene2.cpp \
+    game/meshrenderer.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
-game/scene.h \
+engine/core/scene.h \
 game/defaultscene.h \
 engine/core/userinput.h \
 game/tutorialscene.h \
@@ -89,7 +93,11 @@ game/scenewithtimemeasurement.h \
 engine/rendering/spotlight.h \
 game/basetutorialscene.h \
 game/tutorialscenemonkey.h \
-    engine/core/coreengine.h
+    engine/core/coreengine.h \
+    engine/core/gameobject.h \
+    engine/core/gamecomponent.h \
+    game/tutorialscene2.h \
+    game/meshrenderer.h
 
 INCLUDEPATH += $$PWD
 

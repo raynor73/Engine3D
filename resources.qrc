@@ -8,5 +8,6 @@
         <file>resources/shaders/phongfragment.fsh</file>
         <file>resources/shaders/phongvertex.vsh</file>
         <file>resources/models/terrain0.obj</file>
+        <file>resources/audio/car_engine0.wav</file>
     </qresource>
 </RCC>

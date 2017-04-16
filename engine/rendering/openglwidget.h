@@ -29,7 +29,6 @@ private:
 	float m_fps;
 	QElapsedTimer m_renderTimer;
 	QElapsedTimer m_fpsTimer;
-	//bool m_isOpenGLReadySignalEmitted;
 };
 
 #endif // OPENGLWIDGET_H

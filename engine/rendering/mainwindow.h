@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <engine/rendering/openglwidget.h>
 #include <engine/core/userinput.h>
-#include <game/scene.h>
+#include <engine/core/scene.h>
 
 namespace Ui {
 class MainWindow;

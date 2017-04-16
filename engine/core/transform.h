@@ -10,7 +10,7 @@ class Transform : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Transform(Camera &, float, float, float, QObject *parent = 0);
+	Transform(Camera *, float, float, float, QObject *parent = 0);
 
 	Vector3f *translation() { return &m_translation; }
 	void setTranslation(const Vector3f &);
@@ -36,7 +36,7 @@ private:
 	float m_displayHeight;
 	float m_fov;
 
-	Camera &m_camera;
+	Camera *m_camera;
 
 	bool m_isDisplaySizeKnown;
 };

@@ -1,3 +1,3 @@
-#include <game/scene.h>
+#include <engine/core/scene.h>
 
 Scene::Scene(QObject *parent) : QObject(parent) {}
