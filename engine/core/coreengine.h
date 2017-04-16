@@ -6,6 +6,7 @@
 #include <engine/core/scene.h>
 #include <engine/rendering/mainwindow.h>
 #include <engine/core/userinput.h>
+#include <engine/core/renderingengine.h>
 
 class CoreEngine : public QObject
 {
@@ -25,6 +26,7 @@ public slots:
 	void onRender();
 
 private:
+	RenderingEngine m_renderingEngine;
 	MainWindow *m_mainWindow;
 	Scene *m_scene;
 	bool m_isOpenGLReady;

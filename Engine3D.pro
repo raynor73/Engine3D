@@ -59,7 +59,8 @@ game/tutorialscenemonkey.cpp \
     engine/core/gameobject.cpp \
     engine/core/gamecomponent.cpp \
     game/tutorialscene2.cpp \
-    game/meshrenderer.cpp
+    game/meshrenderer.cpp \
+    engine/core/renderingengine.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
@@ -97,7 +98,8 @@ game/tutorialscenemonkey.h \
     engine/core/gameobject.h \
     engine/core/gamecomponent.h \
     game/tutorialscene2.h \
-    game/meshrenderer.h
+    game/meshrenderer.h \
+    engine/core/renderingengine.h
 
 INCLUDEPATH += $$PWD
 
