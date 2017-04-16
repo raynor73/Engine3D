@@ -2,7 +2,7 @@
 #define BASETUTORIALSCENE_H
 
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <game/scenewithtimemeasurement.h>
+#include <engine/core/scenewithtimemeasurement.h>
 #include <engine/rendering/openglwidget.h>
 #include <engine/core/userinput.h>
 #include <game/tutorialcontroller.h>

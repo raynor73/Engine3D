@@ -51,7 +51,7 @@ engine/rendering/directionallight.cpp \
 engine/rendering/attenuation.cpp \
 engine/rendering/pointlight.cpp \
 game/terrainscene.cpp \
-game/scenewithtimemeasurement.cpp \
+engine/core/scenewithtimemeasurement.cpp \
 engine/rendering/spotlight.cpp \
 game/basetutorialscene.cpp \
 game/tutorialscenemonkey.cpp \
@@ -60,7 +60,8 @@ game/tutorialscenemonkey.cpp \
     engine/core/gamecomponent.cpp \
     game/tutorialscene2.cpp \
     game/meshrenderer.cpp \
-    engine/core/renderingengine.cpp
+    engine/core/renderingengine.cpp \
+    engine/core/scenewithrootobject.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
@@ -90,7 +91,7 @@ engine/rendering/directionallight.h \
 engine/rendering/attenuation.h \
 engine/rendering/pointlight.h \
 game/terrainscene.h \
-game/scenewithtimemeasurement.h \
+engine/core/scenewithtimemeasurement.h \
 engine/rendering/spotlight.h \
 game/basetutorialscene.h \
 game/tutorialscenemonkey.h \
@@ -99,7 +100,8 @@ game/tutorialscenemonkey.h \
     engine/core/gamecomponent.h \
     game/tutorialscene2.h \
     game/meshrenderer.h \
-    engine/core/renderingengine.h
+    engine/core/renderingengine.h \
+    engine/core/scenewithrootobject.h
 
 INCLUDEPATH += $$PWD
 

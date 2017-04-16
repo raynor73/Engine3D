@@ -1,7 +1,7 @@
 #ifndef TUTORIALSCENE2_H
 #define TUTORIALSCENE2_H
 
-#include <game/scenewithtimemeasurement.h>
+#include <engine/core/scenewithrootobject.h>
 #include <engine/rendering/camera.h>
 #include <engine/core/userinput.h>
 #include <engine/core/gameobject.h>
@@ -13,7 +13,7 @@
 #include <game/tutorialcontroller.h>
 #include <QTimer>
 
-class TutorialScene2 : public SceneWithTimeMeasurement
+class TutorialScene2 : public SceneWithRootObject
 {
 	Q_OBJECT
 
@@ -29,7 +29,6 @@ public:
 	virtual void stop();
 
 private:
-	GameObject *m_root;
 	Camera *m_camera;
 	QOPENGLFUNCTIONS_CLASSNAME *m_openGLFunctions;
 	Mesh *m_mesh;

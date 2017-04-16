@@ -3,7 +3,7 @@
 #include <engine/rendering/renderutils.h>
 
 TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
-	SceneWithTimeMeasurement(parent),
+	SceneWithRootObject(parent),
 	m_openGLFunctions(NULL),
 	m_mesh(NULL),
 	m_texture(NULL),
@@ -71,7 +71,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_mesh->setVertices(vertices, indices, true);
 
 	m_meshRenderer = new MeshRenderer(*m_openGLFunctions, m_mesh, m_material);
-	m_root->addComponent(m_meshRenderer);
+	m_rootGameObject->addComponent(m_meshRenderer);
 }
 
 void TutorialScene2::update(float dt)

@@ -10,6 +10,8 @@ class GameComponent : public QObject
 public:
 	explicit GameComponent(QObject *parent = 0);
 
+	virtual void makeOpenGLDependentSetup();
+	virtual void onOpenGLResized(int width, int height);
 	virtual void update(Transform &, float) {}
 	virtual void render(Transform &) {}
 };

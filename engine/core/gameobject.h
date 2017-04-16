@@ -14,6 +14,8 @@ public:
 	GameObject(Camera *, float, float, float, QObject *parent = 0);
 	virtual ~GameObject();
 
+	virtual void makeOpenGLDependentSetup();
+	virtual void onOpenGLResized(int width, int height);
 	virtual void update(float);
 	virtual void render();
 
