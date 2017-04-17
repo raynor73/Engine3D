@@ -11,7 +11,7 @@ class GameObject : public QObject
 {
 	Q_OBJECT
 public:
-	GameObject(Camera *, float, float, float, QObject *parent = 0);
+	GameObject(Camera *camera, float fov, float zNear, float zFar, QObject *parent = 0);
 	virtual ~GameObject();
 
 	virtual void onOpenGLResized(int width, int height);
@@ -21,7 +21,7 @@ public:
 	virtual void addChild(GameObject *);
 	virtual void addComponent(GameComponent *);
 
-	Transform *transform() { return &m_transform; }
+	Transform &transform() { return m_transform; }
 
 private:
 	QList<GameObject *> m_children;

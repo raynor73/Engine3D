@@ -22,9 +22,7 @@ public:
 	virtual ~TutorialScene2();
 
 	virtual void update(float);
-	virtual void render();
 	virtual void makeOpenGLDependentSetup();
-	virtual void onOpenGLResized(int, int);
 	virtual void start();
 	virtual void stop();
 
@@ -36,6 +34,7 @@ private:
 	Material *m_material;
 	MeshRenderer *m_meshRenderer;
 	TutorialController *m_controller;
+	GameObject *m_planeObject;
 	QTimer m_fpsTimer;
 	int m_fpsCounter;
 };

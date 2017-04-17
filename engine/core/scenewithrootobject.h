@@ -10,10 +10,9 @@ class SceneWithRootObject : public SceneWithTimeMeasurement
 public:
 	explicit SceneWithRootObject(QObject *parent = 0);
 
-	GameObject *rootGameObject() { return m_rootGameObject; }
+	GameObject &rootGameObject() { return *m_rootGameObject; }
 
-	virtual void makeOpenGLDependentSetup();
-	virtual void onOpenGLResized(int width, int height);
+	using SceneWithTimeMeasurement::update;
 	virtual void update(float dt);
 	virtual void render();
 

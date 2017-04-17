@@ -11,8 +11,8 @@ public:
 	explicit GameComponent(QObject *parent = 0);
 
 	virtual void onOpenGLResized(int width, int height);
-	virtual void update(Transform &, float) {}
-	virtual void render(Transform &) {}
+	virtual void update(Transform &transform, float dt);
+	virtual void render(Transform &transform);
 };
 
 #endif // GAMECOMPONENT_H

@@ -10,7 +10,6 @@ class RenderingEngine : public QObject
 public:
 	explicit RenderingEngine(QObject *parent = 0);
 
-	void makeOpenGLDependentSetup(const GameObject &gameObject);
 	void onOpenGLResized(const GameObject &gameObject, int width, int height);
 	void render(const GameObject &gameObject);
 };

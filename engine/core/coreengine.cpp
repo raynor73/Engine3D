@@ -37,7 +37,7 @@ CoreEngine::~CoreEngine()
 	disconnect(m_mainWindow->openGLWidget(), &OpenGLWidget::render, this, &CoreEngine::onRender);
 }
 
-void CoreEngine::setScene(Scene *scene)
+void CoreEngine::setScene(SceneWithRootObject *scene)
 {
 	if (m_scene != NULL && m_isSceneStarted) {
 		m_scene->stop();
@@ -47,7 +47,7 @@ void CoreEngine::setScene(Scene *scene)
 	m_scene = scene;
 
 	if (m_isOpenGLReady)
-		m_renderingEngine.makeOpenGLDependentSetup(m_scene->rootGameObject());
+		m_scene->makeOpenGLDependentSetup();
 
 	if (m_isOpenGLSizeKnown)
 		m_renderingEngine.onOpenGLResized(m_scene->rootGameObject(), m_openGLWidth, m_openGLHeight);
@@ -63,7 +63,7 @@ void CoreEngine::onOpenGLReady()
 	m_isOpenGLReady = true;
 
 	if (m_scene != NULL)
-		m_renderingEngine.makeOpenGLDependentSetup(m_scene->rootGameObject());
+		m_scene->makeOpenGLDependentSetup();
 }
 
 void CoreEngine::onOpenGLResized(int width, int height)

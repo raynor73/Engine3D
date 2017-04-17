@@ -8,6 +8,15 @@ GameObject::GameObject(Camera *camera, float fov, float zNear, float zFar, QObje
 GameObject::~GameObject()
 {}
 
+void GameObject::onOpenGLResized(int width, int height)
+{
+	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
+		(*i)->onOpenGLResized(width, height);
+
+	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+		(*i)->onOpenGLResized(width, height);
+}
+
 void GameObject::update(float dt)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)

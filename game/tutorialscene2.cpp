@@ -16,16 +16,16 @@ TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
 	});
 
 	m_camera = new Camera();
-	m_root = new GameObject(m_camera, 70, 0.1, 1000);
+	m_rootGameObject = new GameObject(m_camera, 70, 0.1, 1000);
 	m_controller = new TutorialController(userInput);
 }
 
-void TutorialScene2::onOpenGLResized(int width, int height)
+/*void TutorialScene2::onOpenGLResized(int width, int height)
 {
-	m_root->transform()->setDisplaySize(width, height);
+	m_rootGameObject->transform()->setDisplaySize(width, height);
 	m_controller->setDisplaySize(width, height);
 	//m_root->transform()->setTranslation(0, 1, 0);
-}
+}*/
 
 void TutorialScene2::start()
 {
@@ -71,12 +71,16 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_mesh->setVertices(vertices, indices, true);
 
 	m_meshRenderer = new MeshRenderer(*m_openGLFunctions, m_mesh, m_material);
-	m_rootGameObject->addComponent(m_meshRenderer);
+	m_planeObject = new GameObject(m_camera, 70, 0.1, 1000);
+	m_planeObject->addComponent(m_meshRenderer);
+	m_planeObject->transform().setTranslation(0, -1, 5);
+
+	m_rootGameObject->addChild(m_planeObject);
 }
 
 void TutorialScene2::update(float dt)
 {
-	float sensitivity = 0.5;
+	/*float sensitivity = 0.5;
 
 	m_controller->updatePointer();
 
@@ -102,16 +106,16 @@ void TutorialScene2::update(float dt)
 		QPoint delta = m_controller->pointerDelta();
 		m_camera->rotateX(delta.y() * sensitivity);
 		m_camera->rotateY(delta.x() * sensitivity);
-	}
+	}*/
 
-	m_root->update(dt);
+	m_rootGameObject->update(dt);
 }
 
-void TutorialScene2::render()
+/*void TutorialScene2::render()
 {
 	m_fpsCounter++;
 	m_root->render();
-}
+}*/
 
 TutorialScene2::~TutorialScene2()
 {
@@ -126,7 +130,7 @@ TutorialScene2::~TutorialScene2()
 	if (m_openGLFunctions != NULL)
 		delete m_openGLFunctions;
 	delete m_controller;
-	delete m_root;
+	delete m_rootGameObject;
 	delete m_camera;
 	m_fpsTimer.stop();
 }
