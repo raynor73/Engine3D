@@ -23,8 +23,6 @@ public:
 
 	virtual void update(float);
 	virtual void makeOpenGLDependentSetup();
-	virtual void start();
-	virtual void stop();
 
 private:
 	Camera *m_camera;

@@ -21,6 +21,9 @@ void TutorialController::setDisplaySize(int displayWidht, int displayHeight)
 	m_displayWidth = displayWidht;
 	m_displayHeight = displayHeight;
 	m_isDisplaySizeKnown = true;
+
+	connectToEvents();
+	m_isReadingUserInput = true;
 }
 
 void TutorialController::connectToEvents()
@@ -58,22 +61,10 @@ void TutorialController::releasePointer()
 	m_isPointerGrabbed = false;
 }
 
-void TutorialController::startReadingUserInput()
-{
-	connectToEvents();
-	m_isReadingUserInput = true;
-}
-
 void TutorialController::disconnectFromEvents()
 {
 	disconnect(&m_userInput, &UserInput::onKeyEvent, this, &TutorialController::onKeyEvent);
 	disconnect(&m_userInput, &UserInput::onMouseEvent, this, &TutorialController::onMouseEvent);
-}
-
-void TutorialController::stopReadingUserInput()
-{
-	disconnectFromEvents();
-	m_isReadingUserInput = false;
 }
 
 void TutorialController::onKeyEvent(QKeyEvent event)

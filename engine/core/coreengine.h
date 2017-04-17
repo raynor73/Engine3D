@@ -33,7 +33,6 @@ private:
 	bool m_isOpenGLSizeKnown;
 	int m_openGLWidth;
 	int m_openGLHeight;
-	bool m_isSceneStarted;
 };
 
 #endif // COREENGINE_H

@@ -28,8 +28,6 @@ public:
 	explicit TutorialController(UserInput &, QObject *parent = 0);
 	~TutorialController();
 
-	void startReadingUserInput();
-	void stopReadingUserInput();
 	void updatePointer();
 
 	MovementDiretion::Variants movementDiretion() { return m_movementDirection; }

@@ -22,7 +22,7 @@ TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
 	//m_root->transform()->setTranslation(0, 1, 0);
 }*/
 
-void TutorialScene2::start()
+/*void TutorialScene2::start()
 {
 	m_controller->startReadingUserInput();
 }
@@ -30,7 +30,7 @@ void TutorialScene2::start()
 void TutorialScene2::stop()
 {
 	m_controller->stopReadingUserInput();
-}
+}*/
 
 void TutorialScene2::makeOpenGLDependentSetup()
 {

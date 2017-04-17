@@ -47,13 +47,13 @@ void BaseTutorialScene::onOpenGLResized(int width, int height)
 
 void BaseTutorialScene::start()
 {
-	m_controller->startReadingUserInput();
+//	m_controller->startReadingUserInput();
 	m_fpsTimer.start(1000);
 }
 
 void BaseTutorialScene::stop()
 {
-	m_controller->stopReadingUserInput();
+	//m_controller->stopReadingUserInput();
 	m_fpsTimer.stop();
 }
 
