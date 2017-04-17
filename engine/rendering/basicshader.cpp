@@ -13,10 +13,7 @@ BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shade
 
 void BasicShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatrix, const Material &material)
 {
-	if (material.texture() != NULL)
-		material.texture()->bind();
-	else
-		RenderUtils::unbindTextures(f);
+	material.texture()->bind();
 
 	setUniform("transform", projectedMatrix);
 	setUniform("color", material.color());

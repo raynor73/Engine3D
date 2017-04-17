@@ -14,7 +14,6 @@ public:
 
 	using SceneWithTimeMeasurement::update;
 	virtual void update(float dt);
-	virtual void render();
 
 protected:
 	GameObject *m_rootGameObject;

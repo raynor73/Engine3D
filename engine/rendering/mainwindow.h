@@ -21,9 +21,6 @@ public:
 	OpenGLWidget *openGLWidget() { return m_openglWidget; }
 	UserInput *userInput() { return m_userInput; }
 
-/*public slots:
-	void onOpenGLReady();*/
-
 private:
 	Ui::MainWindow *ui;
 	OpenGLWidget *m_openglWidget;

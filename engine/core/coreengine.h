@@ -26,7 +26,7 @@ public slots:
 	void onRender();
 
 private:
-	RenderingEngine m_renderingEngine;
+	RenderingEngine *m_renderingEngine;
 	MainWindow *m_mainWindow;
 	SceneWithRootObject *m_scene;
 	bool m_isOpenGLReady;

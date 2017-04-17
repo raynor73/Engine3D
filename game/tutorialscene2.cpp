@@ -1,22 +1,17 @@
 #include "tutorialscene2.h"
 #include <QDebug>
 #include <engine/rendering/renderutils.h>
+#include <game/rootgameobject.h>
 
 TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
 	SceneWithRootObject(parent),
 	m_openGLFunctions(NULL),
 	m_mesh(NULL),
 	m_texture(NULL),
-	m_material(NULL),
-	m_fpsCounter(0)
+	m_material(NULL)
 {
-	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
-		qDebug() << "FPS" << m_fpsCounter;
-		m_fpsCounter = 0;
-	});
-
 	m_camera = new Camera();
-	m_rootGameObject = new GameObject(m_camera, 70, 0.1, 1000);
+	m_rootGameObject = new RootGameObject(m_camera, 70, 0.1, 1000);
 	m_controller = new TutorialController(userInput);
 }
 
@@ -30,13 +25,11 @@ TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
 void TutorialScene2::start()
 {
 	m_controller->startReadingUserInput();
-	m_fpsTimer.start(1000);
 }
 
 void TutorialScene2::stop()
 {
 	m_controller->stopReadingUserInput();
-	m_fpsTimer.stop();
 }
 
 void TutorialScene2::makeOpenGLDependentSetup()
@@ -44,8 +37,8 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_openGLFunctions = new QOPENGLFUNCTIONS_CLASSNAME();
 	m_openGLFunctions->initializeOpenGLFunctions();
 
-	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*m_openGLFunctions);
-	RenderUtils::initGraphics(*m_openGLFunctions);
+	/*qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*m_openGLFunctions);
+	RenderUtils::initGraphics(*m_openGLFunctions);*/
 
 	m_mesh = new Mesh(*m_openGLFunctions);
 	QList<Vertex> vertices;
@@ -70,7 +63,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_mesh->setVertices(vertices, indices, true);
 
-	m_meshRenderer = new MeshRenderer(*m_openGLFunctions, m_mesh, m_material);
+	m_meshRenderer = new MeshRenderer(m_mesh, m_material);
 	m_planeObject = new GameObject(m_camera, 70, 0.1, 1000);
 	m_planeObject->addComponent(m_meshRenderer);
 	m_planeObject->transform().setTranslation(0, -1, 5);
@@ -132,5 +125,4 @@ TutorialScene2::~TutorialScene2()
 	delete m_controller;
 	delete m_rootGameObject;
 	delete m_camera;
-	m_fpsTimer.stop();
 }

@@ -15,6 +15,8 @@ void GameObject::onOpenGLResized(int width, int height)
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 		(*i)->onOpenGLResized(width, height);
+
+	m_transform.setDisplaySize(width, height);
 }
 
 void GameObject::update(float dt)
@@ -26,13 +28,13 @@ void GameObject::update(float dt)
 		(*i)->update(dt);
 }
 
-void GameObject::render()
+void GameObject::render(Shader &shader)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->render(m_transform);
+		(*i)->render(m_transform, shader);
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
-		(*i)->render();
+		(*i)->render(shader);
 }
 
 void GameObject::addChild(GameObject *child)

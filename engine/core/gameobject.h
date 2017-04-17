@@ -6,6 +6,7 @@
 #include <engine/core/gamecomponent.h>
 #include <engine/core/transform.h>
 #include <engine/rendering/camera.h>
+#include <engine/rendering/shader.h>
 
 class GameObject : public QObject
 {
@@ -15,8 +16,8 @@ public:
 	virtual ~GameObject();
 
 	virtual void onOpenGLResized(int width, int height);
-	virtual void update(float);
-	virtual void render();
+	virtual void update(float dt);
+	virtual void render(Shader &shader);
 
 	virtual void addChild(GameObject *);
 	virtual void addComponent(GameComponent *);

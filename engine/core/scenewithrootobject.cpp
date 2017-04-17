@@ -11,10 +11,3 @@ void SceneWithRootObject::update(float dt)
 
 	m_rootGameObject->update(dt);
 }
-
-void SceneWithRootObject::render()
-{
-	Q_ASSERT(m_rootGameObject != NULL);
-
-	m_rootGameObject->render();
-}

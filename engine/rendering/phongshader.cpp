@@ -66,10 +66,7 @@ void PhongShader::setSpotLights(const QList<SpotLight *> &spotLights)
 
 void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &projectedMatrix, const Material &material)
 {
-	if (material.texture() != NULL)
-		material.texture()->bind();
-	else
-		RenderUtils::unbindTextures(f);
+	material.texture()->bind();
 
 	setUniform("transformProjected", projectedMatrix);
 	setUniform("transform", worldMatrix);

@@ -35,8 +35,8 @@ void BaseTutorialScene::makeOpenGLDependentSetup()
 	m_openGLFunctions = new QOPENGLFUNCTIONS_CLASSNAME();
 	m_openGLFunctions->initializeOpenGLFunctions();
 
-	qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*m_openGLFunctions);
-	RenderUtils::initGraphics(*m_openGLFunctions);
+	/*qDebug() << "OpenGL version" << RenderUtils::getOpenGLVersion(*m_openGLFunctions);
+	RenderUtils::initGraphics(*m_openGLFunctions);*/
 }
 
 void BaseTutorialScene::onOpenGLResized(int width, int height)

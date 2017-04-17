@@ -8,16 +8,10 @@
 namespace RenderUtils
 {
 
-void clearScreen(QOPENGLFUNCTIONS_CLASSNAME &);
-void initGraphics(QOPENGLFUNCTIONS_CLASSNAME &);
-QString getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &);
-GLint glGetShader(QOPENGLFUNCTIONS_CLASSNAME &, GLuint, GLenum);
-GLint glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &, GLuint, GLenum);
-QString glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &, GLuint);
-void setClearColor(QOPENGLFUNCTIONS_CLASSNAME &, const Vector3f &);
-void enableTextures(QOPENGLFUNCTIONS_CLASSNAME &, bool);
-void unbindTextures(QOPENGLFUNCTIONS_CLASSNAME &);
-void printUniforms(QOPENGLFUNCTIONS_CLASSNAME &, GLuint);
+GLint glGetShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shader, GLenum pname);
+GLint glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program, GLenum pname);
+QString glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shaderReference);
+void printUniforms(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program);
 
 }
 

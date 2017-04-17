@@ -3,15 +3,29 @@
 
 #include <QObject>
 #include <engine/core/gameobject.h>
+#include <engine/rendering/qopenglfunctions_selector.h>
+#include <engine/rendering/basicshader.h>
 
 class RenderingEngine : public QObject
 {
 	Q_OBJECT
 public:
 	explicit RenderingEngine(QObject *parent = 0);
+	virtual ~RenderingEngine();
 
-	void onOpenGLResized(const GameObject &gameObject, int width, int height);
-	void render(const GameObject &gameObject);
+	void onOpenGLResized(GameObject &gameObject, int width, int height);
+	void render(GameObject &gameObject);
+
+private:
+	QOPENGLFUNCTIONS_CLASSNAME f;
+	BasicShader *m_basicShader;
+
+	void clearScreen();
+
+	QString getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f);
+	void setClearColor(QOPENGLFUNCTIONS_CLASSNAME &, const Vector3f &color);
+	void enableTextures(QOPENGLFUNCTIONS_CLASSNAME &, bool isEnabled);
+	void unbindTextures(QOPENGLFUNCTIONS_CLASSNAME &f);
 };
 
 #endif // RENDERINGENGINE_H
