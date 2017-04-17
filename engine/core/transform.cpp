@@ -77,7 +77,7 @@ Matrix4f Transform::projectedTransformation()
 	Matrix4f transformationM = transformation();
 
 	Matrix4f projectionM;
-	projectionM.initProjection(m_fov, m_displayWidth, m_displayHeight, m_zNear, m_zFar);
+	projectionM.initPerspective(m_fov, m_displayWidth, m_displayHeight, m_zNear, m_zFar);
 
 	Matrix4f cameraRotationM;
 	cameraRotationM.initCamera(m_camera->forward(), m_camera->up());

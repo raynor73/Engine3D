@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <engine/core/vector3f.h>
+#include <engine/core/matrix4f.h>
 
 class Camera : public QObject
 {
@@ -10,8 +11,7 @@ class Camera : public QObject
 public:
 	static const Vector3f yAxis;
 
-	explicit Camera(QObject *parent = 0);
-	Camera(const Vector3f &, const Vector3f &, const Vector3f &, QObject *parent = 0);
+	Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *parent = 0);
 
 	void setPosition(const Vector3f &);
 	Vector3f position() const { return m_position; }
@@ -30,6 +30,7 @@ private:
 	Vector3f m_position;
 	Vector3f m_forward;
 	Vector3f m_up;
+	Matrix4f m_projection;
 };
 
 #endif // CAMERA_H

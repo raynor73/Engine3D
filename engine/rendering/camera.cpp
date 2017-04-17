@@ -1,19 +1,13 @@
 #include "camera.h"
 
-Camera::Camera(const Vector3f &position, const Vector3f &formard, const Vector3f &up,
-			   QObject *parent) :
+Camera::Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *parent) :
 	QObject(parent),
-	m_position(position),
-	m_forward(formard),
-	m_up(up)
+	m_position(Vector3f(0, 0, 0)),
+	m_forward(Vector3f(0, 0, 1).normalized()),
+	m_up(Vector3f(0, 1, 0).normalized())
 {
-	m_up = m_up.normalized();
-	m_forward = m_forward.normalized();
+	m_projection.initPerspective(fov, aspectRatio, zNear, zFar);
 }
-
-Camera::Camera(QObject *parent) :
-	Camera(Vector3f(0, 0, 0), Vector3f(0, 0, 1), Vector3f(0, 1, 0), parent)
-{}
 
 void Camera::setPosition(const Vector3f &position)
 {

@@ -105,12 +105,11 @@ Matrix4f *Matrix4f::initScale(float x, float y, float z)
 	return this;
 }
 
-Matrix4f *Matrix4f::initProjection(float fov, float width, float height, float zNear, float zFar)
+Matrix4f *Matrix4f::initPerspective(float fov, float aspectRatio, float zNear, float zFar)
 {
 	initIdentity();
 
-	auto aspectRatio = width / height;
-	auto tanHalfFov = std::tan(Utils::toRadians(fov / 2));
+	auto tanHalfFov = std::tan(fov / 2);
 	auto zRange = zNear - zFar;
 
 	m__data[offset(0, 0)] = 1.0 / (tanHalfFov * aspectRatio);
