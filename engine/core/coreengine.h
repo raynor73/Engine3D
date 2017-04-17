@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include <engine/core/scene.h>
+#include <engine/core/scenewithrootobject.h>
 #include <engine/rendering/mainwindow.h>
 #include <engine/core/userinput.h>
 #include <engine/core/renderingengine.h>
@@ -16,9 +16,9 @@ public:
 	~CoreEngine();
 
 	UserInput *userInput() { return m_mainWindow->userInput(); }
-	Scene *scene() const { return m_scene; }
+	SceneWithRootObject *scene() const { return m_scene; }
 	float fps() { return m_mainWindow->openGLWidget()->fps(); }
-	void setScene(Scene *);
+	void setScene(SceneWithRootObject *);
 
 public slots:
 	void onOpenGLReady();
@@ -28,7 +28,7 @@ public slots:
 private:
 	RenderingEngine m_renderingEngine;
 	MainWindow *m_mainWindow;
-	Scene *m_scene;
+	SceneWithRootObject *m_scene;
 	bool m_isOpenGLReady;
 	bool m_isOpenGLSizeKnown;
 	int m_openGLWidth;
