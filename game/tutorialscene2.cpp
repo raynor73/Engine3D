@@ -10,7 +10,6 @@ TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
 	m_texture(NULL),
 	m_material(NULL)
 {
-	m_camera = new Camera();
 	m_rootGameObject = new RootGameObject(m_camera, 70, 0.1, 1000);
 	m_controller = new TutorialController(userInput);
 }

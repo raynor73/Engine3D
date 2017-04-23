@@ -1,14 +1,11 @@
 #include "phongshader.h"
 #include <engine/rendering/renderutils.h>
 
-PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const Camera *camera, QObject *parent) :
+PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	Shader(f, parent),
 	m_ambientLight(Vector3f(1, 1, 1)),
-	m_directionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0), Vector3f(0, 0, 0))),
-	m_camera(camera)
+	m_directionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0), Vector3f(0, 0, 0)))
 {
-	Q_ASSERT(camera != NULL);
-
 	setVertexShaderFromFile("phongvertex.vsh");
 	setFragmentShaderFromFile("phongfragment.fsh");
 	linkProgram();
@@ -64,8 +61,11 @@ void PhongShader::setSpotLights(const QList<SpotLight *> &spotLights)
 	m_spotLights = spotLights;
 }
 
-void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &projectedMatrix, const Material &material)
+void PhongShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
 {
+	Matrix4f worldMatrix = transform.transformation();
+	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
+
 	material.texture()->bind();
 
 	setUniform("transformProjected", projectedMatrix);
@@ -82,7 +82,7 @@ void PhongShader::updateUniforms(const Matrix4f &worldMatrix, const Matrix4f &pr
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", m_camera->position());
+	setUniform("eyePosition", camera.position());
 }
 
 void PhongShader::setUniform(const QString &uniformName, const BaseLight &baseLight)

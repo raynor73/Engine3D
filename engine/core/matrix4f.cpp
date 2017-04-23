@@ -122,7 +122,7 @@ Matrix4f *Matrix4f::initPerspective(float fov, float aspectRatio, float zNear, f
 	return this;
 }
 
-Matrix4f *Matrix4f::initCamera(const Vector3f &forward, const Vector3f &up)
+Matrix4f *Matrix4f::initRotation(const Vector3f &forward, const Vector3f &up)
 {
 	initIdentity();
 

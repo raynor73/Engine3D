@@ -2,6 +2,7 @@
 #define RENDERINGENGINE_H
 
 #include <QObject>
+#include <engine/rendering/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <engine/rendering/basicshader.h>
@@ -15,8 +16,11 @@ public:
 
 	void onOpenGLResized(GameObject &gameObject, int width, int height);
 	void render(GameObject &gameObject);
+	Camera *mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return m_mainCamera; }
+	void setMainCamera(Camera *camera) { m_mainCamera = camera; }
 
 private:
+	Camera *m_mainCamera;
 	QOPENGLFUNCTIONS_CLASSNAME f;
 	BasicShader *m_basicShader;
 

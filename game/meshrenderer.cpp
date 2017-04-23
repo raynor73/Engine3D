@@ -12,6 +12,6 @@ MeshRenderer::MeshRenderer(Mesh *mesh, Material *material, QObject *parent) :
 void MeshRenderer::render(Transform &transform, Shader &shader)
 {
 	shader.bind();
-	shader.updateUniforms(transform.transformation(), transform.projectedTransformation(), *m_material);
+	shader.updateUniforms(transform, *m_material);
 	m_mesh->draw();
 }

@@ -8,6 +8,9 @@
 #include <engine/core/vector3f.h>
 #include <engine/core/matrix4f.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
+#include <engine/core/transform.h>
+#include <engine/rendering/camera.h>
+#include <QPointer>
 
 class Shader : public QObject
 {
@@ -27,7 +30,7 @@ public:
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
-	virtual void updateUniforms(const Matrix4f &, const Matrix4f &, const Material &) = 0;
+	virtual void updateUniforms(const Transform &, Camera &, const Material &) = 0;
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
@@ -35,6 +38,7 @@ protected:
 	void setVertexShaderFromFile(const QString &);
 	void setGeometryShaderFromFile(const QString &);
 	void setFragmentShaderFromFile(const QString &);
+	//QPointer<RenderingEngine> m_renderingEngine;
 
 private:
 	GLint m_positionAttributeIndex;

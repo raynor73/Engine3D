@@ -13,8 +13,8 @@ BaseTutorialScene::BaseTutorialScene(UserInput &userInput, QObject *parent) :
 		m_fpsCounter = 0;
 	});
 
-	m_camera = new Camera();
-	m_transform = new Transform(m_camera, 70, 0.1, 1000);
+	/*m_camera = new Camera();
+	m_transform = new Transform(m_camera, 70, 0.1, 1000);*/
 	m_controller = new TutorialController(m_userInput);
 }
 
@@ -41,7 +41,7 @@ void BaseTutorialScene::makeOpenGLDependentSetup()
 
 void BaseTutorialScene::onOpenGLResized(int width, int height)
 {
-	m_transform->setDisplaySize(width, height);
+	//m_transform->setDisplaySize(width, height);
 	m_controller->setDisplaySize(width, height);
 }
 

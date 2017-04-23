@@ -7,7 +7,8 @@
 
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
-	f(f)
+	f(f)/*,
+	m_renderingEngine(NULL)*/
 {
 	m_programReference = f.glCreateProgram();
 	Q_ASSERT(m_programReference != 0);

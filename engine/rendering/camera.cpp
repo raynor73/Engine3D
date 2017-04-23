@@ -9,6 +9,15 @@ Camera::Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *p
 	m_projection.initPerspective(fov, aspectRatio, zNear, zFar);
 }
 
+Matrix4f Camera::calculateViewProjection()
+{
+	Matrix4f cameraRotation;
+	cameraRotation.initRotation(m_forward, m_up);
+	Matrix4f cameraTranslation;
+	cameraTranslation.initTranslation(-m_position.x, -m_position.y, -m_position.z);
+	return m_projection * cameraRotation * cameraTranslation;
+}
+
 void Camera::setPosition(const Vector3f &position)
 {
 	m_position = position;

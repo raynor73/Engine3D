@@ -25,7 +25,7 @@ public:
 	Matrix4f *initRotation(float, float, float);
 	Matrix4f *initScale(float, float, float);
 	Matrix4f *initPerspective(float fov, float aspectRatio, float zNear, float zFar);
-	Matrix4f *initCamera(const Vector3f &, const Vector3f &);
+	Matrix4f *initRotation(const Vector3f &, const Vector3f &);
 	Matrix4f operator *(const Matrix4f &);
 
 private:

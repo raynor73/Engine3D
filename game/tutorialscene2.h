@@ -25,7 +25,6 @@ public:
 	virtual void makeOpenGLDependentSetup();
 
 private:
-	Camera *m_camera;
 	QOPENGLFUNCTIONS_CLASSNAME *m_openGLFunctions;
 	Mesh *m_mesh;
 	Texture *m_texture;

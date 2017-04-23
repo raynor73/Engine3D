@@ -25,6 +25,7 @@ public:
 	Vector3f calculateRight();
 	void rotateX(float);
 	void rotateY(float);
+	Matrix4f calculateViewProjection();
 
 private:
 	Vector3f m_position;

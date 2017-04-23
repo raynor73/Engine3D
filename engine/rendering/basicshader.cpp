@@ -11,8 +11,11 @@ BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shade
 	addUniform("color");
 }
 
-void BasicShader::updateUniforms(const Matrix4f &, const Matrix4f &projectedMatrix, const Material &material)
+void BasicShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
 {
+	Matrix4f worldMatrix = transform.transformation();
+	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
+
 	material.texture()->bind();
 
 	setUniform("transform", projectedMatrix);

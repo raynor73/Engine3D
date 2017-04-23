@@ -44,7 +44,7 @@ void TerrainScene::render()
 	//RenderUtils::clearScreen(*m_openGLFunctions);
 
 	m_shader->bind();
-	m_shader->updateUniforms(m_transform->transformation(), m_transform->projectedTransformation(),
-							 *m_material);
+	/*m_shader->updateUniforms(m_transform->transformation(), m_transform->projectedTransformation(),
+							 *m_material);*/
 	m_mesh->draw();
 }

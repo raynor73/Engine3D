@@ -1,8 +1,7 @@
 #include "gameobject.h"
 
 GameObject::GameObject(Camera *camera, float fov, float zNear, float zFar, QObject *parent) :
-	QObject(parent),
-	m_transform(camera, fov, zNear, zFar)
+	QObject(parent)
 {}
 
 GameObject::~GameObject()
@@ -15,8 +14,6 @@ void GameObject::onOpenGLResized(int width, int height)
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 		(*i)->onOpenGLResized(width, height);
-
-	m_transform.setDisplaySize(width, height);
 }
 
 void GameObject::update(float dt)

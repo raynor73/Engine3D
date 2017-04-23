@@ -1,6 +1,9 @@
 #include "renderingengine.h"
+#include <utils.h>
 
-RenderingEngine::RenderingEngine(QObject *parent) : QObject(parent)
+RenderingEngine::RenderingEngine(QObject *parent) :
+	QObject(parent),
+	m_mainCamera(NULL)
 {
 	f.initializeOpenGLFunctions();
 
@@ -22,17 +25,22 @@ RenderingEngine::RenderingEngine(QObject *parent) : QObject(parent)
 
 RenderingEngine::~RenderingEngine()
 {
+	if (m_mainCamera != NULL)
+		delete m_mainCamera;
+
 	delete m_basicShader;
 }
 
 void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int height)
 {
+	m_mainCamera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
 	gameObject.onOpenGLResized(width, height);
 }
 
 void RenderingEngine::render(GameObject &gameObject)
 {
 	clearScreen();
+	m_basicShader->setRenderingEngine(this);
 	gameObject.render(*m_basicShader);
 }
 
