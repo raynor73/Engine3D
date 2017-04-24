@@ -1,11 +1,6 @@
 #include "gameobject.h"
 
-GameObject::GameObject(Camera *camera, float fov, float zNear, float zFar, QObject *parent) :
-	QObject(parent)
-{}
-
-GameObject::~GameObject()
-{}
+GameObject::GameObject(QObject *parent) : QObject(parent) {}
 
 void GameObject::onOpenGLResized(int width, int height)
 {
@@ -25,13 +20,13 @@ void GameObject::update(float dt)
 		(*i)->update(dt);
 }
 
-void GameObject::render(Shader &shader)
+void GameObject::render(Camera &camera, Shader &shader)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->render(m_transform, shader);
+		(*i)->render(m_transform, camera, shader);
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
-		(*i)->render(shader);
+		(*i)->render(camera, shader);
 }
 
 void GameObject::addChild(GameObject *child)

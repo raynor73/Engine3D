@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QPointer>
 #include <engine/core/scenewithrootobject.h>
 #include <engine/rendering/mainwindow.h>
 #include <engine/core/userinput.h>
@@ -12,23 +13,23 @@ class CoreEngine : public QObject
 {
 	Q_OBJECT
 public:
-	CoreEngine(int, int, float, const QString &, QObject *parent = 0);
+	CoreEngine(int width, int height, float maxFps, const QString &title, QObject *parent = 0);
 	~CoreEngine();
 
-	UserInput *userInput() { return m_mainWindow->userInput(); }
+	UserInput &userInput() { return m_mainWindow->userInput(); }
 	SceneWithRootObject *scene() const { return m_scene; }
-	float fps() { return m_mainWindow->openGLWidget()->fps(); }
+	float fps() { return m_mainWindow->openGLWidget().fps(); }
 	void setScene(SceneWithRootObject *);
 
 public slots:
 	void onOpenGLReady();
-	void onOpenGLResized(int, int);
+	void onOpenGLResized(int width, int height);
 	void onRender();
 
 private:
 	RenderingEngine *m_renderingEngine;
 	MainWindow *m_mainWindow;
-	SceneWithRootObject *m_scene;
+	QPointer<SceneWithRootObject> m_scene;
 	bool m_isOpenGLReady;
 	bool m_isOpenGLSizeKnown;
 	int m_openGLWidth;

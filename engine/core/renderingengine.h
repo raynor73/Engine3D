@@ -17,7 +17,6 @@ public:
 	void onOpenGLResized(GameObject &gameObject, int width, int height);
 	void render(GameObject &gameObject);
 	Camera *mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return m_mainCamera; }
-	void setMainCamera(Camera *camera) { m_mainCamera = camera; }
 
 private:
 	Camera *m_mainCamera;

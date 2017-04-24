@@ -6,4 +6,4 @@ void GameComponent::onOpenGLResized(int, int) {}
 
 void GameComponent::update(Transform &, float) {}
 
-void GameComponent::render(Transform &, Shader &) {}
+void GameComponent::render(Transform &, Camera &, Shader &) {}

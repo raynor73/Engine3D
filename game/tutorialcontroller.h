@@ -40,7 +40,9 @@ public:
 	bool isReleasePointerRequested() { return m_isReleasePointerRequested; }
 	void grabPointer();
 	void releasePointer();
-	void setDisplaySize(int, int);
+	void setDisplaySize(int displayWidht, int displayHeight);
+	void connectToEvents();
+	void disconnectFromEvents();
 
 public slots:
 	void onKeyEvent(QKeyEvent);
@@ -63,8 +65,6 @@ private:
 	int m_displayHeight;
 	bool m_isDisplaySizeKnown;
 
-	void connectToEvents();
-	void disconnectFromEvents();
 	void movePointerToCenter();
 };
 

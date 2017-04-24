@@ -8,10 +8,10 @@
 class RootGameObject : public GameObject
 {
 public:
-	RootGameObject(Camera *camera, float fov, float zNear, float zFar, QObject *parent = 0);
+	RootGameObject(QObject *parent = 0);
 	virtual ~RootGameObject();
 
-	virtual void render(Shader &shader);
+	virtual void render(Camera &, Shader &shader);
 
 private:
 	QTimer m_fpsTimer;

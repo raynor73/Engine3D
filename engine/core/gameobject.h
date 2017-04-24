@@ -12,12 +12,11 @@ class GameObject : public QObject
 {
 	Q_OBJECT
 public:
-	GameObject(Camera *camera, float fov, float zNear, float zFar, QObject *parent = 0);
-	virtual ~GameObject();
+	explicit GameObject(QObject *parent = 0);
 
 	virtual void onOpenGLResized(int width, int height);
 	virtual void update(float dt);
-	virtual void render(Shader &shader);
+	virtual void render(Camera &, Shader &);
 
 	virtual void addChild(GameObject *);
 	virtual void addComponent(GameComponent *);

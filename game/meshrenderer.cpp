@@ -9,9 +9,9 @@ MeshRenderer::MeshRenderer(Mesh *mesh, Material *material, QObject *parent) :
 	Q_ASSERT(m_material != NULL);
 }
 
-void MeshRenderer::render(Transform &transform, Shader &shader)
+void MeshRenderer::render(Transform &transform, Camera &camera, Shader &shader)
 {
 	shader.bind();
-	shader.updateUniforms(transform, *m_material);
+	shader.updateUniforms(transform, camera, *m_material);
 	m_mesh->draw();
 }

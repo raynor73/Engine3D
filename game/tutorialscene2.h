@@ -22,10 +22,13 @@ public:
 	virtual ~TutorialScene2();
 
 	virtual void update(float);
+	virtual void onCameraCreated(Camera *camera) { m_camera = camera; }
+	virtual void onOpenGLResized(int width, int height);
 	virtual void makeOpenGLDependentSetup();
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME *m_openGLFunctions;
+	Camera *m_camera;
 	Mesh *m_mesh;
 	Texture *m_texture;
 	Material *m_material;

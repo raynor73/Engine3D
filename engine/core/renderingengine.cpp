@@ -40,8 +40,7 @@ void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int hei
 void RenderingEngine::render(GameObject &gameObject)
 {
 	clearScreen();
-	m_basicShader->setRenderingEngine(this);
-	gameObject.render(*m_basicShader);
+	gameObject.render(*m_mainCamera, *m_basicShader);
 }
 
 void RenderingEngine::clearScreen()
