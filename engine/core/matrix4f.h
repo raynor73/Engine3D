@@ -25,11 +25,12 @@ public:
 	Matrix4f *initRotation(float, float, float);
 	Matrix4f *initScale(float, float, float);
 	Matrix4f *initPerspective(float fov, float aspectRatio, float zNear, float zFar);
+	Matrix4f *initOrthographic(float left, float right, float bottom, float top, float near, float far);
 	Matrix4f *initRotation(const Vector3f &, const Vector3f &);
 	Matrix4f operator *(const Matrix4f &);
 
 private:
-	std::array<float, DATA_SIZE> m__data;
+	std::array<float, DATA_SIZE> m_data;
 
 	inline int offset(int, int);
 };
