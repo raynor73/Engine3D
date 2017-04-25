@@ -17,14 +17,15 @@ public:
 	operator QString();
 	float length();
 	float dot(const Vector2f &);
+	Vector2f lerp(const Vector2f &, float);
 	Vector2f abs();
 	Vector2f normalized();
 	Vector2f rotate(float);
 	Vector2f operator +(const Vector2f &);
 	Vector2f operator +(float);
-	Vector2f operator -(const Vector2f &);
+	Vector2f operator -(const Vector2f &) const;
 	Vector2f operator -(float);
-	Vector2f operator *(const Vector2f &);
+	Vector2f operator *(const Vector2f &) const;
 	Vector2f operator *(float);
 	Vector2f operator /(const Vector2f &);
 	Vector2f operator /(float);

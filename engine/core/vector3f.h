@@ -28,6 +28,7 @@ public:
 	Vector2f yx() const { return Vector2f(y, x); }
 	Vector2f zy() const { return Vector2f(z, y); }
 	Vector2f xz() const { return Vector2f(x, z); }
+	Vector3f lerp(const Vector3f &, float);
 	Vector3f operator +(const Vector3f &);
 	Vector3f operator +(float);
 	Vector3f operator -(const Vector3f &) const;
