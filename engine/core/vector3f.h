@@ -2,6 +2,7 @@
 #define VECTOR3F_H
 
 #include <QObject>
+#include <engine/core/vector2f.h>
 
 class Vector3f : public QObject
 {
@@ -21,6 +22,12 @@ public:
 	Vector3f cross(const Vector3f &) const;
 	Vector3f normalized() const;
 	Vector3f rotate(float, const Vector3f &);
+	Vector2f xy() const { return Vector2f(x, y); }
+	Vector2f yz() const { return Vector2f(y, z); }
+	Vector2f zx() const { return Vector2f(z, x); }
+	Vector2f yx() const { return Vector2f(y, x); }
+	Vector2f zy() const { return Vector2f(z, y); }
+	Vector2f xz() const { return Vector2f(x, z); }
 	Vector3f operator +(const Vector3f &);
 	Vector3f operator +(float);
 	Vector3f operator -(const Vector3f &) const;
