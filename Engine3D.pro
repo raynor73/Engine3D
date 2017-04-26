@@ -63,7 +63,8 @@ game/tutorialscenemonkey.cpp \
     engine/core/renderingengine.cpp \
     engine/core/scenewithrootobject.cpp \
     engine/rendering/forwardambientshader.cpp \
-    engine/rendering/forwarddirectionalshader.cpp
+    engine/rendering/forwarddirectionalshader.cpp \
+    engine/rendering/forwardpointshader.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
@@ -105,7 +106,8 @@ game/tutorialscenemonkey.h \
     engine/core/renderingengine.h \
     engine/core/scenewithrootobject.h \
     engine/rendering/forwardambientshader.h \
-    engine/rendering/forwarddirectionalshader.h
+    engine/rendering/forwarddirectionalshader.h \
+    engine/rendering/forwardpointshader.h
 
 INCLUDEPATH += $$PWD
 
@@ -129,4 +131,6 @@ DISTFILES += \
     resources/shaders/forwardambient.vsh \
     resources/shaders/forwardambient.fsh \
     resources/shaders/forwarddirectional.vsh \
-    resources/shaders/forwarddirectional.fsh
+    resources/shaders/forwarddirectional.fsh \
+    resources/shaders/forwardpoint.vsh \
+    resources/shaders/forwardpoint.fsh

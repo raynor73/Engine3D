@@ -17,7 +17,7 @@ public:
 	static const int MAX_POINT_LIGHTS = 4;
 	static const int MAX_SPOT_LIGHTS = 4;
 
-	PhongShader(QOPENGLFUNCTIONS_CLASSNAME &, const RenderingEngine &, QObject *parent = 0);
+	PhongShader(QOPENGLFUNCTIONS_CLASSNAME &, RenderingEngine &, QObject *parent = 0);
 
 	virtual void updateUniforms(const Transform &, Camera &camera, const Material &);
 

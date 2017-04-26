@@ -13,5 +13,7 @@
         <file>resources/shaders/forwardambient.fsh</file>
         <file>resources/shaders/forwarddirectional.fsh</file>
         <file>resources/shaders/forwarddirectional.vsh</file>
+        <file>resources/shaders/forwardpoint.fsh</file>
+        <file>resources/shaders/forwardpoint.vsh</file>
     </qresource>
 </RCC>

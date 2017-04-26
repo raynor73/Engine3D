@@ -2,7 +2,7 @@
 #include <engine/core/renderingengine.h>
 
 ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f,
-												   const RenderingEngine &renderingEngine, QObject *parent) :
+												   RenderingEngine &renderingEngine, QObject *parent) :
 	Shader(f, renderingEngine, parent)
 {
 	setVertexShaderFromFile("forwarddirectional.vsh");

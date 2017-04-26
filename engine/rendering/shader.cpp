@@ -6,7 +6,7 @@
 #include <engine/rendering/renderutils.h>
 #include <engine/core/renderingengine.h>
 
-Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, const RenderingEngine &renderingEngine, QObject *parent) :
+Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, QObject *parent) :
 	QObject(parent),
 	f(f),
 	m_renderingEngine(renderingEngine)

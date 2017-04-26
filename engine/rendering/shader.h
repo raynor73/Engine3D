@@ -17,7 +17,7 @@ class Shader : public QObject
 {
 	Q_OBJECT
 public:
-	Shader(QOPENGLFUNCTIONS_CLASSNAME &, const RenderingEngine &, QObject *parent = 0);
+	Shader(QOPENGLFUNCTIONS_CLASSNAME &, RenderingEngine &, QObject *parent = 0);
 	~Shader();
 
 	void setVertexShader(const QString &);
@@ -39,7 +39,7 @@ protected:
 	void setVertexShaderFromFile(const QString &);
 	void setGeometryShaderFromFile(const QString &);
 	void setFragmentShaderFromFile(const QString &);
-	const RenderingEngine &m_renderingEngine;
+	RenderingEngine &m_renderingEngine;
 
 private:
 	GLint m_positionAttributeIndex;
