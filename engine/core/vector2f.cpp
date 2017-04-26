@@ -1,4 +1,5 @@
 #include <cmath>
+#include <float.h>
 #include <utils.h>
 #include <engine/core/vector2f.h>
 
@@ -101,4 +102,11 @@ Vector2f &Vector2f::operator =(const Vector2f &other)
 	y = other.y;
 
 	return *this;
+}
+
+bool Vector2f::operator ==(const Vector2f &other) const
+{
+	return
+			std::abs(x - other.x) < FLT_EPSILON &&
+			std::abs(y - other.y) < FLT_EPSILON;
 }

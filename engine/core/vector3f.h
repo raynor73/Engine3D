@@ -39,6 +39,7 @@ public:
 	Vector3f operator /(float);
 	Vector3f &operator =(const Vector3f &);
 	Vector3f &operator +=(const Vector3f &);
+	bool operator ==(const Vector3f &) const;
 };
 
 #endif // VECTOR3F_H

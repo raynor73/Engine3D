@@ -30,6 +30,7 @@ public:
 	Vector2f operator /(const Vector2f &);
 	Vector2f operator /(float);
 	Vector2f &operator =(const Vector2f &);
+	bool operator ==(const Vector2f &) const;
 };
 
 #endif // VECTOR2F_H

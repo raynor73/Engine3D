@@ -2,6 +2,8 @@
 #include <engine/core/vector3f.h>
 #include <utils.h>
 #include <engine/core/quaternion.h>
+#include <float.h>
+#include <cmath>
 
 Vector3f::Vector3f(float x, float y, float z, QObject *parent) :
 	QObject(parent),
@@ -133,4 +135,12 @@ Vector3f &Vector3f::operator +=(const Vector3f &other)
 	z += other.z;
 
 	return *this;
+}
+
+bool Vector3f::operator ==(const Vector3f &other) const
+{
+	return
+			std::abs(x - other.x) < FLT_EPSILON &&
+			std::abs(y - other.y) < FLT_EPSILON &&
+			std::abs(z - other.z) < FLT_EPSILON;
 }
