@@ -40,6 +40,11 @@ Vector2f Vector2f::normalized()
 	return Vector2f(*this) / length();
 }
 
+float Vector2f::cross(const Vector2f &other) const
+{
+	return x * other.y - y * other.x;
+}
+
 Vector2f Vector2f::rotate(float angle)
 {
 	float rad = Utils::toRadians(angle);

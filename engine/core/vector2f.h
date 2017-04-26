@@ -21,6 +21,7 @@ public:
 	Vector2f abs();
 	Vector2f normalized();
 	Vector2f rotate(float);
+	float cross(const Vector2f &) const;
 	Vector2f operator +(const Vector2f &);
 	Vector2f operator +(float);
 	Vector2f operator -(const Vector2f &) const;
