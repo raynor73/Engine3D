@@ -17,6 +17,7 @@ public:
 	~CoreEngine();
 
 	UserInput &userInput() { return m_mainWindow->userInput(); }
+	RenderingEngine &renderingEngine() { return *m_renderingEngine; }
 	SceneWithRootObject *scene() const { return m_scene; }
 	float fps() { return m_mainWindow->openGLWidget().fps(); }
 	void setScene(SceneWithRootObject *);

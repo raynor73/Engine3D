@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	//TutorialScene scene(*coreEngine.userInput());
 	//TutorialSceneMonkey scene(*coreEngine.userInput());
 	//TerrainScene scene(*coreEngine.userInput());
-	TutorialScene2 scene(coreEngine.userInput());
+	TutorialScene2 scene(coreEngine);
 	coreEngine.setScene(&scene);
 
 	return a.exec();

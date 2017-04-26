@@ -12,7 +12,6 @@ public:
 	explicit Scene(QObject *parent = 0);
 
 	virtual void makeOpenGLDependentSetup() = 0;
-	virtual void onCameraCreated(Camera *) = 0;
 	virtual void onOpenGLResized(int width, int height) = 0;
 	virtual void update() = 0;
 };

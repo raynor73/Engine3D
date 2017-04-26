@@ -47,7 +47,6 @@ void CoreEngine::setScene(SceneWithRootObject *scene)
 
 	if (m_isOpenGLSizeKnown) {
 		m_renderingEngine->onOpenGLResized(m_scene->rootGameObject(), m_openGLWidth, m_openGLHeight);
-		m_scene->onCameraCreated(m_renderingEngine->mainCamera());
 		m_scene->onOpenGLResized(m_openGLWidth, m_openGLHeight);
 	}
 }
@@ -70,7 +69,6 @@ void CoreEngine::onOpenGLResized(int width, int height)
 
 	if (m_scene != NULL) {
 		m_renderingEngine->onOpenGLResized(m_scene->rootGameObject(), m_openGLWidth, m_openGLHeight);
-		m_scene->onCameraCreated(m_renderingEngine->mainCamera());
 		m_scene->onOpenGLResized(width, height);
 	}
 }

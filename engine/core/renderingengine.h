@@ -16,7 +16,7 @@ public:
 
 	void onOpenGLResized(GameObject &gameObject, int width, int height);
 	void render(GameObject &gameObject);
-	Camera *mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return m_mainCamera; }
+	Camera &mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return *m_mainCamera; }
 
 private:
 	Camera *m_mainCamera;

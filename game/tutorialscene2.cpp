@@ -3,15 +3,16 @@
 #include <engine/rendering/renderutils.h>
 #include <game/rootgameobject.h>
 
-TutorialScene2::TutorialScene2(UserInput &userInput, QObject *parent) :
+TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	SceneWithRootObject(parent),
 	m_openGLFunctions(NULL),
+	m_coreEngine(coreEngine),
 	m_mesh(NULL),
 	m_texture(NULL),
 	m_material(NULL)
 {
 	m_rootGameObject = new RootGameObject();
-	m_controller = new TutorialController(userInput);
+	m_controller = new TutorialController(m_coreEngine.userInput());
 }
 
 void TutorialScene2::makeOpenGLDependentSetup()
@@ -64,15 +65,17 @@ void TutorialScene2::update(float dt)
 
 	float moveAmount = 10 * dt;
 
+	Camera &camera = m_coreEngine.renderingEngine().mainCamera();
+
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
-		m_camera->move(m_camera->forward(), moveAmount);
+		camera.move(camera.forward(), moveAmount);
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
-		m_camera->move(m_camera->forward(), -moveAmount);
+		camera.move(camera.forward(), -moveAmount);
 
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
-		m_camera->move(m_camera->calculateLeft(), moveAmount);
+		camera.move(camera.calculateLeft(), moveAmount);
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
-		m_camera->move(m_camera->calculateRight(), moveAmount);
+		camera.move(camera.calculateRight(), moveAmount);
 
 	if (m_controller->isGrabPointerRequested())
 		m_controller->grabPointer();
@@ -82,8 +85,8 @@ void TutorialScene2::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		m_camera->rotateX(delta.y() * sensitivity);
-		m_camera->rotateY(delta.x() * sensitivity);
+		camera.rotateX(delta.y() * sensitivity);
+		camera.rotateY(delta.x() * sensitivity);
 	}
 
 	m_rootGameObject->update(dt);
