@@ -9,5 +9,7 @@
         <file>resources/shaders/phongvertex.vsh</file>
         <file>resources/models/terrain0.obj</file>
         <file>resources/audio/car_engine0.wav</file>
+        <file>resources/shaders/forwardambient.vsh</file>
+        <file>resources/shaders/forwardambient.fsh</file>
     </qresource>
 </RCC>

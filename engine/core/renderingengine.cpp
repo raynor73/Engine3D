@@ -1,9 +1,11 @@
 #include "renderingengine.h"
 #include <utils.h>
+#include <engine/rendering/forwardambientshader.h>
 
 RenderingEngine::RenderingEngine(QObject *parent) :
 	QObject(parent),
-	m_mainCamera(NULL)
+	m_mainCamera(NULL),
+	m_ambientLight(0.2, 0.2, 0.2)
 {
 	f.initializeOpenGLFunctions();
 
@@ -20,7 +22,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	f.glGenVertexArrays(1, &vertexArrayName);
 	f.glBindVertexArray(vertexArrayName);
 
-	m_basicShader = new BasicShader(f);
+	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
 }
 
 RenderingEngine::~RenderingEngine()
@@ -28,7 +30,7 @@ RenderingEngine::~RenderingEngine()
 	if (m_mainCamera != NULL)
 		delete m_mainCamera;
 
-	delete m_basicShader;
+	delete m_forwardAmbientShader;
 }
 
 void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int height)
@@ -40,7 +42,7 @@ void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int hei
 void RenderingEngine::render(GameObject &gameObject)
 {
 	clearScreen();
-	gameObject.render(*m_mainCamera, *m_basicShader);
+	gameObject.render(*m_mainCamera, *m_forwardAmbientShader);
 }
 
 void RenderingEngine::clearScreen()

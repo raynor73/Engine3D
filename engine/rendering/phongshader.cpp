@@ -1,8 +1,8 @@
 #include "phongshader.h"
 #include <engine/rendering/renderutils.h>
 
-PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
-	Shader(f, parent),
+PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, const RenderingEngine &renderingEngine, QObject *parent) :
+	Shader(f, renderingEngine, parent),
 	m_ambientLight(Vector3f(1, 1, 1)),
 	m_directionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0), Vector3f(0, 0, 0)))
 {

@@ -12,11 +12,12 @@
 #include <engine/rendering/camera.h>
 #include <QPointer>
 
+class RenderingEngine;
 class Shader : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Shader(QOPENGLFUNCTIONS_CLASSNAME &, QObject *parent = 0);
+	Shader(QOPENGLFUNCTIONS_CLASSNAME &, const RenderingEngine &, QObject *parent = 0);
 	~Shader();
 
 	void setVertexShader(const QString &);
@@ -38,7 +39,7 @@ protected:
 	void setVertexShaderFromFile(const QString &);
 	void setGeometryShaderFromFile(const QString &);
 	void setFragmentShaderFromFile(const QString &);
-	//QPointer<RenderingEngine> m_renderingEngine;
+	const RenderingEngine &m_renderingEngine;
 
 private:
 	GLint m_positionAttributeIndex;

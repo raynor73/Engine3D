@@ -1,7 +1,9 @@
 #include "basicshader.h"
 #include <engine/rendering/renderutils.h>
+#include <engine/core/renderingengine.h>
 
-BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) : Shader(f, parent)
+BasicShader::BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, const RenderingEngine &renderingEngine, QObject *parent) :
+	Shader(f, renderingEngine, parent)
 {
 	setVertexShaderFromFile("basicvertex.vsh");
 	setFragmentShaderFromFile("basicfragment.fsh");

@@ -62,7 +62,8 @@ game/tutorialscenemonkey.cpp \
     game/meshrenderer.cpp \
     engine/core/renderingengine.cpp \
     engine/core/scenewithrootobject.cpp \
-    game/rootgameobject.cpp
+    game/rootgameobject.cpp \
+    engine/rendering/forwardambientshader.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 engine/rendering/openglwidget.h \
@@ -103,7 +104,8 @@ game/tutorialscenemonkey.h \
     game/meshrenderer.h \
     engine/core/renderingengine.h \
     engine/core/scenewithrootobject.h \
-    game/rootgameobject.h
+    game/rootgameobject.h \
+    engine/rendering/forwardambientshader.h
 
 INCLUDEPATH += $$PWD
 
@@ -123,4 +125,6 @@ DISTFILES += \
     resources/models/monkey.obj \
     resources/textures/test.png \
     resources/shaders/phongvertex.vsh \
-    resources/shaders/phongfragment.fsh
+    resources/shaders/phongfragment.fsh \
+    resources/shaders/forwardambient.vsh \
+    resources/shaders/forwardambient.fsh

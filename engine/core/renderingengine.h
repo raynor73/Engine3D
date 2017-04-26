@@ -5,8 +5,8 @@
 #include <engine/rendering/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <engine/rendering/basicshader.h>
 
+class ForwardAmbientShader;
 class RenderingEngine : public QObject
 {
 	Q_OBJECT
@@ -17,11 +17,14 @@ public:
 	void onOpenGLResized(GameObject &gameObject, int width, int height);
 	void render(GameObject &gameObject);
 	Camera &mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return *m_mainCamera; }
+	Vector3f ambientLight() const { return m_ambientLight; }
+	void setAmbientLight(const Vector3f &ambientLight) { m_ambientLight = ambientLight; }
 
 private:
 	Camera *m_mainCamera;
 	QOPENGLFUNCTIONS_CLASSNAME f;
-	BasicShader *m_basicShader;
+	Vector3f m_ambientLight;
+	ForwardAmbientShader *m_forwardAmbientShader;
 
 	void clearScreen();
 

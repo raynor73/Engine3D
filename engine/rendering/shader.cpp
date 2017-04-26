@@ -4,11 +4,12 @@
 #include <QFile>
 #include "shader.h"
 #include <engine/rendering/renderutils.h>
+#include <engine/core/renderingengine.h>
 
-Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
+Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, const RenderingEngine &renderingEngine, QObject *parent) :
 	QObject(parent),
-	f(f)/*,
-	m_renderingEngine(NULL)*/
+	f(f),
+	m_renderingEngine(renderingEngine)
 {
 	m_programReference = f.glCreateProgram();
 	Q_ASSERT(m_programReference != 0);

@@ -79,13 +79,13 @@ void TutorialScene::makeOpenGLDependentSetup()
 
 	m_mesh->setVertices(vertices, indices, true);
 
-	PhongShader *phongShader = new PhongShader(*m_openGLFunctions);
+	/*PhongShader *phongShader = new PhongShader(*m_openGLFunctions);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
 	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.1), Vector3f(1, 1, -1)));
 	m_shader = phongShader;
 
 	phongShader->setPointLights(m_pointLights);
-	phongShader->setSpotLights(m_spotLights);
+	phongShader->setSpotLights(m_spotLights);*/
 }
 
 static float temp = 0;
