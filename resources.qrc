@@ -11,5 +11,7 @@
         <file>resources/audio/car_engine0.wav</file>
         <file>resources/shaders/forwardambient.vsh</file>
         <file>resources/shaders/forwardambient.fsh</file>
+        <file>resources/shaders/forwarddirectional.fsh</file>
+        <file>resources/shaders/forwarddirectional.vsh</file>
     </qresource>
 </RCC>

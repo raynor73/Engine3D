@@ -5,8 +5,10 @@
 #include <engine/rendering/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
+#include <engine/rendering/directionallight.h>
 
 class ForwardAmbientShader;
+class ForwardDirectionalShader;
 class RenderingEngine : public QObject
 {
 	Q_OBJECT
@@ -18,13 +20,16 @@ public:
 	void render(GameObject &gameObject);
 	Camera &mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return *m_mainCamera; }
 	Vector3f ambientLight() const { return m_ambientLight; }
-	void setAmbientLight(const Vector3f &ambientLight) { m_ambientLight = ambientLight; }
+	DirectionalLight directionalLight() const { return m_directionalLight; }
 
 private:
-	Camera *m_mainCamera;
 	QOPENGLFUNCTIONS_CLASSNAME f;
-	Vector3f m_ambientLight;
+	Camera *m_mainCamera;
 	ForwardAmbientShader *m_forwardAmbientShader;
+	ForwardDirectionalShader *m_forwardDirectionalShader;
+	Vector3f m_ambientLight;
+	DirectionalLight m_directionalLight;
+	DirectionalLight m_directionalLight2;
 
 	void clearScreen();
 

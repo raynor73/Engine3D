@@ -34,6 +34,7 @@ private:
 	MeshRenderer *m_meshRenderer;
 	TutorialController *m_controller;
 	GameObject *m_planeObject;
+	QTimer m_fpsTimer;
 };
 
 #endif // TUTORIALSCENE2_H

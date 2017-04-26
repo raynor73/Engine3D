@@ -1,7 +1,6 @@
 #include "tutorialscene2.h"
 #include <QDebug>
 #include <engine/rendering/renderutils.h>
-#include <game/rootgameobject.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	SceneWithRootObject(parent),
@@ -11,8 +10,13 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_texture(NULL),
 	m_material(NULL)
 {
-	m_rootGameObject = new RootGameObject();
+	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
+
+	connect(&m_fpsTimer, &QTimer::timeout, [this]() {
+		qDebug() << "FPS" << m_coreEngine.fps();
+	});
+	m_fpsTimer.start(1000);
 }
 
 void TutorialScene2::makeOpenGLDependentSetup()
@@ -94,6 +98,8 @@ void TutorialScene2::update(float dt)
 
 TutorialScene2::~TutorialScene2()
 {
+	m_fpsTimer.stop();
+
 	if (m_meshRenderer != NULL)
 		delete m_meshRenderer;
 	if (m_material != NULL)

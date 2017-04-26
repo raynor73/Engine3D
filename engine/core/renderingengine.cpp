@@ -1,11 +1,14 @@
 #include "renderingengine.h"
 #include <utils.h>
 #include <engine/rendering/forwardambientshader.h>
+#include <engine/rendering/forwarddirectionalshader.h>
 
 RenderingEngine::RenderingEngine(QObject *parent) :
 	QObject(parent),
 	m_mainCamera(NULL),
-	m_ambientLight(0.2, 0.2, 0.2)
+	m_ambientLight(0.2, 0.2, 0.2),
+	m_directionalLight(BaseLight(Vector3f(0, 0, 1), 0.4), Vector3f(1, 1, 1)),
+	m_directionalLight2(BaseLight(Vector3f(1, 0, 0), 0.4), Vector3f(-1, 1, -1))
 {
 	f.initializeOpenGLFunctions();
 
@@ -23,6 +26,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	f.glBindVertexArray(vertexArrayName);
 
 	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
+	m_forwardDirectionalShader = new ForwardDirectionalShader(f, *this);
 }
 
 RenderingEngine::~RenderingEngine()
@@ -30,6 +34,7 @@ RenderingEngine::~RenderingEngine()
 	if (m_mainCamera != NULL)
 		delete m_mainCamera;
 
+	delete m_forwardDirectionalShader;
 	delete m_forwardAmbientShader;
 }
 
@@ -42,7 +47,26 @@ void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int hei
 void RenderingEngine::render(GameObject &gameObject)
 {
 	clearScreen();
+
 	gameObject.render(*m_mainCamera, *m_forwardAmbientShader);
+
+	f.glEnable(GL_BLEND);
+	f.glBlendFunc(GL_ONE, GL_ONE);
+	f.glDepthMask(false);
+	f.glDepthFunc(GL_EQUAL);
+
+	gameObject.render(*m_mainCamera, *m_forwardDirectionalShader);
+
+	DirectionalLight tmp = m_directionalLight;
+	m_directionalLight = m_directionalLight2;
+
+	gameObject.render(*m_mainCamera, *m_forwardDirectionalShader);
+
+	m_directionalLight = tmp;
+
+	f.glDepthFunc(GL_LESS);
+	f.glDepthMask(true);
+	f.glDisable(GL_BLEND);
 }
 
 void RenderingEngine::clearScreen()
@@ -51,7 +75,7 @@ void RenderingEngine::clearScreen()
 	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void RenderingEngine::setClearColor(QOPENGLFUNCTIONS_CLASSNAME &f,const Vector3f &color)
+void RenderingEngine::setClearColor(QOPENGLFUNCTIONS_CLASSNAME &f, const Vector3f &color)
 {
 	f.glClearColor(color.x, color.y, color.z, 1);
 }
