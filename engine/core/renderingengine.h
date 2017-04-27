@@ -7,11 +7,13 @@
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <engine/rendering/directionallight.h>
 #include <engine/rendering/pointlight.h>
+#include <engine/rendering/spotlight.h>
 #include <QList>
 
 class ForwardAmbientShader;
 class ForwardDirectionalShader;
 class ForwardPointShader;
+class ForwardSpotShader;
 class RenderingEngine : public QObject
 {
 	Q_OBJECT
@@ -25,6 +27,7 @@ public:
 	Vector3f &ambientLight() { return m_ambientLight; }
 	DirectionalLight &directionalLight() { return m_directionalLight; }
 	PointLight &pointLight() { return m_pointLight; }
+	SpotLight &spotLight() { return m_spotLight; }
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
@@ -32,10 +35,12 @@ private:
 	ForwardAmbientShader *m_forwardAmbientShader;
 	ForwardDirectionalShader *m_forwardDirectionalShader;
 	ForwardPointShader *m_forwardPointShader;
+	ForwardSpotShader *m_forwarSpotShader;
 	Vector3f m_ambientLight;
 	DirectionalLight m_directionalLight;
 	DirectionalLight m_directionalLight2;
 	PointLight m_pointLight;
+	SpotLight m_spotLight;
 
 	QList<PointLight> m_pointLights;
 

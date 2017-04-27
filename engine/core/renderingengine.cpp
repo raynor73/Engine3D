@@ -3,6 +3,7 @@
 #include <engine/rendering/forwardambientshader.h>
 #include <engine/rendering/forwarddirectionalshader.h>
 #include <engine/rendering/forwardpointshader.h>
+#include <engine/rendering/forwardspotshader.h>
 
 RenderingEngine::RenderingEngine(QObject *parent) :
 	QObject(parent),
@@ -10,7 +11,9 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	m_ambientLight(0.2, 0.2, 0.2),
 	m_directionalLight(BaseLight(Vector3f(0, 0, 1), 0.4), Vector3f(1, 1, 1)),
 	m_directionalLight2(BaseLight(Vector3f(1, 0, 0), 0.4), Vector3f(-1, 1, -1)),
-	m_pointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100)
+	m_pointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100),
+	m_spotLight(PointLight(BaseLight(Vector3f(0, 1, 1), 0.4), Attenuation(0, 0, 0.1), Vector3f(0, 0, 0), 100),
+				Vector3f(1, 0, 0), 0.7)
 {
 	f.initializeOpenGLFunctions();
 
@@ -30,6 +33,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
 	m_forwardDirectionalShader = new ForwardDirectionalShader(f, *this);
 	m_forwardPointShader = new ForwardPointShader(f, *this);
+	m_forwarSpotShader = new ForwardSpotShader(f, *this);
 
 	int lightFieldWidth = 5;
 	int lightFieldDepth = 5;
@@ -54,6 +58,8 @@ RenderingEngine::~RenderingEngine()
 	if (m_mainCamera != NULL)
 		delete m_mainCamera;
 
+	delete m_forwarSpotShader;
+	delete m_forwardPointShader;
 	delete m_forwardDirectionalShader;
 	delete m_forwardAmbientShader;
 }
@@ -88,6 +94,8 @@ void RenderingEngine::render(GameObject &gameObject)
 		m_pointLight = m_pointLights.at(i);
 		gameObject.render(*m_mainCamera, *m_forwardPointShader);
 	}
+
+	gameObject.render(*m_mainCamera, *m_forwarSpotShader);
 
 	f.glDepthFunc(GL_LESS);
 	f.glDepthMask(true);
