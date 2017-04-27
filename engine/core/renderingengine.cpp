@@ -30,6 +30,23 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
 	m_forwardDirectionalShader = new ForwardDirectionalShader(f, *this);
 	m_forwardPointShader = new ForwardPointShader(f, *this);
+
+	int lightFieldWidth = 5;
+	int lightFieldDepth = 5;
+
+	float lightFieldStartX = 0;
+	float lightFieldStartY = 0;
+	float lightFieldStepX = 7;
+	float lightFieldStepY = 7;
+
+	for (int i = 0; i < lightFieldWidth; i++) {
+		for (int j = 0; j < lightFieldDepth; j++) {
+			m_pointLights += PointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1),
+										Vector3f(lightFieldStartX + lightFieldStepX * i, 0,
+												 lightFieldStartY + lightFieldStepY * j),
+										100);
+		}
+	}
 }
 
 RenderingEngine::~RenderingEngine()
@@ -67,7 +84,10 @@ void RenderingEngine::render(GameObject &gameObject)
 
 	m_directionalLight = tmp;
 
-	gameObject.render(*m_mainCamera, *m_forwardPointShader);
+	for (int i = 0; i < m_pointLights.size(); i++) {
+		m_pointLight = m_pointLights.at(i);
+		gameObject.render(*m_mainCamera, *m_forwardPointShader);
+	}
 
 	f.glDepthFunc(GL_LESS);
 	f.glDepthMask(true);

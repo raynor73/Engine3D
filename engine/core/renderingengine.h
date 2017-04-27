@@ -7,6 +7,7 @@
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <engine/rendering/directionallight.h>
 #include <engine/rendering/pointlight.h>
+#include <QList>
 
 class ForwardAmbientShader;
 class ForwardDirectionalShader;
@@ -35,6 +36,8 @@ private:
 	DirectionalLight m_directionalLight;
 	DirectionalLight m_directionalLight2;
 	PointLight m_pointLight;
+
+	QList<PointLight> m_pointLights;
 
 	void clearScreen();
 
