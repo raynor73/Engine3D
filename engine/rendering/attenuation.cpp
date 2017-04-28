@@ -1,4 +1,4 @@
-#include "attenuation.h"
+#include <engine/rendering/attenuation.h>
 
 Attenuation::Attenuation(float constant, float linear, float exponent, QObject *parent) :
 	QObject(parent),

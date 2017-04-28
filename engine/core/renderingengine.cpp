@@ -8,12 +8,9 @@
 RenderingEngine::RenderingEngine(QObject *parent) :
 	QObject(parent),
 	m_mainCamera(NULL),
-	m_ambientLight(0.2, 0.2, 0.2),
-	m_directionalLight(BaseLight(Vector3f(0, 0, 1), 0.4), Vector3f(1, 1, 1)),
-	m_directionalLight2(BaseLight(Vector3f(1, 0, 0), 0.4), Vector3f(-1, 1, -1)),
-	m_pointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100),
-	m_spotLight(PointLight(BaseLight(Vector3f(0, 1, 1), 0.4), Attenuation(0, 0, 0.1), Vector3f(0, 0, 0), 100),
-				Vector3f(1, 0, 0), 0.7)
+	m_ambientLight(0.1, 0.1, 0.1),
+	m_activeDirectionalLight(NULL),
+	m_activePointLight(NULL)
 {
 	f.initializeOpenGLFunctions();
 
@@ -35,7 +32,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	m_forwardPointShader = new ForwardPointShader(f, *this);
 	m_forwarSpotShader = new ForwardSpotShader(f, *this);
 
-	int lightFieldWidth = 5;
+	/*int lightFieldWidth = 5;
 	int lightFieldDepth = 5;
 
 	float lightFieldStartX = 0;
@@ -50,7 +47,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 												 lightFieldStartY + lightFieldStepY * j),
 										100);
 		}
-	}
+	}*/
 }
 
 RenderingEngine::~RenderingEngine()
@@ -74,6 +71,9 @@ void RenderingEngine::render(GameObject &gameObject)
 {
 	clearScreen();
 
+	clearLightList();
+	gameObject.addToRenderingEngine(*this);
+
 	gameObject.render(*m_mainCamera, *m_forwardAmbientShader);
 
 	f.glEnable(GL_BLEND);
@@ -81,21 +81,15 @@ void RenderingEngine::render(GameObject &gameObject)
 	f.glDepthMask(false);
 	f.glDepthFunc(GL_EQUAL);
 
-	gameObject.render(*m_mainCamera, *m_forwardDirectionalShader);
-
-	DirectionalLight tmp = m_directionalLight;
-	m_directionalLight = m_directionalLight2;
-
-	gameObject.render(*m_mainCamera, *m_forwardDirectionalShader);
-
-	m_directionalLight = tmp;
-
-	for (int i = 0; i < m_pointLights.size(); i++) {
-		m_pointLight = m_pointLights.at(i);
-		gameObject.render(*m_mainCamera, *m_forwardPointShader);
+	for (QList<DirectionalLight *>::Iterator i = m_directionalLights.begin(); i != m_directionalLights.end(); ++i) {
+		m_activeDirectionalLight = *i;
+		gameObject.render(*m_mainCamera, *m_forwardDirectionalShader);
 	}
 
-	gameObject.render(*m_mainCamera, *m_forwarSpotShader);
+	for (QList<PointLight *>::Iterator i = m_pointLights.begin(); i != m_pointLights.end(); ++i) {
+		m_activePointLight = *i;
+		gameObject.render(*m_mainCamera, *m_forwardPointShader);
+	}
 
 	f.glDepthFunc(GL_LESS);
 	f.glDepthMask(true);
@@ -129,4 +123,10 @@ QString RenderingEngine::getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f)
 void RenderingEngine::unbindTextures(QOPENGLFUNCTIONS_CLASSNAME &f)
 {
 	f.glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void RenderingEngine::clearLightList()
+{
+	m_directionalLights.clear();
+	m_pointLights.clear();
 }

@@ -8,11 +8,13 @@
 #include <engine/rendering/material.h>
 #include <engine/rendering/texture.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <game/meshrenderer.h>
+#include <engine/components/meshrenderer.h>
 #include <game/tutorialcontroller.h>
 #include <engine/core/coreengine.h>
 #include <QTimer>
 
+class DirectionalLight;
+class PointLight;
 class TutorialScene2 : public SceneWithRootObject
 {
 	Q_OBJECT
@@ -35,6 +37,10 @@ private:
 	TutorialController *m_controller;
 	GameObject *m_planeObject;
 	QTimer m_fpsTimer;
+	GameObject *m_directionLightObject;
+	DirectionalLight *m_directionalLight;
+	GameObject *m_pointLightObject;
+	PointLight *m_pointLight;
 };
 
 #endif // TUTORIALSCENE2_H

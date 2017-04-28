@@ -4,9 +4,9 @@
 #include <QList>
 #include <engine/rendering/shader.h>
 #include <engine/core/vector3f.h>
-#include <engine/rendering/directionallight.h>
+#include <engine/components/directionallight.h>
 #include <engine/rendering/camera.h>
-#include "pointlight.h"
+#include <engine/components/pointlight.h>
 #include "spotlight.h"
 #include <engine/rendering/qopenglfunctions_selector.h>
 

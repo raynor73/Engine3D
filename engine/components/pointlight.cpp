@@ -1,8 +1,9 @@
-#include "pointlight.h"
+#include <engine/components/pointlight.h>
+#include <engine/core/renderingengine.h>
 
 PointLight::PointLight(const BaseLight &baseLight, const Attenuation &attenuation,
 					   const Vector3f &position, float range, QObject *parent) :
-	QObject(parent),
+	GameComponent(parent),
 	m_baseLight(baseLight),
 	m_attenuation(attenuation),
 	m_position(position),
@@ -10,7 +11,7 @@ PointLight::PointLight(const BaseLight &baseLight, const Attenuation &attenuatio
 {}
 
 PointLight::PointLight(const PointLight &other) :
-	QObject(other.parent()),
+	GameComponent(other.parent()),
 	m_baseLight(other.m_baseLight),
 	m_attenuation(other.m_attenuation),
 	m_position(other.m_position),
@@ -28,4 +29,10 @@ PointLight &PointLight::operator =(const PointLight &other)
 	m_range = other.m_range;
 
 	return *this;
+}
+
+void PointLight::addToRenderingEngine(RenderingEngine &renderingEngine)
+{
+	// TODO Don't forget to implement removing
+	renderingEngine.addPointLight(this);
 }

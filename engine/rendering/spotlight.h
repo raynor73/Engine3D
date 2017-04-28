@@ -2,7 +2,7 @@
 #define SPOTLIGHT_H
 
 #include <QObject>
-#include <engine/rendering/pointlight.h>
+#include <engine/components/pointlight.h>
 #include <engine/core/vector3f.h>
 
 class SpotLight : public QObject

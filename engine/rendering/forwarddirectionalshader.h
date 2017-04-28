@@ -4,7 +4,7 @@
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <engine/rendering/shader.h>
 #include <engine/rendering/baselight.h>
-#include <engine/rendering/directionallight.h>
+#include <engine/components/directionallight.h>
 
 class RenderingEngine;
 class ForwardDirectionalShader : public Shader

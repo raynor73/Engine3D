@@ -4,8 +4,9 @@
 #include <QObject>
 #include <engine/core/vector3f.h>
 #include <engine/rendering/baselight.h>
+#include <engine/components/gamecomponent.h>
 
-class DirectionalLight : public QObject
+class DirectionalLight : public GameComponent
 {
 	Q_OBJECT
 public:
@@ -18,6 +19,8 @@ public:
 	void setDirection(const Vector3f &direction) { m_direction = direction.normalized(); }
 
 	DirectionalLight &operator =(const DirectionalLight &);
+
+	virtual void addToRenderingEngine(RenderingEngine &);
 
 private:
 	BaseLight m_base;

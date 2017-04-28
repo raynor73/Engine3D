@@ -1,7 +1,7 @@
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
 
-#include <engine/core/gamecomponent.h>
+#include <engine/components/gamecomponent.h>
 #include <engine/rendering/mesh.h>
 #include <engine/rendering/material.h>
 #include <engine/rendering/shader.h>

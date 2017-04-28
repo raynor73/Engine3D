@@ -14,7 +14,7 @@
 #include <engine/rendering/texture.h>
 #include <engine/rendering/shader.h>
 #include <engine/rendering/material.h>
-#include <engine/rendering/pointlight.h>
+#include <engine/components/pointlight.h>
 #include <engine/rendering/spotlight.h>
 #include <game/basetutorialscene.h>
 

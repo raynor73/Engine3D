@@ -4,7 +4,7 @@
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <engine/rendering/shader.h>
 #include <engine/rendering/baselight.h>
-#include <engine/rendering/pointlight.h>
+#include <engine/components/pointlight.h>
 #include <engine/rendering/spotlight.h>
 
 class RenderingEngine;

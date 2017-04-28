@@ -8,7 +8,7 @@
 #include <engine/rendering/renderutils.h>
 #include <engine/core/vector2f.h>
 #include <engine/rendering/phongshader.h>
-#include <engine/rendering/pointlight.h>
+#include <engine/components/pointlight.h>
 
 TutorialScene::TutorialScene(UserInput &userInput, QObject *parent) :
 	BaseTutorialScene(userInput, parent),

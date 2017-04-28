@@ -3,11 +3,12 @@
 
 #include <QObject>
 #include <QList>
-#include <engine/core/gamecomponent.h>
+#include <engine/components/gamecomponent.h>
 #include <engine/core/transform.h>
 #include <engine/rendering/camera.h>
 #include <engine/rendering/shader.h>
 
+class RenderingEngine;
 class GameObject : public QObject
 {
 	Q_OBJECT
@@ -22,6 +23,8 @@ public:
 	virtual void addComponent(GameComponent *);
 
 	Transform &transform() { return m_transform; }
+
+	virtual void addToRenderingEngine(RenderingEngine &);
 
 private:
 	QList<GameObject *> m_children;

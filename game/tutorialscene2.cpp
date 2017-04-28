@@ -1,6 +1,8 @@
 #include "tutorialscene2.h"
 #include <QDebug>
 #include <engine/rendering/renderutils.h>
+#include <engine/components/directionallight.h>
+#include <engine/components/pointlight.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	SceneWithRootObject(parent),
@@ -52,7 +54,17 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_planeObject->addComponent(m_meshRenderer);
 	m_planeObject->transform().setTranslation(0, -1, 5);
 
+	m_directionLightObject = new GameObject();
+	m_directionalLight = new DirectionalLight(BaseLight(Vector3f(0, 0, 1), 0.4), Vector3f(1, 1, 1));
+	m_directionLightObject->addComponent(m_directionalLight);
+
+	m_pointLightObject = new GameObject();
+	m_pointLight = new PointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
+	m_pointLightObject->addComponent(m_pointLight);
+
 	m_rootGameObject->addChild(m_planeObject);
+	m_rootGameObject->addChild(m_directionLightObject);
+	m_rootGameObject->addChild(m_pointLightObject);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)
@@ -113,4 +125,8 @@ TutorialScene2::~TutorialScene2()
 	m_controller->disconnectFromEvents();
 	delete m_controller;
 	delete m_rootGameObject;
+	delete m_directionLightObject;
+	delete m_directionalLight;
+	delete m_pointLightObject;
+	delete m_pointLight;
 }

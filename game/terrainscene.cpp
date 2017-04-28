@@ -1,7 +1,7 @@
 #include <game/terrainscene.h>
 #include <engine/rendering/renderutils.h>
 #include <utils.h>
-#include <engine/rendering/directionallight.h>
+#include <engine/components/directionallight.h>
 #include <engine/rendering/phongshader.h>
 
 TerrainScene::TerrainScene(UserInput &userInput, QObject *parent) :

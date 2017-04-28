@@ -1,4 +1,4 @@
-#include "baselight.h"
+#include <engine/rendering/baselight.h>
 
 BaseLight::BaseLight(const Vector3f &color, float intensity, QObject *parent) :
 	QObject(parent),
