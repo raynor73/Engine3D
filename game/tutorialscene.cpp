@@ -17,7 +17,7 @@ TutorialScene::TutorialScene(UserInput &userInput, QObject *parent) :
 	m_material(NULL),
 	m_shader(NULL)
 {
-	PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
+	/*PointLight *pointLight1 = new PointLight(BaseLight(Vector3f(1, 0.5, 0), 0.8),
 											 Attenuation(0, 0, 1), Vector3f(-2, 0, 5), 10);
 	PointLight *pointLight2 = new PointLight(BaseLight(Vector3f(0, 0.5, 1), 0.8),
 											 Attenuation(0, 0, 1), Vector3f(2, 0, 7), 10);
@@ -27,7 +27,7 @@ TutorialScene::TutorialScene(UserInput &userInput, QObject *parent) :
 	SpotLight *spotLight1 = new SpotLight(
 				PointLight(BaseLight(Vector3f(0, 1, 1), 0.8), Attenuation(0, 0, 0.1), Vector3f(-2, 0, 5), 30),
 				Vector3f(1, 1, 1), 0.7);
-	m_spotLights += spotLight1;
+	m_spotLights += spotLight1;*/
 }
 
 TutorialScene::~TutorialScene()
@@ -100,7 +100,7 @@ void TutorialScene::update(float dt)
 	m_pointLights.at(0)->setPosition(Vector3f(3, 0, 8 * std::sin(temp) + 10));
 	m_pointLights.at(1)->setPosition(Vector3f(7, 0, 8 * std::cos(temp) + 10));
 
-	m_spotLights.at(0)->pointLight().setPosition(m_camera->position());
+	//m_spotLights.at(0)->pointLight().setPosition(m_camera->position());
 	m_spotLights.at(0)->setDirection(m_camera->forward());
 }
 

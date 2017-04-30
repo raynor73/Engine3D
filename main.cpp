@@ -6,6 +6,8 @@
 #include <game/terrainscene.h>
 #include <game/tutorialscene2.h>
 
+// TODO Delete PhongShader
+
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);

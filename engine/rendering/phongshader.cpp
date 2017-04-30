@@ -3,8 +3,7 @@
 
 PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, QObject *parent) :
 	Shader(f, renderingEngine, parent),
-	m_ambientLight(Vector3f(1, 1, 1)),
-	m_directionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0), Vector3f(0, 0, 0)))
+	m_ambientLight(Vector3f(1, 1, 1))
 {
 	setVertexShaderFromFile("phongvertex.vsh");
 	setFragmentShaderFromFile("phongfragment.fsh");
@@ -73,7 +72,7 @@ void PhongShader::updateUniforms(const Transform &transform, Camera &camera, con
 	setUniform("baseColor", material.color());
 
 	setUniform("ambientLight", m_ambientLight);
-	setUniform("directionalLight", m_directionalLight);
+	//setUniform("directionalLight", m_directionalLight);
 	for (int i = 0; i < m_pointLights.size(); i++)
 		setUniform(QString("pointLights[%1]").arg(i), *m_pointLights.at(i));
 	for (int i = 0; i < m_spotLights.size(); i++)
@@ -91,15 +90,9 @@ void PhongShader::setUniform(const QString &uniformName, const BaseLight &baseLi
 	setUniformf(uniformName + ".intensity", baseLight.intensity());
 }
 
-void PhongShader::setUniform(const QString &uniformName, const DirectionalLight &directionalLight)
-{
-	setUniform(uniformName + ".base", directionalLight.base());
-	setUniform(uniformName + ".direction", directionalLight.direction());
-}
-
 void PhongShader::setUniform(const QString &uniformName, const PointLight &pointLight)
 {
-	setUniform(uniformName + ".base", pointLight.baseLight());
+//	setUniform(uniformName + ".base", pointLight.baseLight());
 	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
@@ -109,7 +102,7 @@ void PhongShader::setUniform(const QString &uniformName, const PointLight &point
 
 void PhongShader::setUniform(const QString &uniformName, SpotLight &spotLight)
 {
-	setUniform(uniformName + ".pointLight", spotLight.pointLight());
+//	setUniform(uniformName + ".pointLight", spotLight.pointLight());
 
 	setUniform(uniformName + ".direction", spotLight.direction());
 	setUniformf(uniformName + ".cutoff", spotLight.cutoff());

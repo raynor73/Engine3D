@@ -1,38 +1,13 @@
 #include <engine/components/pointlight.h>
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/forwardpointshader.h>
 
-PointLight::PointLight(const BaseLight &baseLight, const Attenuation &attenuation,
-					   const Vector3f &position, float range, QObject *parent) :
-	GameComponent(parent),
-	m_baseLight(baseLight),
+PointLight::PointLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color,
+					   float intensity, const Attenuation &attenuation, const Vector3f &position, float range,
+					   QObject *parent) :
+	BaseLight(f, renderingEngine, color, intensity, parent),
 	m_attenuation(attenuation),
 	m_position(position),
 	m_range(range)
-{}
-
-PointLight::PointLight(const PointLight &other) :
-	GameComponent(other.parent()),
-	m_baseLight(other.m_baseLight),
-	m_attenuation(other.m_attenuation),
-	m_position(other.m_position),
-	m_range(other.m_range)
-{}
-
-PointLight &PointLight::operator =(const PointLight &other)
 {
-	if (&other == this)
-		return *this;
-
-	m_baseLight = other.m_baseLight;
-	m_attenuation = other.m_attenuation;
-	m_position = other.m_position;
-	m_range = other.m_range;
-
-	return *this;
-}
-
-void PointLight::addToRenderingEngine(RenderingEngine &renderingEngine)
-{
-	// TODO Don't forget to implement removing
-	renderingEngine.addPointLight(this);
+	m_shader = new ForwardPointShader(f, m_renderingEngine);
 }

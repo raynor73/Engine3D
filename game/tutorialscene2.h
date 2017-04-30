@@ -28,7 +28,7 @@ public:
 	virtual void makeOpenGLDependentSetup();
 
 private:
-	QOPENGLFUNCTIONS_CLASSNAME *m_openGLFunctions;
+	QOPENGLFUNCTIONS_CLASSNAME *f;
 	CoreEngine &m_coreEngine;
 	Mesh *m_mesh;
 	Texture *m_texture;

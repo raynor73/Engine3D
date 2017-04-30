@@ -40,7 +40,7 @@ void ForwardPointShader::updateUniforms(const Transform &transform, Camera &came
 
 	setUniform("eyePosition", camera.position());
 
-	setUniform("pointLight", m_renderingEngine.pointLight());
+	setUniform("pointLight", static_cast<PointLight &>(*m_renderingEngine.activeLight()));
 }
 
 void ForwardPointShader::setUniform(const QString &uniformName, const BaseLight &baseLight)
@@ -51,7 +51,7 @@ void ForwardPointShader::setUniform(const QString &uniformName, const BaseLight 
 
 void ForwardPointShader::setUniform(const QString &uniformName, const PointLight &pointLight)
 {
-	setUniform(uniformName + ".base", pointLight.baseLight());
+	setUniform(uniformName + ".base", static_cast<const BaseLight &>(pointLight));
 	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());

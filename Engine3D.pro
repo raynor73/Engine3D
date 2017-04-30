@@ -46,7 +46,7 @@ SOURCES += main.cpp\
 	engine/rendering/basicshader.cpp \
 	engine/rendering/material.cpp \
 	engine/rendering/phongshader.cpp \
-	engine/rendering/baselight.cpp \
+    engine/components/baselight.cpp \
 	engine/components/directionallight.cpp \
 	engine/rendering/attenuation.cpp \
 	engine/components/pointlight.cpp \
@@ -90,7 +90,7 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/basicshader.h \
 	engine/rendering/material.h \
 	engine/rendering/phongshader.h \
-	engine/rendering/baselight.h \
+    engine/components/baselight.h \
 	engine/components/directionallight.h \
 	engine/rendering/attenuation.h \
 	engine/components/pointlight.h \

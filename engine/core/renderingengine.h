@@ -5,15 +5,13 @@
 #include <engine/rendering/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <engine/components/directionallight.h>
-#include <engine/components/pointlight.h>
-#include <engine/rendering/spotlight.h>
 #include <QList>
 
 class ForwardAmbientShader;
 class ForwardDirectionalShader;
 class ForwardPointShader;
 class ForwardSpotShader;
+class BaseLight;
 class RenderingEngine : public QObject
 {
 	Q_OBJECT
@@ -27,12 +25,9 @@ public:
 	Camera &mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return *m_mainCamera; }
 
 	Vector3f &ambientLight() { return m_ambientLight; }
-	DirectionalLight &directionalLight() { return *m_activeDirectionalLight; }
-	PointLight &pointLight() { return *m_activePointLight; }
-	SpotLight &spotLight() { return *m_activeSpotLight; }
+	BaseLight *activeLight() { return m_activeLight; }
 
-	void addDirectionalLight(DirectionalLight *directionalLight) { m_directionalLights += directionalLight; }
-	void addPointLight(PointLight *pointLight) { m_pointLights += pointLight; }
+	void addLight(BaseLight *light) { m_lights += light; }
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
@@ -42,16 +37,12 @@ private:
 	ForwardPointShader *m_forwardPointShader;
 	ForwardSpotShader *m_forwarSpotShader;
 	Vector3f m_ambientLight;
-	DirectionalLight *m_activeDirectionalLight;
-	PointLight *m_activePointLight;
-	SpotLight *m_activeSpotLight;
 
-	// Premanent structures
-	QList<DirectionalLight *> m_directionalLights;
-	QList<PointLight *> m_pointLights;
+	// More Permanent structures
+	QList<BaseLight *> m_lights;
+	BaseLight *m_activeLight;
 
 	void clearScreen();
-	void clearLightList();
 
 	QString getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f);
 	void setClearColor(QOPENGLFUNCTIONS_CLASSNAME &, const Vector3f &color);
