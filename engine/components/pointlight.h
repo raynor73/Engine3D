@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <engine/components/baselight.h>
-#include <engine/rendering/attenuation.h>
+#include <engine/components/attenuation.h>
 #include <engine/core/vector3f.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
 

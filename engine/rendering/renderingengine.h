@@ -33,9 +33,6 @@ private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
 	Camera *m_mainCamera;
 	ForwardAmbientShader *m_forwardAmbientShader;
-	ForwardDirectionalShader *m_forwardDirectionalShader;
-	ForwardPointShader *m_forwardPointShader;
-	ForwardSpotShader *m_forwarSpotShader;
 	Vector3f m_ambientLight;
 
 	// More Permanent structures

@@ -26,9 +26,6 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	f.glBindVertexArray(vertexArrayName);
 
 	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
-	m_forwardDirectionalShader = new ForwardDirectionalShader(f, *this);
-	m_forwardPointShader = new ForwardPointShader(f, *this);
-	m_forwarSpotShader = new ForwardSpotShader(f, *this);
 
 	/*int lightFieldWidth = 5;
 	int lightFieldDepth = 5;
@@ -53,9 +50,6 @@ RenderingEngine::~RenderingEngine()
 	if (m_mainCamera != NULL)
 		delete m_mainCamera;
 
-	delete m_forwarSpotShader;
-	delete m_forwardPointShader;
-	delete m_forwardDirectionalShader;
 	delete m_forwardAmbientShader;
 }
 

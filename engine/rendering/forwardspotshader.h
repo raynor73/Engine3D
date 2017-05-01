@@ -5,7 +5,7 @@
 #include <engine/rendering/shader.h>
 #include <engine/components/baselight.h>
 #include <engine/components/pointlight.h>
-#include <engine/rendering/spotlight.h>
+#include <engine/components/spotlight.h>
 
 class RenderingEngine;
 class ForwardSpotShader : public Shader

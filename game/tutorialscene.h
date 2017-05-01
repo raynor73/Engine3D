@@ -15,7 +15,7 @@
 #include <engine/rendering/shader.h>
 #include <engine/rendering/material.h>
 #include <engine/components/pointlight.h>
-#include <engine/rendering/spotlight.h>
+#include <engine/components/spotlight.h>
 #include <game/basetutorialscene.h>
 
 class TutorialScene : public BaseTutorialScene

@@ -1,6 +1,6 @@
-#include "spotlight.h"
-#include <engine/rendering/attenuation.h>
-#include <engine/core/renderingengine.h>
+#include <engine/components/spotlight.h>
+#include <engine/components/attenuation.h>
+#include <engine/rendering/renderingengine.h>
 #include <engine/rendering/forwardspotshader.h>
 
 SpotLight::SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color,

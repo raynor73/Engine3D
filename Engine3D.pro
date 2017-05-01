@@ -48,11 +48,11 @@ SOURCES += main.cpp\
 	engine/rendering/phongshader.cpp \
     engine/components/baselight.cpp \
 	engine/components/directionallight.cpp \
-	engine/rendering/attenuation.cpp \
+	engine/components/attenuation.cpp \
 	engine/components/pointlight.cpp \
 	game/terrainscene.cpp \
 	engine/core/scenewithtimemeasurement.cpp \
-	engine/rendering/spotlight.cpp \
+	engine/components/spotlight.cpp \
 	game/basetutorialscene.cpp \
 	game/tutorialscenemonkey.cpp \
 	engine/core/coreengine.cpp \
@@ -60,7 +60,7 @@ SOURCES += main.cpp\
 	engine/components/gamecomponent.cpp \
 	game/tutorialscene2.cpp \
 	engine/components/meshrenderer.cpp \
-	engine/core/renderingengine.cpp \
+	engine/rendering/renderingengine.cpp \
 	engine/core/scenewithrootobject.cpp \
 	engine/rendering/forwardambientshader.cpp \
 	engine/rendering/forwarddirectionalshader.cpp \
@@ -92,11 +92,11 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/phongshader.h \
     engine/components/baselight.h \
 	engine/components/directionallight.h \
-	engine/rendering/attenuation.h \
+	engine/components/attenuation.h \
 	engine/components/pointlight.h \
 	game/terrainscene.h \
 	engine/core/scenewithtimemeasurement.h \
-	engine/rendering/spotlight.h \
+	engine/components/spotlight.h \
 	game/basetutorialscene.h \
 	game/tutorialscenemonkey.h \
 	engine/core/coreengine.h \
@@ -104,7 +104,7 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/components/gamecomponent.h \
 	game/tutorialscene2.h \
 	engine/components/meshrenderer.h \
-	engine/core/renderingengine.h \
+	engine/rendering/renderingengine.h \
 	engine/core/scenewithrootobject.h \
 	engine/rendering/forwardambientshader.h \
 	engine/rendering/forwarddirectionalshader.h \

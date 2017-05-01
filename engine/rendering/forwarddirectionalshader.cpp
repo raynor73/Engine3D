@@ -1,5 +1,5 @@
 #include "forwarddirectionalshader.h"
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 
 ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f,
 												   RenderingEngine &renderingEngine, QObject *parent) :

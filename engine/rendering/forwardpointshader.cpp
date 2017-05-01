@@ -1,5 +1,5 @@
 #include "forwardpointshader.h"
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 
 ForwardPointShader::ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f,
 									   RenderingEngine &renderingEngine, QObject *parent) :

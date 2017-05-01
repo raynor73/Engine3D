@@ -7,7 +7,7 @@
 #include <engine/core/scenewithrootobject.h>
 #include <engine/rendering/mainwindow.h>
 #include <engine/core/userinput.h>
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 
 class CoreEngine : public QObject
 {

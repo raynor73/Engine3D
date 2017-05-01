@@ -3,6 +3,7 @@
 #include <engine/rendering/renderutils.h>
 #include <engine/components/directionallight.h>
 #include <engine/components/pointlight.h>
+#include <engine/components/spotlight.h>
 #include <engine/components/meshrenderer.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
@@ -67,9 +68,15 @@ void TutorialScene2::makeOpenGLDependentSetup()
 								  Vector3f(5, 0, 5), 100);
 	m_pointLightObject->addComponent(m_pointLight);
 
+	m_spotLightObject = new GameObject();
+	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
+								Vector3f(5, 0, 5), 100, Vector3f(1, 0, 0), 0.7);
+	m_spotLightObject->addComponent(m_spotLight);
+
 	m_rootGameObject->addChild(m_planeObject);
 	m_rootGameObject->addChild(m_directionLightObject);
-	//m_rootGameObject->addChild(m_pointLightObject);
+	m_rootGameObject->addChild(m_pointLightObject);
+	m_rootGameObject->addChild(m_spotLightObject);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)
@@ -133,8 +140,19 @@ TutorialScene2::~TutorialScene2()
 
 	delete m_controller;
 	delete m_rootGameObject;
-	delete m_directionLightObject;
-	delete m_directionalLight;
-	delete m_pointLightObject;
-	delete m_pointLight;
+
+	if (m_directionLightObject != NULL)
+		delete m_directionLightObject;
+	if (m_directionalLight != NULL)
+		delete m_directionalLight;
+
+	if (m_pointLightObject != NULL)
+		delete m_pointLightObject;
+	if (m_pointLight != NULL)
+		delete m_pointLight;
+
+	if (m_spotLightObject != NULL)
+		delete m_spotLightObject;
+	if (m_spotLight != NULL)
+		delete m_spotLight;
 }

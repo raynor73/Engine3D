@@ -1,5 +1,5 @@
 #include "gameobject.h"
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 #include <engine/components/gamecomponent.h>
 
 GameObject::GameObject(QObject *parent) : QObject(parent) {}

@@ -1,5 +1,5 @@
 #include "directionallight.h"
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 #include <engine/rendering/forwarddirectionalshader.h>
 
 DirectionalLight::DirectionalLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine,

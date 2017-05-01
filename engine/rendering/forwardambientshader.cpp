@@ -1,5 +1,5 @@
 #include "forwardambientshader.h"
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 
 ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine,
 										   QObject *parent) :

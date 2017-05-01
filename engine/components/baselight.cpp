@@ -1,5 +1,5 @@
 #include <engine/components/baselight.h>
-#include <engine/core/renderingengine.h>
+#include <engine/rendering/renderingengine.h>
 
 BaseLight::BaseLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color,
 					 float intensity, QObject *parent) :

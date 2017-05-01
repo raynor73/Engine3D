@@ -15,6 +15,7 @@
 class DirectionalLight;
 class PointLight;
 class MeshRenderer;
+class SpotLight;
 class TutorialScene2 : public SceneWithRootObject
 {
 	Q_OBJECT
@@ -41,6 +42,8 @@ private:
 	DirectionalLight *m_directionalLight;
 	GameObject *m_pointLightObject;
 	PointLight *m_pointLight;
+	GameObject *m_spotLightObject;
+	SpotLight *m_spotLight;
 };
 
 #endif // TUTORIALSCENE2_H
