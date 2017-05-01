@@ -8,13 +8,13 @@
 #include <engine/rendering/material.h>
 #include <engine/rendering/texture.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <engine/components/meshrenderer.h>
 #include <game/tutorialcontroller.h>
 #include <engine/core/coreengine.h>
 #include <QTimer>
 
 class DirectionalLight;
 class PointLight;
+class MeshRenderer;
 class TutorialScene2 : public SceneWithRootObject
 {
 	Q_OBJECT

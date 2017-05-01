@@ -3,6 +3,7 @@
 #include <engine/rendering/renderutils.h>
 #include <engine/components/directionallight.h>
 #include <engine/components/pointlight.h>
+#include <engine/components/meshrenderer.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	SceneWithRootObject(parent),
@@ -68,7 +69,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_rootGameObject->addChild(m_planeObject);
 	m_rootGameObject->addChild(m_directionLightObject);
-	m_rootGameObject->addChild(m_pointLightObject);
+	//m_rootGameObject->addChild(m_pointLightObject);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)

@@ -2,7 +2,6 @@
 #define SCENE_H
 
 #include <QObject>
-#include <engine/core/renderingengine.h>
 
 class Scene : public QObject
 {

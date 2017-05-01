@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QList>
-#include <engine/components/gamecomponent.h>
 #include <engine/core/transform.h>
 #include <engine/rendering/camera.h>
 #include <engine/rendering/shader.h>
 
 class RenderingEngine;
+class GameComponent;
 class GameObject : public QObject
 {
 	Q_OBJECT

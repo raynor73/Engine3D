@@ -1,5 +1,6 @@
 #include "gameobject.h"
 #include <engine/core/renderingengine.h>
+#include <engine/components/gamecomponent.h>
 
 GameObject::GameObject(QObject *parent) : QObject(parent) {}
 
@@ -43,7 +44,7 @@ void GameObject::addComponent(GameComponent *component)
 void GameObject::addToRenderingEngine(RenderingEngine &renderingEngine)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->addToRenderingEngine(renderingEngine);
+		(*i)->addToRenderingEngine();
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 		(*i)->addToRenderingEngine(renderingEngine);

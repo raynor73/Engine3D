@@ -17,7 +17,7 @@ public:
 	virtual void update(Transform &, float) {}
 	virtual void render(Transform &, Camera &, Shader &) {}
 
-	virtual void addToRenderingEngine(RenderingEngine &) {}
+	virtual void addToRenderingEngine() {}
 };
 
 #endif // GAMECOMPONENT_H
