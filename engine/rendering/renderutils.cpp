@@ -128,6 +128,16 @@ GLint RenderUtils::glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program, G
 	return result;
 }
 
+QString RenderUtils::glGetProgramInfoLog(QOpenGLFunctions_3_3_Core &f, GLuint program)
+{
+	char buffer[1024];
+	GLsizei length;
+
+	f.glGetProgramInfoLog(program, 1024, &length, buffer);
+
+	return QString::fromLocal8Bit(buffer);
+}
+
 QString RenderUtils::glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shaderReference)
 {
 	char buffer[1024];

@@ -10,6 +10,7 @@ namespace RenderUtils
 
 GLint glGetShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shader, GLenum pname);
 GLint glGetProgram(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program, GLenum pname);
+QString glGetProgramInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program);
 QString glGetShaderInfoLog(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint shaderReference);
 void printUniforms(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint program);
 

@@ -56,6 +56,7 @@ void Shader::linkProgram()
 	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_LINK_STATUS) == GL_TRUE);
 
 	f.glValidateProgram(m_programReference);
+	qDebug() << metaObject()->className() << RenderUtils::glGetProgramInfoLog(f, m_programReference);
 	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_VALIDATE_STATUS) == GL_TRUE);
 }
 
