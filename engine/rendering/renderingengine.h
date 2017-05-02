@@ -26,11 +26,13 @@ public:
 
 	Vector3f &ambientLight() { return m_ambientLight; }
 	BaseLight *activeLight() { return m_activeLight; }
+	GLuint vertexArrayName() const { return m_vertexArrayName; }
 
 	void addLight(BaseLight *light) { m_lights += light; }
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
+	GLuint m_vertexArrayName;
 	Camera *m_mainCamera;
 	ForwardAmbientShader *m_forwardAmbientShader;
 	Vector3f m_ambientLight;

@@ -11,6 +11,8 @@ Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, 
 	f(f),
 	m_renderingEngine(renderingEngine)
 {
+	f.glBindVertexArray(renderingEngine.vertexArrayName());
+
 	m_programReference = f.glCreateProgram();
 	Q_ASSERT(m_programReference != 0);
 }

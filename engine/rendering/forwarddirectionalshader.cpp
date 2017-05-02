@@ -5,10 +5,6 @@ ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f
 												   RenderingEngine &renderingEngine, QObject *parent) :
 	Shader(f, renderingEngine, parent)
 {
-	GLuint vertexArrayName;
-	f.glGenVertexArrays(1, &vertexArrayName);
-	f.glBindVertexArray(vertexArrayName);
-
 	setVertexShaderFromFile("forwarddirectional.vsh");
 	setFragmentShaderFromFile("forwarddirectional.fsh");
 	linkProgram();

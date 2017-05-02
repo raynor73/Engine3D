@@ -21,9 +21,7 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	f.glEnable(GL_DEPTH_CLAMP);
 	f.glEnable(GL_TEXTURE_2D);
 
-	GLuint vertexArrayName;
-	f.glGenVertexArrays(1, &vertexArrayName);
-	f.glBindVertexArray(vertexArrayName);
+	f.glGenVertexArrays(1, &m_vertexArrayName);
 
 	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
 
