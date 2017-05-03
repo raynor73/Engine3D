@@ -12,17 +12,16 @@ class Transform : public QObject
 public:
 	Transform(QObject *parent = 0);
 
-	Vector3f *translation() { return &m_translation; }
+	Vector3f &translation() { return m_translation; }
 	void setTranslation(const Vector3f &);
 	void setTranslation(float, float, float);
-	Vector3f *rotation() { return &m_rotation; }
+	Vector3f &rotation() { return m_rotation; }
 	void setRotation(const Vector3f &);
 	void setRotation(float, float, float);
-	Vector3f *scale() { return &m_scale; }
+	Vector3f &scale() { return m_scale; }
 	void setScale(const Vector3f &);
 	void setScale(float, float, float);
 	Matrix4f transformation() const;
-//	Matrix4f projectedTransformation(const Camera &) const;
 
 private:
 	Vector3f m_translation;

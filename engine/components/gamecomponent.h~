@@ -23,7 +23,7 @@ public:
 
 	GameObject *parentGameObject() { return m_parentGameObject; }
 	void setParentGameObject(GameObject *gameObject) { m_parentGameObject = gameObject; }
-	Transform &transform() { Q_ASSERT(!m_parentGameObject.isNull()); return m_parentGameObject->transform(); }
+	Transform &transform() { Q_ASSERT(!m_parentGameObject.isNull()); m_parentGameObject->transform(); }
 
 protected:
 	QPointer<GameObject> m_parentGameObject;

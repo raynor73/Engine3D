@@ -29,6 +29,11 @@ float Vector3f::length() const
 	return sqrtf(x * x + y * y + z * z);
 }
 
+float Vector3f::max() const
+{
+	return std::max(x, std::max(y ,z));
+}
+
 float Vector3f::dot(const Vector3f &other)
 {
 	return x * other.x + y * other.y + z * other.z;

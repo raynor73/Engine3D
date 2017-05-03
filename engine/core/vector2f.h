@@ -17,6 +17,7 @@ public:
 	operator QString();
 	float length();
 	float dot(const Vector2f &);
+	float max() const;
 	Vector2f lerp(const Vector2f &, float);
 	Vector2f abs();
 	Vector2f normalized();

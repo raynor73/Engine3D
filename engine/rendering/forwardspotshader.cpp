@@ -51,19 +51,19 @@ void ForwardSpotShader::setUniform(const QString &uniformName, const BaseLight &
 	setUniformf(uniformName + ".intensity", baseLight.intensity());
 }
 
-void ForwardSpotShader::setUniform(const QString &uniformName, const PointLight &pointLight)
+void ForwardSpotShader::setUniform(const QString &uniformName, PointLight &pointLight)
 {
 	setUniform(uniformName + ".base", static_cast<const BaseLight &>(pointLight));
 	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
-	setUniform(uniformName + ".position", pointLight.position());
+	setUniform(uniformName + ".position", pointLight.transform().translation());
 	setUniformf(uniformName + ".range", pointLight.range());
 }
 
 void ForwardSpotShader::setUniform(const QString &uniformName, SpotLight &spotLight)
 {
-	setUniform(uniformName + ".pointLight", static_cast<const PointLight &>(spotLight));
+	setUniform(uniformName + ".pointLight", static_cast<PointLight &>(spotLight));
 	setUniform(uniformName + ".direction", spotLight.direction());
 	setUniformf(uniformName + ".cutoff", spotLight.cutoff());
 }

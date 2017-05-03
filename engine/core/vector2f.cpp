@@ -20,6 +20,11 @@ float Vector2f::length()
 	return sqrtf(x * x + y * y);
 }
 
+float Vector2f::max() const
+{
+	return std::max(x, y);
+}
+
 float Vector2f::dot(const Vector2f &other)
 {
 	return x * other.x + y * other.y;

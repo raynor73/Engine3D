@@ -64,14 +64,15 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_directionLightObject->addComponent(m_directionalLight);
 
 	m_pointLightObject = new GameObject();
-	m_pointLight = new PointLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 0), 0.4, Attenuation(0, 0, 1),
-								  Vector3f(5, 0, 5), 100);
+	m_pointLight = new PointLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 0), 0.4, Attenuation(0, 0, 1));
 	m_pointLightObject->addComponent(m_pointLight);
 
 	m_spotLightObject = new GameObject();
 	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
-								Vector3f(5, 0, 5), 100, Vector3f(1, 0, 0), 0.7);
+								Vector3f(1, 0, 0), 0.7);
 	m_spotLightObject->addComponent(m_spotLight);
+
+	m_spotLight->transform().setTranslation(Vector3f(5, 0, 5));
 
 	m_rootGameObject->addChild(m_planeObject);
 	m_rootGameObject->addChild(m_directionLightObject);

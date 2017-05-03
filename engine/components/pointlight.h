@@ -14,19 +14,18 @@ class PointLight : public BaseLight
 	Q_OBJECT
 public:
 	PointLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color, float intensity,
-			   const Attenuation &attenuation, const Vector3f &position, float range, QObject *parent = 0);
+			   const Attenuation &attenuation, QObject *parent = 0);
 
 	Attenuation attenuation() const { return m_attenuation; }
-	Vector3f position() const { return m_position; }
-	float range() const { return m_range; }
 	void setAttenuation(const Attenuation &attenuation) { m_attenuation = attenuation; }
-	void setPosition(const Vector3f &position) { m_position = position; }
-	void setRange(float range) { m_range = range; }
+	float range() { return m_range; }
 
 protected:
 	Attenuation m_attenuation;
-	Vector3f m_position;
 	float m_range;
+
+private:
+	static const int COLOR_DEPTH = 256;
 };
 
 #endif // POINTLIGHT_H

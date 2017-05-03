@@ -14,8 +14,7 @@ class SpotLight : public PointLight
 	Q_OBJECT
 public:
 	SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color, float intensity,
-			  const Attenuation &attenuation, const Vector3f &position, float range, const Vector3f &direction,
-			  float cutoff, QObject *parent = 0);
+			  const Attenuation &attenuation, const Vector3f &direction, float cutoff, QObject *parent = 0);
 
 	Vector3f direction() const { return m_direction; }
 	float cutoff() const { return m_cutoff; }

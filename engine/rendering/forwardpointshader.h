@@ -17,7 +17,7 @@ public:
 	virtual void updateUniforms(const Transform &, Camera &, const Material &);
 	using Shader::setUniform;
 	void setUniform(const QString &, const BaseLight &);
-	void setUniform(const QString &, const PointLight &);
+	void setUniform(const QString &, PointLight &);
 };
 
 #endif // FORWARDPOINTSHADER_H

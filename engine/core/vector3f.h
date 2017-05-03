@@ -17,6 +17,7 @@ public:
 
 	operator QString();
 	float length() const;
+	float max() const;
 	float dot(const Vector3f &);
 	Vector3f abs();
 	Vector3f cross(const Vector3f &) const;

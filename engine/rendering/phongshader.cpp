@@ -96,8 +96,8 @@ void PhongShader::setUniform(const QString &uniformName, const PointLight &point
 	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
-	setUniform(uniformName + ".position", pointLight.position());
-	setUniformf(uniformName + ".range", pointLight.range());
+	/*setUniform(uniformName + ".position", pointLight.position());
+	setUniformf(uniformName + ".range", pointLight.range());*/
 }
 
 void PhongShader::setUniform(const QString &uniformName, SpotLight &spotLight)

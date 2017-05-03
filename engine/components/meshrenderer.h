@@ -13,7 +13,7 @@ class MeshRenderer : public GameComponent
 public:
 	MeshRenderer(Mesh *mesh, Material *material, QObject *parent = 0);
 
-	virtual void render(Transform &transform, Camera &, Shader &shader);
+	void render(Camera &, Shader &shader) override;
 
 private:
 	Mesh *m_mesh;
