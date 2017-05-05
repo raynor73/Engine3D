@@ -12,8 +12,10 @@ public:
 	float y;
 	float z;
 
-	explicit Vector3f(float, float, float, QObject *parent = 0);
+	Vector3f(float, float, float, QObject *parent = 0);
 	Vector3f(const Vector3f &);
+
+	void set(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
 
 	operator QString();
 	float length() const;

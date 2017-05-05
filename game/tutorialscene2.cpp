@@ -56,7 +56,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_meshRenderer = new MeshRenderer(m_mesh, m_material);
 	m_planeObject = new GameObject();
 	m_planeObject->addComponent(m_meshRenderer);
-	m_planeObject->transform().setTranslation(0, -1, 5);
+	m_planeObject->transform().translation().set(0, -1, 5);
 
 	m_directionLightObject = new GameObject();
 	m_directionalLight = new DirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1),
@@ -72,7 +72,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 								Vector3f(1, 0, 0), 0.7);
 	m_spotLightObject->addComponent(m_spotLight);
 
-	m_spotLight->transform().setTranslation(Vector3f(5, 0, 5));
+	m_spotLight->transform().translation().set(5, 0, 5);
 
 	m_rootGameObject->addChild(m_planeObject);
 	m_rootGameObject->addChild(m_directionLightObject);

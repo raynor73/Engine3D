@@ -95,7 +95,7 @@ void TutorialScene::update(float dt)
 
 	temp += dt;
 
-	m_transform->setTranslation(0, -1, 5);
+	m_transform->translation().set(0, -1, 5);
 
 	/*m_pointLights.at(0)->setPosition(Vector3f(3, 0, 8 * std::sin(temp) + 10));
 	m_pointLights.at(1)->setPosition(Vector3f(7, 0, 8 * std::cos(temp) + 10));*/

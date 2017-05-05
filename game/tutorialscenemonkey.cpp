@@ -39,16 +39,16 @@ void TutorialSceneMonkey::makeOpenGLDependentSetup()
 	m_shader = phongShader;*/
 }
 
-static float temp = 0;
+//static float temp = 0;
 void TutorialSceneMonkey::update(float dt)
 {
 	BaseTutorialScene::update(dt);
 
-	temp += dt;
-	float sinValue = std::sin(temp);
+	/*temp += dt;
+	float sinValue = std::sin(temp);*/
 
-	m_transform->setTranslation(sinValue * 2, -1, 5);
-	m_transform->setRotation(0, sinValue * 180, 0);
+	/*m_transform->setTranslation(sinValue * 2, -1, 5);
+	m_transform->setRotation(0, sinValue * 180, 0);*/
 }
 
 void TutorialSceneMonkey::render()
