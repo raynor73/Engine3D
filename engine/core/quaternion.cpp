@@ -1,6 +1,9 @@
 #include <cmath>
 #include "quaternion.h"
 
+Quaternion::Quaternion(QObject *parent) : Quaternion(0, 0, 0, 1, parent)
+{}
+
 Quaternion::Quaternion(float x, float y, float z, float w, QObject *parent) :
 	QObject(parent),
 	x(x),
@@ -20,6 +23,19 @@ Quaternion::Quaternion(const Quaternion &other) :
 float Quaternion::length()
 {
 	return sqrtf(x * x + y * y + z * z + w * w);
+}
+
+Quaternion *Quaternion::initRotation(const Vector3f &axis, float angle)
+{
+	float sinHalfAngle = std::sin(angle / 2);
+	float cosHalfAngle = std::cos(angle / 2);
+
+	x = axis.x * sinHalfAngle;
+	y = axis.y * sinHalfAngle;
+	z = axis.z * sinHalfAngle;
+	w = cosHalfAngle;
+
+	return this;
 }
 
 Quaternion *Quaternion::normalize()

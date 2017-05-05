@@ -14,15 +14,13 @@ class SpotLight : public PointLight
 	Q_OBJECT
 public:
 	SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color, float intensity,
-			  const Attenuation &attenuation, const Vector3f &direction, float cutoff, QObject *parent = 0);
+			  const Attenuation &attenuation, float cutoff, QObject *parent = 0);
 
-	Vector3f direction() const { return m_direction; }
+	Vector3f direction() { return transform().rotation().calculateForward(); }
 	float cutoff() const { return m_cutoff; }
-	void setDirection(const Vector3f &direction) { m_direction = direction.normalized(); }
 	void setCutoff(float cutoff) { m_cutoff = cutoff; }
 
 protected:
-	Vector3f m_direction;
 	float m_cutoff;
 };
 

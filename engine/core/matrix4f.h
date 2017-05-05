@@ -30,6 +30,7 @@ public:
 	Matrix4f *initRotation(const Vector3f &forward, const Vector3f &up, const Vector3f &right);
 	
 	Matrix4f operator *(const Matrix4f &);
+	Matrix4f &operator =(const Matrix4f &);
 
 private:
 	std::array<float, DATA_SIZE> m_data;

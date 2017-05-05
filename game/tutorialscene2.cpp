@@ -5,6 +5,7 @@
 #include <engine/components/pointlight.h>
 #include <engine/components/spotlight.h>
 #include <engine/components/meshrenderer.h>
+#include <utils.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	SceneWithRootObject(parent),
@@ -69,8 +70,9 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_spotLightObject = new GameObject();
 	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
-								Vector3f(1, 0, 0), 0.7);
+								0.7);
 	m_spotLightObject->addComponent(m_spotLight);
+	m_spotLightObject->transform().setRotation(*Quaternion().initRotation(Vector3f(0, 1, 0), Utils::toRadians(90)));
 
 	m_spotLight->transform().translation().set(5, 0, 5);
 

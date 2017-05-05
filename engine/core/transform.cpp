@@ -13,8 +13,7 @@ Matrix4f Transform::transformation() const
 	translationM.initTranslation(m_translation.x, m_translation.y, m_translation.z);
 
 	Matrix4f rotationM;
-	//rotationM = m_rotation.toRotationMatrix();
-	//rotationM.initRotation(m_rotation.x, m_rotation.y, m_rotation.z);
+	rotationM = m_rotation.toRotationMatrix();
 
 	Matrix4f scaleM;
 	scaleM.initScale(m_scale.x, m_scale.y, m_scale.z);

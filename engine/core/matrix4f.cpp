@@ -199,3 +199,13 @@ Matrix4f Matrix4f::operator *(const Matrix4f &other)
 
 	return m;
 }
+
+Matrix4f &Matrix4f::operator =(const Matrix4f &other)
+{
+	if (this == &other)
+		return *this;
+
+	m_data = other.m_data;
+
+	return *this;
+}

@@ -14,6 +14,7 @@ public:
 	float z;
 	float w;
 
+	explicit Quaternion(QObject *parent = 0);
 	Quaternion(float, float, float, float, QObject *parent = 0);
 	Quaternion(const Quaternion &);
 
@@ -33,6 +34,8 @@ public:
 	Quaternion conjugate();
 	Quaternion operator *(const Quaternion &);
 	Quaternion operator *(const Vector3f &);
+
+	Quaternion *initRotation(const Vector3f &axis, float angle);
 };
 
 #endif // QUATERNION_H

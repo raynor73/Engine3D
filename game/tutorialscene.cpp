@@ -101,7 +101,7 @@ void TutorialScene::update(float dt)
 	m_pointLights.at(1)->setPosition(Vector3f(7, 0, 8 * std::cos(temp) + 10));*/
 
 	//m_spotLights.at(0)->pointLight().setPosition(m_camera->position());
-	m_spotLights.at(0)->setDirection(m_camera->forward());
+	//m_spotLights.at(0)->setDirection(m_camera->forward());
 }
 
 void TutorialScene::render()
