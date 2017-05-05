@@ -144,8 +144,6 @@ Matrix4f *Matrix4f::initOrthographic(float left, float right, float bottom, floa
 
 Matrix4f *Matrix4f::initRotation(const Vector3f &forward, const Vector3f &up)
 {
-	initIdentity();
-
 	Vector3f f = forward;
 	f.normalized();
 
@@ -155,19 +153,7 @@ Matrix4f *Matrix4f::initRotation(const Vector3f &forward, const Vector3f &up)
 
 	Vector3f u = f.cross(r);
 
-	m_data[offset(0, 0)] = r.x;
-	m_data[offset(0, 1)] = r.y;
-	m_data[offset(0, 2)] = r.z;
-
-	m_data[offset(1, 0)] = u.x;
-	m_data[offset(1, 1)] = u.y;
-	m_data[offset(1, 2)] = u.z;
-
-	m_data[offset(2, 0)] = f.x;
-	m_data[offset(2, 1)] = f.y;
-	m_data[offset(2, 2)] = f.z;
-
-	return this;
+	return initRotation(f, u, r);
 }
 
 Matrix4f *Matrix4f::initRotation(const Vector3f &forward, const Vector3f &up, const Vector3f &right)
@@ -175,13 +161,13 @@ Matrix4f *Matrix4f::initRotation(const Vector3f &forward, const Vector3f &up, co
 	initIdentity();
 
 	Vector3f f = forward;
-	f.normalized();
+	//f.normalized();
 
-	Vector3f r = up;
-	r.normalized();
-	r = r.cross(f);
+	Vector3f r = right;
+	//r.normalized();
 
-	Vector3f u = f.cross(r);
+	Vector3f u = up;
+	//u.normalized();
 
 	m_data[offset(0, 0)] = r.x;
 	m_data[offset(0, 1)] = r.y;

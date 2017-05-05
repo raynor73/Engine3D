@@ -104,6 +104,6 @@ Vector3f Quaternion::calculateLeft() const
 
 Matrix4f Quaternion::toRotationMatrix() const
 {
-	return Matrix4f();
+	return *Matrix4f().initRotation(calculateForward(), calculateUp(), calculateRight());
 }
 
