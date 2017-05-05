@@ -60,8 +60,11 @@ Vector3f Vector3f::normalized() const
 
 Vector3f Vector3f::rotate(float angle, const Vector3f &axis)
 {
-	Quaternion rotation;
-	rotation.initRotation(axis, angle);
+	return cross(axis * )
+}
+
+Vector3f Vector3f::rotate(const Quaternion &rotation) const
+{
 	Quaternion conjugate = rotation.conjugate();
 
 	Quaternion w = rotation * (*this) * conjugate;

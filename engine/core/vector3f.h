@@ -4,6 +4,7 @@
 #include <QObject>
 #include <engine/core/vector2f.h>
 
+class Quaternion;
 class Vector3f : public QObject
 {
 	Q_OBJECT
@@ -25,6 +26,7 @@ public:
 	Vector3f cross(const Vector3f &) const;
 	Vector3f normalized() const;
 	Vector3f rotate(float, const Vector3f &);
+	Vector3f rotate(const Quaternion &) const;
 	Vector2f xy() const { return Vector2f(x, y); }
 	Vector2f yz() const { return Vector2f(y, z); }
 	Vector2f zx() const { return Vector2f(z, x); }
