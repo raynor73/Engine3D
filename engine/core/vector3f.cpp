@@ -60,15 +60,8 @@ Vector3f Vector3f::normalized() const
 
 Vector3f Vector3f::rotate(float angle, const Vector3f &axis)
 {
-	float sinHalfAngle = std::sin(Utils::toRadians(angle / 2));
-	float cosHalfAngle = std::cos(Utils::toRadians(angle / 2));
-
-	float rX = axis.x * sinHalfAngle;
-	float rY = axis.y * sinHalfAngle;
-	float rZ = axis.z * sinHalfAngle;
-	float rW = cosHalfAngle;
-
-	Quaternion rotation(rX, rY, rZ, rW);
+	Quaternion rotation;
+	rotation.initRotation(axis, angle);
 	Quaternion conjugate = rotation.conjugate();
 
 	Quaternion w = rotation * (*this) * conjugate;

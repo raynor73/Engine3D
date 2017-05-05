@@ -1,5 +1,6 @@
 #include "basetutorialscene.h"
 #include <engine/rendering/renderutils.h>
+#include <utils.h>
 #include <QDebug>
 
 BaseTutorialScene::BaseTutorialScene(UserInput &userInput, QObject *parent) :
@@ -83,8 +84,8 @@ void BaseTutorialScene::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		m_camera->rotateX(delta.y() * sensitivity);
-		m_camera->rotateY(delta.x() * sensitivity);
+		m_camera->rotateX(Utils::toRadians(delta.y() * sensitivity));
+		m_camera->rotateY(Utils::toRadians(delta.x() * sensitivity));
 	}
 }
 
