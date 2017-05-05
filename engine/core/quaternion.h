@@ -21,6 +21,13 @@ public:
 
 	Matrix4f toRotationMatrix() const;
 
+	Vector3f calculateForward() const;
+	Vector3f calculateBack() const;
+	Vector3f calculateUp() const;
+	Vector3f calculateDown() const;
+	Vector3f calculateRight() const;
+	Vector3f calculateLeft() const;
+
 	float length();
 	Quaternion *normalize();
 	Quaternion conjugate();

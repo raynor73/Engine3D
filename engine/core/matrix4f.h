@@ -27,6 +27,8 @@ public:
 	Matrix4f *initPerspective(float fov, float aspectRatio, float zNear, float zFar);
 	Matrix4f *initOrthographic(float left, float right, float bottom, float top, float near, float far);
 	Matrix4f *initRotation(const Vector3f &, const Vector3f &);
+	Matrix4f *initRotation(const Vector3f &forward, const Vector3f &up, const Vector3f &right);
+	
 	Matrix4f operator *(const Matrix4f &);
 
 private:

@@ -72,6 +72,36 @@ Quaternion &Quaternion::operator =(const Quaternion &other)
 	return *this;
 }
 
+Vector3f Quaternion::calculateForward() const
+{
+	return Vector3f(2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y));
+}
+
+Vector3f Quaternion::calculateBack() const
+{
+	return Vector3f(-2 * (x * z - w * y), -2 * (y * z + w * x), -(1 - 2 * (x * x + y * y)));
+}
+
+Vector3f Quaternion::calculateUp() const
+{
+	return Vector3f(2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2.0f * (y * z - w * x));
+}
+
+Vector3f Quaternion::calculateDown() const
+{
+	return Vector3f(-2 * (x * y + w * z), -(1 - 2 * (x * x + z * z)), -2.0f * (y * z - w * x));
+}
+
+Vector3f Quaternion::calculateRight() const
+{
+	return Vector3f(1 - 2 * (y * y + z * z), 2 * (x * y - w * z), 2 * (x * z + w * y));
+}
+
+Vector3f Quaternion::calculateLeft() const
+{
+	return Vector3f(-(1 - 2 * (y * y + z * z)), -2 * (x * y - w * z), -2 * (x * z + w * y));
+}
+
 Matrix4f Quaternion::toRotationMatrix() const
 {
 	return Matrix4f();
