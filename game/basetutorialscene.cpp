@@ -66,15 +66,16 @@ void BaseTutorialScene::update(float dt)
 
 	float moveAmount = 10 * dt;
 
+	Vector3f forward = m_camera->transform().rotation().calculateForward();
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
-		m_camera->move(m_camera->forward(), moveAmount);
+		m_camera->move(forward, moveAmount);
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
-		m_camera->move(m_camera->forward(), -moveAmount);
+		m_camera->move(forward, -moveAmount);
 
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
-		m_camera->move(m_camera->calculateLeft(), moveAmount);
+		m_camera->move(m_camera->transform().rotation().calculateLeft(), moveAmount);
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
-		m_camera->move(m_camera->calculateRight(), moveAmount);
+		m_camera->move(m_camera->transform().rotation().calculateRight(), moveAmount);
 
 	if (m_controller->isGrabPointerRequested())
 		m_controller->grabPointer();
@@ -84,8 +85,12 @@ void BaseTutorialScene::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		m_camera->rotateX(Utils::toRadians(delta.y() * sensitivity));
-		m_camera->rotateY(Utils::toRadians(delta.x() * sensitivity));
+		m_camera->transform().rotation() *
+				(*Quaternion().initRotation(m_camera->yAxis, Utils::toRadians(delta.x() * sensitivity)));
+		m_camera->transform().rotation() *
+				(*Quaternion().initRotation(Vector3f(1, 0, 0), Utils::toRadians(delta.y() * sensitivity)));
+		/*m_camera->rotateX(Utils::toRadians(delta.y() * sensitivity));
+		m_camera->rotateY(Utils::toRadians(delta.x() * sensitivity));*/
 	}
 }
 

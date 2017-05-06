@@ -25,7 +25,7 @@ public:
 	void setIntensity(float intensity) { m_intensity = intensity; }
 	Shader *shader() { return m_shader; }
 
-	virtual void addToRenderingEngine();
+	virtual void addToRenderingEngine(RenderingEngine &) override;
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;

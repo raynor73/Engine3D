@@ -41,7 +41,7 @@ SOURCES += main.cpp\
 	engine/rendering/shader.cpp \
 	utils.cpp \
 	engine/core/transform.cpp \
-	engine/rendering/camera.cpp \
+engine/components/camera.cpp \
 	engine/rendering/texture.cpp \
 	engine/rendering/basicshader.cpp \
 	engine/rendering/material.cpp \
@@ -85,7 +85,7 @@ HEADERS  += engine/rendering/mainwindow.h \
 	utils.h \
 	engine/rendering/qopenglfunctions_selector.h \
 	engine/core/transform.h \
-	engine/rendering/camera.h \
+engine/components/camera.h \
 	engine/rendering/texture.h \
 	engine/rendering/basicshader.h \
 	engine/rendering/material.h \

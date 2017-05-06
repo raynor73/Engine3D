@@ -84,6 +84,11 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 void TutorialScene2::onOpenGLResized(int width, int height)
 {
+	m_cameraGameObject = new GameObject();
+	m_camera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
+	m_cameraGameObject->addComponent(m_camera);
+	m_rootGameObject->addChild(m_cameraGameObject);
+
 	m_controller->setDisplaySize(width, height);
 	m_controller->connectToEvents();
 }
@@ -96,17 +101,16 @@ void TutorialScene2::update(float dt)
 
 	float moveAmount = 10 * dt;
 
-	Camera &camera = m_coreEngine.renderingEngine().mainCamera();
-
+	Vector3f forward = m_camera->transform().rotation().calculateForward();
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
-		camera.move(camera.forward(), moveAmount);
+		m_camera->move(forward, moveAmount);
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
-		camera.move(camera.forward(), -moveAmount);
+		m_camera->move(forward, -moveAmount);
 
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
-		camera.move(camera.calculateLeft(), moveAmount);
+		m_camera->move(m_camera->transform().rotation().calculateLeft(), moveAmount);
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
-		camera.move(camera.calculateRight(), moveAmount);
+		m_camera->move(m_camera->transform().rotation().calculateRight(), moveAmount);
 
 	if (m_controller->isGrabPointerRequested())
 		m_controller->grabPointer();
@@ -116,8 +120,11 @@ void TutorialScene2::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		camera.rotateX(Utils::toRadians(delta.y() * sensitivity));
-		camera.rotateY(Utils::toRadians(delta.x() * sensitivity));
+		m_camera->transform().setRotation(m_camera->transform().rotation() *
+				(*Quaternion().initRotation(m_camera->yAxis, -Utils::toRadians(delta.x() * sensitivity))).normalized());
+		m_camera->transform().setRotation(m_camera->transform().rotation() *
+				(*Quaternion().initRotation(m_camera->transform().rotation().calculateRight(),
+											-Utils::toRadians(delta.y() * sensitivity))).normalized());
 	}
 
 	m_rootGameObject->update(dt);
@@ -140,6 +147,10 @@ TutorialScene2::~TutorialScene2()
 		delete f;
 	if (m_planeObject != NULL)
 		delete m_planeObject;
+	if (m_cameraGameObject != NULL)
+		delete m_cameraGameObject;
+	if (m_camera != NULL)
+		delete m_camera;
 
 	delete m_controller;
 	delete m_rootGameObject;

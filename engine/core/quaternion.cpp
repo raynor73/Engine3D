@@ -20,7 +20,7 @@ Quaternion::Quaternion(const Quaternion &other) :
 	w(other.w)
 {}
 
-float Quaternion::length()
+float Quaternion::length() const
 {
 	return sqrtf(x * x + y * y + z * z + w * w);
 }
@@ -38,24 +38,18 @@ Quaternion *Quaternion::initRotation(const Vector3f &axis, float angle)
 	return this;
 }
 
-Quaternion *Quaternion::normalize()
+Quaternion Quaternion::normalized() const
 {
 	float l = length();
-
-	x /= l;
-	y /= l;
-	z /= l;
-	w /= l;
-
-	return this;
+	return Quaternion(x / l, y / l, z / l, w / l);
 }
 
-Quaternion Quaternion::conjugate()
+Quaternion Quaternion::conjugate() const
 {
 	return Quaternion(-x, -y, -z, w);
 }
 
-Quaternion Quaternion::operator *(const Quaternion &other)
+Quaternion Quaternion::operator *(const Quaternion &other) const
 {
 	float newW = w * other.w - x * other.x - y * other.y - z * other.z;
 	float newX = x * other.w + w * other.x + y * other.z - z * other.y;
@@ -65,7 +59,7 @@ Quaternion Quaternion::operator *(const Quaternion &other)
 	return Quaternion(newX, newY, newZ, newW);
 }
 
-Quaternion Quaternion ::operator *(const Vector3f &v)
+Quaternion Quaternion ::operator *(const Vector3f &v) const
 {
 	float newW = -x * v.x - y * v.y - z * v.z;
 	float newX =  w * v.x + y * v.z - z * v.y;

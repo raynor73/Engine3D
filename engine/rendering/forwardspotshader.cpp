@@ -40,7 +40,7 @@ void ForwardSpotShader::updateUniforms(const Transform &transform, Camera &camer
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.position());
+	setUniform("eyePosition", camera.transform().translation());
 
 	setUniform("spotLight", static_cast<SpotLight &>(*m_renderingEngine.activeLight()));
 }

@@ -38,12 +38,18 @@ private:
 	TutorialController *m_controller;
 	GameObject *m_planeObject;
 	QTimer m_fpsTimer;
+
 	GameObject *m_directionLightObject;
 	DirectionalLight *m_directionalLight;
+
 	GameObject *m_pointLightObject;
 	PointLight *m_pointLight;
+
 	GameObject *m_spotLightObject;
 	SpotLight *m_spotLight;
+
+	GameObject *m_cameraGameObject;
+	Camera *m_camera;
 };
 
 #endif // TUTORIALSCENE2_H

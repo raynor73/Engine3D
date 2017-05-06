@@ -34,7 +34,7 @@ float Vector3f::max() const
 	return std::max(x, std::max(y ,z));
 }
 
-float Vector3f::dot(const Vector3f &other)
+float Vector3f::dot(const Vector3f &other) const
 {
 	return x * other.x + y * other.y + z * other.z;
 }
@@ -58,9 +58,12 @@ Vector3f Vector3f::normalized() const
 	return Vector3f(*this) / length();
 }
 
-Vector3f Vector3f::rotate(float angle, const Vector3f &axis)
+Vector3f Vector3f::rotate(const Vector3f &axis, float angle) const
 {
-	return cross(axis * )
+	float sinAngle = std::sin(-angle);
+	float cosAngle = std::cos(-angle);
+
+	return this->cross(axis * sinAngle) + ((*this) * cosAngle) + (axis * (this->dot(axis * (1 - cosAngle))));
 }
 
 Vector3f Vector3f::rotate(const Quaternion &rotation) const

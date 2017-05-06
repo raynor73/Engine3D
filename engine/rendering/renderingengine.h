@@ -2,7 +2,7 @@
 #define RENDERINGENGINE_H
 
 #include <QObject>
-#include <engine/rendering/camera.h>
+#include <engine/components/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <QList>
@@ -29,6 +29,7 @@ public:
 	GLuint vertexArrayName() const { return m_vertexArrayName; }
 
 	void addLight(BaseLight *light) { m_lights += light; }
+	void setCamera(Camera *camera) { m_mainCamera = camera; }
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;

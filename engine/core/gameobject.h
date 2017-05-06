@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QList>
 #include <engine/core/transform.h>
-#include <engine/rendering/camera.h>
 #include <engine/rendering/shader.h>
 
 class RenderingEngine;
 class GameComponent;
+class Camera;
 class GameObject : public QObject
 {
 	Q_OBJECT

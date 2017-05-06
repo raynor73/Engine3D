@@ -29,11 +29,11 @@ public:
 	Vector3f calculateRight() const;
 	Vector3f calculateLeft() const;
 
-	float length();
-	Quaternion *normalize();
-	Quaternion conjugate();
-	Quaternion operator *(const Quaternion &);
-	Quaternion operator *(const Vector3f &);
+	float length() const;
+	Quaternion normalized() const;
+	Quaternion conjugate() const;
+	Quaternion operator *(const Quaternion &) const;
+	Quaternion operator *(const Vector3f &) const;
 
 	Quaternion *initRotation(const Vector3f &axis, float angle);
 };

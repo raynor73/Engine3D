@@ -1,4 +1,5 @@
 #include "scenewithrootobject.h"
+#include <engine/core/gameobject.h>
 
 SceneWithRootObject::SceneWithRootObject(QObject *parent) :
 	SceneWithTimeMeasurement(parent),

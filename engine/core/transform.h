@@ -2,7 +2,7 @@
 #define TRANSFORM_H
 
 #include <QObject>
-#include <engine/rendering/camera.h>
+#include <engine/components/camera.h>
 #include <engine/core/vector3f.h>
 #include <engine/core/matrix4f.h>
 #include <engine/core/quaternion.h>

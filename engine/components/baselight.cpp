@@ -17,7 +17,7 @@ BaseLight::~BaseLight()
 		delete m_shader;
 }
 
-void BaseLight::addToRenderingEngine()
+void BaseLight::addToRenderingEngine(RenderingEngine &)
 {
 	m_renderingEngine.addLight(this);
 }

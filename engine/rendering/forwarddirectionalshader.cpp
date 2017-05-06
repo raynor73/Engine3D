@@ -34,7 +34,7 @@ void ForwardDirectionalShader::updateUniforms(const Transform &transform, Camera
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.position());
+	setUniform("eyePosition", camera.transform().translation());
 
 	setUniform("directionalLight", static_cast<DirectionalLight &>(*m_renderingEngine.activeLight()));
 }

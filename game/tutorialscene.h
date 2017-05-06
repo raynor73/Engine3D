@@ -10,7 +10,7 @@
 #include "tutorialcontroller.h"
 #include <engine/rendering/openglwidget.h>
 #include <engine/core/transform.h>
-#include <engine/rendering/camera.h>
+#include <engine/components/camera.h>
 #include <engine/rendering/texture.h>
 #include <engine/rendering/shader.h>
 #include <engine/rendering/material.h>

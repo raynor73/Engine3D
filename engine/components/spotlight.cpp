@@ -10,3 +10,8 @@ SpotLight::SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEn
 {
 	m_shader = new ForwardSpotShader(f, m_renderingEngine);
 }
+
+Vector3f SpotLight:: direction()
+{
+	return transform().rotation().calculateForward();
+}

@@ -5,6 +5,8 @@
 #include "shader.h"
 #include <engine/rendering/renderutils.h>
 #include <engine/rendering/renderingengine.h>
+#include <engine/components/camera.h>
+#include <engine/core/transform.h>
 
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, QObject *parent) :
 	QObject(parent),

@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QPointer>
-#include <engine/core/gameobject.h>
 
 class RenderingEngine;
 class Camera;
 class Shader;
 class Transform;
+class GameObject;
 class GameComponent : public QObject
 {
 	Q_OBJECT
@@ -19,14 +19,14 @@ public:
 	virtual void update(float) {}
 	virtual void render(Camera &, Shader &) {}
 
-	virtual void addToRenderingEngine() {}
+	virtual void addToRenderingEngine(RenderingEngine &) {}
 
 	GameObject *parentGameObject() { return m_parentGameObject; }
 	void setParentGameObject(GameObject *gameObject) { m_parentGameObject = gameObject; }
-	Transform &transform() { Q_ASSERT(!m_parentGameObject.isNull()); return m_parentGameObject->transform(); }
+	Transform &transform();
 
 protected:
-	QPointer<GameObject> m_parentGameObject;
+	GameObject *m_parentGameObject;
 };
 
 #endif // GAMECOMPONENT_H

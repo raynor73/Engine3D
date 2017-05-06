@@ -1,5 +1,6 @@
 #include "phongshader.h"
 #include <engine/rendering/renderutils.h>
+#include <engine/core/transform.h>
 
 PhongShader::PhongShader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, QObject *parent) :
 	Shader(f, renderingEngine, parent),
@@ -81,7 +82,7 @@ void PhongShader::updateUniforms(const Transform &transform, Camera &camera, con
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.position());
+	//setUniform("eyePosition", camera.position());
 }
 
 void PhongShader::setUniform(const QString &uniformName, const BaseLight &baseLight)

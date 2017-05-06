@@ -2,8 +2,8 @@
 #define SCENEWITHROOTOBJECT_H
 
 #include <engine/core/scenewithtimemeasurement.h>
-#include <engine/core/gameobject.h>
 
+class GameObject;
 class SceneWithRootObject : public SceneWithTimeMeasurement
 {
 	Q_OBJECT

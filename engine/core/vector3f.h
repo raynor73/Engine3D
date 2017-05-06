@@ -21,11 +21,11 @@ public:
 	operator QString();
 	float length() const;
 	float max() const;
-	float dot(const Vector3f &);
+	float dot(const Vector3f &) const;
 	Vector3f abs();
 	Vector3f cross(const Vector3f &) const;
 	Vector3f normalized() const;
-	Vector3f rotate(float, const Vector3f &);
+	Vector3f rotate(const Vector3f &, float) const;
 	Vector3f rotate(const Quaternion &) const;
 	Vector2f xy() const { return Vector2f(x, y); }
 	Vector2f yz() const { return Vector2f(y, z); }

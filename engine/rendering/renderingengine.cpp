@@ -45,15 +45,15 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 
 RenderingEngine::~RenderingEngine()
 {
-	if (m_mainCamera != NULL)
-		delete m_mainCamera;
+	/*if (m_mainCamera != NULL)
+		delete m_mainCamera;*/
 
 	delete m_forwardAmbientShader;
 }
 
 void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int height)
 {
-	m_mainCamera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
+	//m_mainCamera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
 	gameObject.onOpenGLResized(width, height);
 }
 

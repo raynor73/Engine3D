@@ -38,7 +38,7 @@ void ForwardPointShader::updateUniforms(const Transform &transform, Camera &came
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.position());
+	setUniform("eyePosition", camera.transform().translation());
 
 	setUniform("pointLight", static_cast<PointLight &>(*m_renderingEngine.activeLight()));
 }

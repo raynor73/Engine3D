@@ -9,7 +9,7 @@ TerrainScene::TerrainScene(UserInput &userInput, QObject *parent) :
 {
 	m_material = new Material(Vector3f(1, 1, 1));
 
-	m_camera->setPosition(Vector3f(-166, 538, -112));
+//	m_camera->setPosition(Vector3f(-166, 538, -112));
 }
 
 TerrainScene::~TerrainScene()

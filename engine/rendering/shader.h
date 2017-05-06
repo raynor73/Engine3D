@@ -8,11 +8,11 @@
 #include <engine/core/vector3f.h>
 #include <engine/core/matrix4f.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
-#include <engine/core/transform.h>
-#include <engine/rendering/camera.h>
 #include <QPointer>
 
 class RenderingEngine;
+class Camera;
+class Transform;
 class Shader : public QObject
 {
 	Q_OBJECT

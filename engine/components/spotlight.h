@@ -16,7 +16,7 @@ public:
 	SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color, float intensity,
 			  const Attenuation &attenuation, float cutoff, QObject *parent = 0);
 
-	Vector3f direction() { return transform().rotation().calculateForward(); }
+	Vector3f direction();
 	float cutoff() const { return m_cutoff; }
 	void setCutoff(float cutoff) { m_cutoff = cutoff; }
 

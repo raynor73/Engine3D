@@ -6,7 +6,7 @@
 #include <engine/rendering/openglwidget.h>
 #include <engine/core/userinput.h>
 #include <game/tutorialcontroller.h>
-#include <engine/rendering/camera.h>
+#include <engine/components/camera.h>
 #include <engine/core/transform.h>
 #include <QTimer>
 
