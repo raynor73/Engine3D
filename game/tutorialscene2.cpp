@@ -103,14 +103,16 @@ void TutorialScene2::update(float dt)
 
 	Vector3f forward = m_camera->transform().rotation().calculateForward();
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Forward)
-		m_camera->move(forward, moveAmount);
+		m_camera->transform().setTranslation(m_camera->transform().translation() + forward * moveAmount);
 	if (m_controller->movementDiretion() == TutorialController::MovementDiretion::Backward)
-		m_camera->move(forward, -moveAmount);
+		m_camera->transform().setTranslation(m_camera->transform().translation() - forward * moveAmount);
 
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Left)
-		m_camera->move(m_camera->transform().rotation().calculateLeft(), moveAmount);
+		m_camera->transform().setTranslation(m_camera->transform().translation() +
+											 m_camera->transform().rotation().calculateLeft() * moveAmount);
 	if (m_controller->strafeDirection() == TutorialController::StrafeDirection::Right)
-		m_camera->move(m_camera->transform().rotation().calculateRight(), moveAmount);
+		m_camera->transform().setTranslation(m_camera->transform().translation() +
+											 m_camera->transform().rotation().calculateRight() * moveAmount);
 
 	if (m_controller->isGrabPointerRequested())
 		m_controller->grabPointer();

@@ -17,10 +17,6 @@ public:
 	virtual void addToRenderingEngine(RenderingEngine &) override;
 
 	void move(const Vector3f &, float);
-	/*Vector3f calculateLeft();
-	Vector3f calculateRight();*/
-	/*void rotateX(float);
-	void rotateY(float);*/
 	Matrix4f calculateViewProjection();
 
 private:
