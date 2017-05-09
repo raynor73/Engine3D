@@ -25,7 +25,7 @@ ForwardPointShader::ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f,
 	addUniform("pointLight.range");
 }
 
-void ForwardPointShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
+void ForwardPointShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
 {
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;

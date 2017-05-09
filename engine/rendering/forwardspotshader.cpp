@@ -27,7 +27,7 @@ ForwardSpotShader::ForwardSpotShader(QOPENGLFUNCTIONS_CLASSNAME &f,
 	addUniform("spotLight.cutoff");
 }
 
-void ForwardSpotShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
+void ForwardSpotShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
 {
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;

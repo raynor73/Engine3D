@@ -31,7 +31,7 @@ public:
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
-	virtual void updateUniforms(const Transform &, Camera &, const Material &) = 0;
+	virtual void updateUniforms(Transform &, Camera &, const Material &) = 0;
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;

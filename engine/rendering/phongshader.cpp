@@ -61,9 +61,9 @@ void PhongShader::setSpotLights(const QList<SpotLight *> &spotLights)
 	m_spotLights = spotLights;
 }
 
-void PhongShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
+void PhongShader::updateUniforms(Transform &, Camera &camera, const Material &material)
 {
-	Matrix4f worldMatrix = transform.transformation();
+	Matrix4f worldMatrix;// = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
 
 	material.texture()->bind();

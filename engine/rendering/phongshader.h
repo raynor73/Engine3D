@@ -18,7 +18,7 @@ public:
 
 	PhongShader(QOPENGLFUNCTIONS_CLASSNAME &, RenderingEngine &, QObject *parent = 0);
 
-	virtual void updateUniforms(const Transform &, Camera &camera, const Material &);
+	virtual void updateUniforms(Transform &, Camera &camera, const Material &) override;
 
 	Vector3f ambientLight() const { return m_ambientLight; }
 	void setAmbientLight(const Vector3f &ambientLight) { m_ambientLight = ambientLight; }

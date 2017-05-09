@@ -12,7 +12,7 @@ class BasicShader : public Shader
 public:
 	BasicShader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &, QObject *parent = 0);
 
-	virtual void updateUniforms(const Transform &, Camera &, const Material &);
+	virtual void updateUniforms(Transform &, Camera &, const Material &) override;
 };
 
 #endif // BASICSHADER_H

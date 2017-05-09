@@ -148,3 +148,8 @@ bool Vector3f::operator ==(const Vector3f &other) const
 			std::abs(y - other.y) < FLT_EPSILON &&
 			std::abs(z - other.z) < FLT_EPSILON;
 }
+
+bool Vector3f::operator !=(const Vector3f &other) const
+{
+	return !((*this) == other);
+}

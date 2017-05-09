@@ -1,8 +1,6 @@
 #include <cmath>
+#include <float.h>
 #include "quaternion.h"
-
-Quaternion::Quaternion(QObject *parent) : Quaternion(0, 0, 0, 1, parent)
-{}
 
 Quaternion::Quaternion(float x, float y, float z, float w, QObject *parent) :
 	QObject(parent),
@@ -11,6 +9,18 @@ Quaternion::Quaternion(float x, float y, float z, float w, QObject *parent) :
 	z(z),
 	w(w)
 {}
+
+Quaternion::Quaternion(const Vector3f &axis, float angle, QObject *parent) :
+	QObject(parent)
+{
+	float sinHalfAngle = std::sin(angle / 2);
+	float cosHalfAngle = std::cos(angle / 2);
+
+	x = axis.x * sinHalfAngle;
+	y = axis.y * sinHalfAngle;
+	z = axis.z * sinHalfAngle;
+	w = cosHalfAngle;
+}
 
 Quaternion::Quaternion(const Quaternion &other) :
 	QObject(other.parent()),
@@ -23,19 +33,6 @@ Quaternion::Quaternion(const Quaternion &other) :
 float Quaternion::length() const
 {
 	return sqrtf(x * x + y * y + z * z + w * w);
-}
-
-Quaternion *Quaternion::initRotation(const Vector3f &axis, float angle)
-{
-	float sinHalfAngle = std::sin(angle / 2);
-	float cosHalfAngle = std::cos(angle / 2);
-
-	x = axis.x * sinHalfAngle;
-	y = axis.y * sinHalfAngle;
-	z = axis.z * sinHalfAngle;
-	w = cosHalfAngle;
-
-	return this;
 }
 
 Quaternion Quaternion::normalized() const
@@ -117,3 +114,16 @@ Matrix4f Quaternion::toRotationMatrix() const
 	return *Matrix4f().initRotation(calculateForward(), calculateUp(), calculateRight());
 }
 
+bool Quaternion::operator ==(const Quaternion &other) const
+{
+	return
+			std::abs(x - other.x) < FLT_EPSILON &&
+			std::abs(y - other.y) < FLT_EPSILON &&
+			std::abs(z - other.z) < FLT_EPSILON &&
+			std::abs(w - other.w) < FLT_EPSILON;
+}
+
+bool Quaternion::operator !=(const Quaternion &other) const
+{
+	return !((*this) == other);
+}

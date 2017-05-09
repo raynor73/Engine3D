@@ -45,6 +45,7 @@ public:
 	Vector3f &operator =(const Vector3f &);
 	Vector3f &operator +=(const Vector3f &);
 	bool operator ==(const Vector3f &) const;
+	bool operator !=(const Vector3f &) const;
 };
 
 #endif // VECTOR3F_H

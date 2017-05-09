@@ -12,10 +12,15 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	f(NULL),
 	m_coreEngine(coreEngine),
 	m_mesh(NULL),
+	m_mesh2(NULL),
 	m_texture(NULL),
 	m_material(NULL),
 	m_meshRenderer(NULL),
-	m_planeObject(NULL)
+	m_planeObject(NULL),
+	m_testMesh1(NULL),
+	m_testMesh2(NULL),
+	m_meshRenderer1(NULL),
+	m_meshRenderer2(NULL)
 {
 	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
@@ -54,6 +59,23 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_mesh->setVertices(vertices, indices, true);
 
+	QList<Vertex> vertices2;
+	QVector<unsigned int> indices2;
+	vertices2 += Vertex(Vector3f(-fieldWidth / 10, 0, -fieldDepth / 10), Vector2f(0, 0));
+	vertices2 += Vertex(Vector3f(-fieldWidth / 10, 0, fieldDepth / 10 * 3), Vector2f(0, 1));
+	vertices2 += Vertex(Vector3f(fieldWidth / 10 * 3, 0, -fieldDepth / 10), Vector2f(1, 0));
+	vertices2 += Vertex(Vector3f(fieldWidth / 10 * 3, 0, fieldDepth / 10 * 3), Vector2f(1, 1));
+
+	indices2 += 0;
+	indices2 += 1;
+	indices2 += 2;
+	indices2 += 2;
+	indices2 += 1;
+	indices2 += 3;
+
+	m_mesh2 = new Mesh(*f);
+	m_mesh2->setVertices(vertices2, indices2, true);
+
 	m_meshRenderer = new MeshRenderer(m_mesh, m_material);
 	m_planeObject = new GameObject();
 	m_planeObject->addComponent(m_meshRenderer);
@@ -72,7 +94,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
 								0.7);
 	m_spotLightObject->addComponent(m_spotLight);
-	m_spotLightObject->transform().setRotation(*Quaternion().initRotation(Vector3f(0, 1, 0), Utils::toRadians(-90)));
+	m_spotLightObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-90)));
 
 	m_spotLight->transform().translation().set(5, 0, 5);
 
@@ -80,6 +102,22 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_rootGameObject->addChild(m_directionLightObject);
 	m_rootGameObject->addChild(m_pointLightObject);
 	m_rootGameObject->addChild(m_spotLightObject);
+
+	m_testMesh1 = new GameObject();
+	m_testMesh2 = new GameObject();
+	m_meshRenderer1 = new MeshRenderer(m_mesh2, m_material);
+	m_meshRenderer2 = new MeshRenderer(m_mesh2, m_material);
+	m_testMesh1->addComponent(m_meshRenderer1);
+	m_testMesh2->addComponent(m_meshRenderer2);
+
+	m_testMesh1->transform().translation().set(0, 2, 0);
+	m_testMesh1->transform().setRotation(Quaternion(Vector3f(0, 1, 0), 0.4));
+
+	m_testMesh2->transform().translation().set(0, 0, 5);
+
+	m_testMesh1->addChild(m_testMesh2);
+
+	m_rootGameObject->addChild(m_testMesh1);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)
@@ -123,10 +161,10 @@ void TutorialScene2::update(float dt)
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
 		m_camera->transform().setRotation(m_camera->transform().rotation() *
-				(*Quaternion().initRotation(m_camera->yAxis, -Utils::toRadians(delta.x() * sensitivity))).normalized());
+				Quaternion(m_camera->yAxis, -Utils::toRadians(delta.x() * sensitivity)).normalized());
 		m_camera->transform().setRotation(m_camera->transform().rotation() *
-				(*Quaternion().initRotation(m_camera->transform().rotation().calculateRight(),
-											-Utils::toRadians(delta.y() * sensitivity))).normalized());
+				Quaternion(m_camera->transform().rotation().calculateRight(),
+							 -Utils::toRadians(delta.y() * sensitivity)).normalized());
 	}
 
 	m_rootGameObject->update(dt);
@@ -137,6 +175,14 @@ TutorialScene2::~TutorialScene2()
 	m_fpsTimer.stop();
 	m_controller->disconnectFromEvents();
 
+	if (m_testMesh1 != NULL)
+		delete m_testMesh1;
+	if (m_testMesh2 != NULL)
+		delete m_testMesh2;
+	if (m_meshRenderer1 != NULL)
+		delete m_meshRenderer1;
+	if (m_meshRenderer2 != NULL)
+		delete m_meshRenderer2;
 	if (m_meshRenderer != NULL)
 		delete m_meshRenderer;
 	if (m_material != NULL)
@@ -145,6 +191,8 @@ TutorialScene2::~TutorialScene2()
 		delete m_texture;
 	if (m_mesh != NULL)
 		delete m_mesh;
+	if (m_mesh2 != NULL)
+		delete m_mesh2;
 	if (f != NULL)
 		delete f;
 	if (m_planeObject != NULL)

@@ -14,20 +14,31 @@ public:
 	Transform(QObject *parent = 0);
 
 	Vector3f &translation() { return m_translation; }
-	void setTranslation(const Vector3f &translation) { m_translation = translation; }
+	void setTranslation(const Vector3f &translation) { m_hasChanged = true; m_translation = translation; }
 
 	Quaternion &rotation() { return m_rotation; }
-	void setRotation(const Quaternion &rotation) { m_rotation = rotation; }
+	void setRotation(const Quaternion &rotation) { m_hasChanged = true; m_rotation = rotation; }
 
 	Vector3f &scale() { return m_scale; }
-	void setScale(const Vector3f &scale) { m_scale = scale; }
+	void setScale(const Vector3f &scale) { m_hasChanged = true; m_scale = scale; }
 
-	Matrix4f transformation() const;
+	Matrix4f transformation();
+
+	Transform *parentTransformation() { return m_parentTransformation; }
+	void setParentTransformation(Transform *parentTransformation) { m_parentTransformation = parentTransformation; }
+
+	bool hasChanged() const;
+	void setHasChanged(bool hasChanged) { m_hasChanged = hasChanged; }
 
 private:
+	Transform *m_parentTransformation;
+	Matrix4f m_parentMatrix;
+
 	Vector3f m_translation;
 	Quaternion m_rotation;
 	Vector3f m_scale;
+
+	bool m_hasChanged;
 };
 
 #endif // TRANSFORM_H

@@ -32,12 +32,18 @@ private:
 	QOPENGLFUNCTIONS_CLASSNAME *f;
 	CoreEngine &m_coreEngine;
 	Mesh *m_mesh;
+	Mesh *m_mesh2;
 	Texture *m_texture;
 	Material *m_material;
 	MeshRenderer *m_meshRenderer;
 	TutorialController *m_controller;
 	GameObject *m_planeObject;
 	QTimer m_fpsTimer;
+
+	GameObject *m_testMesh1;
+	GameObject *m_testMesh2;
+	MeshRenderer *m_meshRenderer1;
+	MeshRenderer *m_meshRenderer2;
 
 	GameObject *m_directionLightObject;
 	DirectionalLight *m_directionalLight;

@@ -13,7 +13,7 @@ ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, Render
 	addUniform("ambientIntensity");
 }
 
-void ForwardAmbientShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
+void ForwardAmbientShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
 {
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;

@@ -85,12 +85,8 @@ void BaseTutorialScene::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		m_camera->transform().rotation() *
-				(*Quaternion().initRotation(m_camera->yAxis, Utils::toRadians(delta.x() * sensitivity)));
-		m_camera->transform().rotation() *
-				(*Quaternion().initRotation(Vector3f(1, 0, 0), Utils::toRadians(delta.y() * sensitivity)));
-		/*m_camera->rotateX(Utils::toRadians(delta.y() * sensitivity));
-		m_camera->rotateY(Utils::toRadians(delta.x() * sensitivity));*/
+		m_camera->transform().rotation() * Quaternion(m_camera->yAxis, Utils::toRadians(delta.x() * sensitivity));
+		m_camera->transform().rotation() * Quaternion(Vector3f(1, 0, 0), Utils::toRadians(delta.y() * sensitivity));
 	}
 }
 

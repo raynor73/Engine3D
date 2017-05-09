@@ -35,6 +35,7 @@ void GameObject::render(Camera &camera, Shader &shader)
 void GameObject::addChild(GameObject *child)
 {
 	m_children += child;
+	child->transform().setParentTransformation(&m_transform);
 }
 
 void GameObject::addComponent(GameComponent *component)

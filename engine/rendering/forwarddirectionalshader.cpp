@@ -21,7 +21,7 @@ ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f
 	addUniform("directionalLight.direction");
 }
 
-void ForwardDirectionalShader::updateUniforms(const Transform &transform, Camera &camera, const Material &material)
+void ForwardDirectionalShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
 {
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
