@@ -30,6 +30,8 @@ public:
 	bool hasChanged() const;
 	void setHasChanged(bool hasChanged) { m_hasChanged = hasChanged; }
 
+	Vector3f calculateTransformedTranslation();
+
 private:
 	Transform *m_parentTransformation;
 	Matrix4f m_parentMatrix;
@@ -39,6 +41,8 @@ private:
 	Vector3f m_scale;
 
 	bool m_hasChanged;
+
+	Matrix4f calculateParentMatrix();
 };
 
 #endif // TRANSFORM_H

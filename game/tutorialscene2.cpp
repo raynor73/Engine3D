@@ -125,7 +125,8 @@ void TutorialScene2::onOpenGLResized(int width, int height)
 	m_cameraGameObject = new GameObject();
 	m_camera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
 	m_cameraGameObject->addComponent(m_camera);
-	m_rootGameObject->addChild(m_cameraGameObject);
+	//m_rootGameObject->addChild(m_cameraGameObject);
+	m_testMesh2->addChild(m_cameraGameObject);
 
 	m_controller->setDisplaySize(width, height);
 	m_controller->connectToEvents();

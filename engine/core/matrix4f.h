@@ -32,10 +32,12 @@ public:
 	Matrix4f operator *(const Matrix4f &);
 	Matrix4f &operator =(const Matrix4f &);
 
+	Vector3f transform(const Vector3f &) const;
+
 private:
 	std::array<float, DATA_SIZE> m_data;
 
-	inline int offset(int, int);
+	inline int offset(int row, int column) const;
 };
 
 #endif // MATRIX4F_H

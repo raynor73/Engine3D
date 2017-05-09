@@ -22,18 +22,29 @@ Matrix4f Transform::transformation()
 	Matrix4f scaleM;
 	scaleM.initScale(m_scale.x, m_scale.y, m_scale.z);
 
-	if (m_parentTransformation != NULL && m_parentTransformation->hasChanged()) {
-		m_parentTransformation->setHasChanged(false);
-		m_parentMatrix = m_parentTransformation->transformation();
-	}
-
-	return m_parentMatrix * translationM * rotationM * scaleM;
+	return calculateParentMatrix() * translationM * rotationM * scaleM;
 }
 
 bool Transform::hasChanged() const
 {
 	if (m_parentTransformation != NULL && m_parentTransformation->hasChanged())
-
 		return true;
+
 	return m_hasChanged;
 }
+
+Matrix4f Transform:: calculateParentMatrix()
+{
+	if (m_parentTransformation != NULL && m_parentTransformation->hasChanged()) {
+		m_parentTransformation->setHasChanged(false);
+		m_parentMatrix = m_parentTransformation->transformation();
+	}
+
+	return m_parentMatrix;
+}
+
+Vector3f Transform::calculateTransformedTranslation()
+{
+	return calculateParentMatrix().transform(m_translation);
+}
+
