@@ -52,12 +52,9 @@ Matrix4f *Matrix4f::initIdentity()
 
 Vector3f Matrix4f::transform(const Vector3f &vector) const
 {
-	return Vector3f(m_data[offset(0, 0)] * vector.x + m_data[offset(0, 1)] * vector.y +
-			m_data[offset(0, 2)] * vector.z + m_data[offset(0, 3)],
-			m_data[offset(1, 0)] * vector.x + m_data[offset(1, 1)] * vector.y +
-			m_data[offset(1, 2)] * vector.z + m_data[offset(1, 3)],
-			m_data[offset(2, 0)] * vector.x + m_data[offset(2, 1)] * vector.y +
-			m_data[offset(2, 2)] * vector.z + m_data[offset(2, 3)]);
+	return Vector3f(m_data[offset(0, 0)] * vector.x + m_data[offset(0, 1)] * vector.y + m_data[offset(0, 2)] * vector.z + m_data[offset(0, 3)],
+			m_data[offset(1, 0)] * vector.x + m_data[offset(1, 1)] * vector.y + m_data[offset(1, 2)] * vector.z + m_data[offset(1, 3)],
+			m_data[offset(2, 0)] * vector.x + m_data[offset(2, 1)] * vector.y + m_data[offset(2, 2)] * vector.z + m_data[offset(2, 3)]);
 }
 
 Matrix4f *Matrix4f::initTranslation(float x, float y, float z)

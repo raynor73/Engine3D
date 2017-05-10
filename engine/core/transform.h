@@ -28,7 +28,6 @@ public:
 	void setParentTransformation(Transform *parentTransformation) { m_parentTransformation = parentTransformation; }
 
 	bool hasChanged() const;
-	void setHasChanged(bool hasChanged) { m_hasChanged = hasChanged; }
 
 	Vector3f calculateTransformedTranslation();
 
