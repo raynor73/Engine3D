@@ -40,7 +40,7 @@ void ForwardSpotShader::updateUniforms(Transform &transform, Camera &camera, con
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.transform().translation());
+	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
 
 	setUniform("spotLight", static_cast<SpotLight &>(*m_renderingEngine.activeLight()));
 }
@@ -57,7 +57,7 @@ void ForwardSpotShader::setUniform(const QString &uniformName, PointLight &point
 	setUniformf(uniformName + ".attenuation.constant", pointLight.attenuation().constant());
 	setUniformf(uniformName + ".attenuation.linear", pointLight.attenuation().linear());
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
-	setUniform(uniformName + ".position", pointLight.transform().translation());
+	setUniform(uniformName + ".position", pointLight.transform().calculateTransformedTranslation());
 	setUniformf(uniformName + ".range", pointLight.range());
 }
 

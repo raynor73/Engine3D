@@ -6,7 +6,8 @@ Transform::Transform(QObject *parent) :
 	m_translation(Vector3f(0, 0, 0)),
 	m_rotation(Quaternion(0, 0, 0, 1)),
 	m_scale(Vector3f(1, 1, 1)),
-	m_hasChanged(true)
+	m_hasChanged(true),
+	m_parentMatrixCalculatedFirstTime(false)
 {
 	m_parentMatrix.initIdentity();
 }
@@ -22,6 +23,8 @@ Matrix4f Transform::transformation()
 	Matrix4f scaleM;
 	scaleM.initScale(m_scale.x, m_scale.y, m_scale.z);
 
+	m_hasChanged = false;
+
 	return calculateParentMatrix() * translationM * rotationM * scaleM;
 }
 
@@ -35,8 +38,9 @@ bool Transform::hasChanged() const
 
 Matrix4f Transform:: calculateParentMatrix()
 {
-	if (m_parentTransformation != NULL && m_parentTransformation->hasChanged()) {
-		m_parentTransformation->setHasChanged(false);
+	if (m_parentTransformation != NULL &&
+			(!m_parentMatrixCalculatedFirstTime || m_parentTransformation->hasChanged())) {
+		m_parentMatrixCalculatedFirstTime = true;
 		m_parentMatrix = m_parentTransformation->transformation();
 	}
 
@@ -48,3 +52,12 @@ Vector3f Transform::calculateTransformedTranslation()
 	return calculateParentMatrix().transform(m_translation);
 }
 
+Quaternion Transform::calculateTransformedRotation()
+{
+	Quaternion parentRotation(0, 0, 0, 1);
+
+	if (m_parentTransformation != NULL)
+		parentRotation = m_parentTransformation->calculateTransformedRotation();
+
+	return parentRotation * m_rotation;
+}

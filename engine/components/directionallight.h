@@ -13,16 +13,12 @@ class DirectionalLight : public BaseLight
 	Q_OBJECT
 public:
 	DirectionalLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngien, const Vector3f &color,
-					 float intensity, const Vector3f &direction, QObject *parent = 0);
+					 float intensity, QObject *parent = 0);
 	DirectionalLight(const DirectionalLight &);
 
-	Vector3f direction() const { return m_direction;}
-	void setDirection(const Vector3f &direction) { m_direction = direction.normalized(); }
+	Vector3f direction();
 
 	DirectionalLight &operator =(const DirectionalLight &);
-
-protected:
-	Vector3f m_direction;
 };
 
 #endif // DIRECTIONALLIGHT_H

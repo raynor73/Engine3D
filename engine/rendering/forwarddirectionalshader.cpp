@@ -34,7 +34,7 @@ void ForwardDirectionalShader::updateUniforms(Transform &transform, Camera &came
 	setUniformf("specularIntensity", material.specularIntensity());
 	setUniformf("specularPower", material.specularPower());
 
-	setUniform("eyePosition", camera.transform().translation());
+	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
 
 	setUniform("directionalLight", static_cast<DirectionalLight &>(*m_renderingEngine.activeLight()));
 }
@@ -45,7 +45,7 @@ void ForwardDirectionalShader::setUniform(const QString &uniformName, const Base
 	setUniformf(uniformName + ".intensity", baseLight.intensity());
 }
 
-void ForwardDirectionalShader::setUniform(const QString &uniformName, const DirectionalLight &directionalLight)
+void ForwardDirectionalShader::setUniform(const QString &uniformName, DirectionalLight &directionalLight)
 {
 	setUniform(uniformName + ".base", static_cast<const BaseLight &>(directionalLight));
 	setUniform(uniformName + ".direction", directionalLight.direction());

@@ -30,6 +30,7 @@ public:
 	bool hasChanged() const;
 
 	Vector3f calculateTransformedTranslation();
+	Quaternion calculateTransformedRotation();
 
 private:
 	Transform *m_parentTransformation;
@@ -40,6 +41,7 @@ private:
 	Vector3f m_scale;
 
 	bool m_hasChanged;
+	bool m_parentMatrixCalculatedFirstTime;
 
 	Matrix4f calculateParentMatrix();
 };

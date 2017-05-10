@@ -17,7 +17,7 @@ public:
 	virtual void updateUniforms(Transform &, Camera &, const Material &) override;
 	using Shader::setUniform;
 	void setUniform(const QString &, const BaseLight &);
-	void setUniform(const QString &, const DirectionalLight &);
+	void setUniform(const QString &, DirectionalLight &);
 };
 
 #endif // FORWARDDIRECTIONALSHADER_H
