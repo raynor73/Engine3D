@@ -11,5 +11,5 @@ DirectionalLight::DirectionalLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngin
 
 Vector3f DirectionalLight::direction()
 {
-	return transform().rotation().calculateForward().normalized();
+	return transform().calculateTransformedRotation().calculateForward().normalized();
 }

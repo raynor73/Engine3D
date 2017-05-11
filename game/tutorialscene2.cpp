@@ -83,7 +83,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_directionLightObject = new GameObject();
 	m_directionalLight = new DirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1), 0.4);
-	m_directionLightObject->transform().setRotation(Quaternion(1, 0, 0, Utils::toRadians(45)));
+	m_directionLightObject->transform().setRotation(Quaternion(1, 0, 0, Utils::toRadians(-45)));
 	m_directionLightObject->addComponent(m_directionalLight);
 
 	m_pointLightObject = new GameObject();
@@ -94,7 +94,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
 								0.7);
 	m_spotLightObject->addComponent(m_spotLight);
-	m_spotLightObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-90)));
+	m_spotLightObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(90)));
 
 	m_spotLight->transform().translation().set(5, 0, 5);
 
@@ -161,11 +161,10 @@ void TutorialScene2::update(float dt)
 
 	if (m_controller->isPointerGrabbed()) {
 		QPoint delta = m_controller->pointerDelta();
-		m_camera->transform().setRotation(m_camera->transform().rotation() *
-				Quaternion(m_camera->yAxis, -Utils::toRadians(delta.x() * sensitivity)).normalized());
-		m_camera->transform().setRotation(m_camera->transform().rotation() *
-				Quaternion(m_camera->transform().calculateTransformedRotation().calculateRight(),
-							 -Utils::toRadians(delta.y() * sensitivity)).normalized());
+
+		m_camera->transform().rotate(m_camera->yAxis, Utils::toRadians(delta.x() * sensitivity));
+		m_camera->transform().rotate(m_camera->transform().rotation().calculateRight(),
+									 Utils::toRadians(delta.y() * sensitivity));
 	}
 
 	m_rootGameObject->update(dt);

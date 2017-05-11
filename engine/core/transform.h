@@ -29,6 +29,8 @@ public:
 
 	bool hasChanged() const;
 
+	void rotate(const Vector3f &axis, float angle);
+
 	Vector3f calculateTransformedTranslation();
 	Quaternion calculateTransformedRotation();
 

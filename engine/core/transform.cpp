@@ -36,6 +36,11 @@ bool Transform::hasChanged() const
 	return m_hasChanged;
 }
 
+void Transform::rotate(const Vector3f &axis, float angle)
+{
+	m_rotation = (Quaternion(axis, angle) * m_rotation).normalized();
+}
+
 Matrix4f Transform:: calculateParentMatrix()
 {
 	if (m_parentTransformation != NULL &&

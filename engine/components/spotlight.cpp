@@ -13,5 +13,5 @@ SpotLight::SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEn
 
 Vector3f SpotLight:: direction()
 {
-	return transform().rotation().calculateForward();
+	return transform().calculateTransformedRotation().calculateForward();
 }

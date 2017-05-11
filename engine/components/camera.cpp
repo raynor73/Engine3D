@@ -9,7 +9,7 @@ Camera::Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *p
 
 Matrix4f Camera::calculateViewProjection()
 {
-	Matrix4f cameraRotation = transform().calculateTransformedRotation().toRotationMatrix();
+	Matrix4f cameraRotation = transform().calculateTransformedRotation().conjugate().toRotationMatrix();
 
 	Matrix4f cameraTranslation;
 	Vector3f position = transform().calculateTransformedTranslation();
