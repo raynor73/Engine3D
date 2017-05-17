@@ -2,7 +2,6 @@
 #include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <game/tutorialscene.h>
 #include <game/terrainscene.h>
 #include <game/tutorialscenemonkey.h>
 

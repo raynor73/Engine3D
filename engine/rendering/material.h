@@ -2,6 +2,8 @@
 #define MATERIAL_H
 
 #include <QObject>
+#include <QMap>
+#include <QString>
 #include <engine/core/vector3f.h>
 #include "texture.h"
 
@@ -10,26 +12,21 @@ class Material : public QObject
 	Q_OBJECT
 
 public:
-	Material(Texture *, const Vector3f &, QObject *parent = 0);
-	Material(const Vector3f &, QObject *parent = 0);
-	Material(const Vector3f &, float, float, QObject *parent = 0);
-	Material(Texture *, const Vector3f &, float, float, QObject *parent = 0);
-	~Material();
+	explicit Material(QObject *parent = 0);
 
-	Texture *texture() const { return m_texture; }
-	Vector3f color() const { return m_color; }
-	float specularIntensity() const { return m_specularIntensity; }
-	float specularPower() const { return m_specularPower; }
-	void setTexture(Texture *);
-	void setColor(const Vector3f &);
-	void setSpecularIntensity(float specularIntensity) { m_specularIntensity = specularIntensity; }
-	void setSpecularPower(float specularExponent) { m_specularPower = specularExponent; }
+	void addTexture(const QString &name, Texture *texture) { m_textures[name] = texture; }
+	Texture *findTexture(const QString &name) { return m_textures[name]; }
+
+	void addVector3f(const QString &name, const Vector3f &vector) { m_vectors3f[name] = vector; }
+	Vector3f findVector3f(const QString &name) const { return m_vectors3f[name]; }
+
+	void addFloat(const QString &name, float value) { m_floats[name] = value; }
+	float findFloat(const QString &name) const { return m_floats[name]; }
 
 private:
-	Texture *m_texture;
-	Vector3f m_color;
-	float m_specularIntensity;
-	float m_specularPower;
+	QMap<QString, Texture *> m_textures;
+	QMap<QString, Vector3f> m_vectors3f;
+	QMap<QString, float> m_floats;
 };
 
 #endif // MATERIAL_H

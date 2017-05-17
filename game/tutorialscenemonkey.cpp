@@ -1,5 +1,4 @@
 #include <game/tutorialscenemonkey.h>
-#include <engine/rendering/phongshader.h>
 #include <engine/rendering/renderutils.h>
 #include <cmath>
 
@@ -9,7 +8,7 @@ TutorialSceneMonkey::TutorialSceneMonkey(UserInput &userInput, QObject *parent) 
 	m_material(NULL),
 	m_shader(NULL)
 {
-	m_material = new Material(Vector3f(0, 1, 0));
+//	m_material = new Material(Vector3f(0, 1, 0));
 }
 
 TutorialSceneMonkey::~TutorialSceneMonkey()

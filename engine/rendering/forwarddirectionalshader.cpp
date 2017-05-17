@@ -1,9 +1,9 @@
 #include "forwarddirectionalshader.h"
 #include <engine/rendering/renderingengine.h>
 
-ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f,
-												   RenderingEngine &renderingEngine, QObject *parent) :
-	Shader(f, renderingEngine, parent)
+ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName,
+												   QObject *parent) :
+	Shader(f, vertexArrayName, parent)
 {
 	setVertexShaderFromFile("forwarddirectional.vsh");
 	setFragmentShaderFromFile("forwarddirectional.fsh");
@@ -21,18 +21,21 @@ ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f
 	addUniform("directionalLight.direction");
 }
 
-void ForwardDirectionalShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
+void ForwardDirectionalShader::updateUniforms(Transform &transform, Material &material,
+											  RenderingEngine &renderingEngine)
 {
+	Camera &camera = renderingEngine.mainCamera();
+
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
 
-	material.texture()->bind();
+	material.findTexture("diffuse")->bind();
 
 	setUniform("model", worldMatrix);
 	setUniform("modelViewProjection", projectedMatrix);
 
-	setUniformf("specularIntensity", material.specularIntensity());
-	setUniformf("specularPower", material.specularPower());
+	setUniformf("specularIntensity", material.findFloat("specularIntensity"));
+	setUniformf("specularPower", material.findFloat("specularPower"));
 
 	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
 

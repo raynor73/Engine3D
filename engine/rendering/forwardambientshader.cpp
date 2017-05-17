@@ -1,9 +1,8 @@
 #include "forwardambientshader.h"
 #include <engine/rendering/renderingengine.h>
 
-ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine,
-										   QObject *parent) :
-	Shader(f, renderingEngine, parent)
+ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
+	Shader(f, vertexArrayName, parent)
 {
 	setVertexShaderFromFile("forwardambient.vsh");
 	setFragmentShaderFromFile("forwardambient.fsh");
@@ -13,12 +12,12 @@ ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, Render
 	addUniform("ambientIntensity");
 }
 
-void ForwardAmbientShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
+void ForwardAmbientShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {
 	Matrix4f worldMatrix = transform.transformation();
-	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
+	Matrix4f projectedMatrix = renderingEngine.mainCamera().calculateViewProjection() * worldMatrix;
 
-	material.texture()->bind();
+	material.findTexture("diffuse")->bind();
 
 	setUniform("modelViewProjection", projectedMatrix);
 	setUniform("ambientIntensity", m_renderingEngine.ambientLight());

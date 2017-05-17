@@ -40,7 +40,10 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
 	m_texture = new Texture(*f, "test.png");
-	m_material = new Material(m_texture, Vector3f(1, 1, 1), 1, 8);
+	m_material = new Material();
+	m_material->addTexture("diffuse", m_texture);
+	m_material->addFloat("specularIntensity", 1);
+	m_material->addFloat("specularPower", 8);
 
 	float fieldDepth = 10;
 	float fieldWidth = 10;

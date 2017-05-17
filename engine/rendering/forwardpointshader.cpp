@@ -1,9 +1,8 @@
 #include "forwardpointshader.h"
 #include <engine/rendering/renderingengine.h>
 
-ForwardPointShader::ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f,
-									   RenderingEngine &renderingEngine, QObject *parent) :
-	Shader(f, renderingEngine, parent)
+ForwardPointShader::ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
+	Shader(f, vertexArrayName, parent)
 {
 	setVertexShaderFromFile("forwardpoint.vsh");
 	setFragmentShaderFromFile("forwardpoint.fsh");
@@ -25,18 +24,20 @@ ForwardPointShader::ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f,
 	addUniform("pointLight.range");
 }
 
-void ForwardPointShader::updateUniforms(Transform &transform, Camera &camera, const Material &material)
+void ForwardPointShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {
+	Camera &camera = renderingEngine.mainCamera();
+
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = camera.calculateViewProjection() * worldMatrix;
 
-	material.texture()->bind();
+	material.findTexture("diffuse")->bind();
 
 	setUniform("model", worldMatrix);
 	setUniform("modelViewProjection", projectedMatrix);
 
-	setUniformf("specularIntensity", material.specularIntensity());
-	setUniformf("specularPower", material.specularPower());
+	setUniformf("specularIntensity", material.findFloat("specularIntensity"));
+	setUniformf("specularPower", material.findFloat("specularPower"));
 
 	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
 

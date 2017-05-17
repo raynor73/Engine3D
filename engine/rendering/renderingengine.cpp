@@ -23,37 +23,16 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 
 	f.glGenVertexArrays(1, &m_vertexArrayName);
 
-	m_forwardAmbientShader = new ForwardAmbientShader(f, *this);
-
-	/*int lightFieldWidth = 5;
-	int lightFieldDepth = 5;
-
-	float lightFieldStartX = 0;
-	float lightFieldStartY = 0;
-	float lightFieldStepX = 7;
-	float lightFieldStepY = 7;
-
-	for (int i = 0; i < lightFieldWidth; i++) {
-		for (int j = 0; j < lightFieldDepth; j++) {
-			m_pointLights += PointLight(BaseLight(Vector3f(0, 1, 0), 0.4), Attenuation(0, 0, 1),
-										Vector3f(lightFieldStartX + lightFieldStepX * i, 0,
-												 lightFieldStartY + lightFieldStepY * j),
-										100);
-		}
-	}*/
+	m_forwardAmbientShader = new ForwardAmbientShader(f, m_vertexArrayName);
 }
 
 RenderingEngine::~RenderingEngine()
 {
-	/*if (m_mainCamera != NULL)
-		delete m_mainCamera;*/
-
 	delete m_forwardAmbientShader;
 }
 
 void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int height)
 {
-	//m_mainCamera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
 	gameObject.onOpenGLResized(width, height);
 }
 

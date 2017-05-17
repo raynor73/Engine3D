@@ -6,7 +6,7 @@ DirectionalLight::DirectionalLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngin
 								   const Vector3f &color, float intensity, QObject *parent) :
 	BaseLight(f, renderingEngine, color, intensity, parent)
 {
-	m_shader = new ForwardDirectionalShader(f, m_renderingEngine);
+	m_shader = new ForwardDirectionalShader(f, m_renderingEngine.vertexArrayName());
 }
 
 Vector3f DirectionalLight::direction()

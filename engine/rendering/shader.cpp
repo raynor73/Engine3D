@@ -8,12 +8,11 @@
 #include <engine/components/camera.h>
 #include <engine/core/transform.h>
 
-Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, QObject *parent) :
+Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
 	QObject(parent),
-	f(f),
-	m_renderingEngine(renderingEngine)
+	f(f)
 {
-	f.glBindVertexArray(renderingEngine.vertexArrayName());
+	f.glBindVertexArray(vertexArrayName);
 
 	m_programReference = f.glCreateProgram();
 	Q_ASSERT(m_programReference != 0);

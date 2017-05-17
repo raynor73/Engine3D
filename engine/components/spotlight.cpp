@@ -8,7 +8,7 @@ SpotLight::SpotLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEn
 	PointLight(f, renderingEngine, color, intensity, attenuation, parent),
 	m_cutoff(cutoff)
 {
-	m_shader = new ForwardSpotShader(f, m_renderingEngine);
+	m_shader = new ForwardSpotShader(f, m_renderingEngine.vertexArrayName());
 }
 
 Vector3f SpotLight:: direction()

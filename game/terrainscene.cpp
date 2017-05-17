@@ -2,12 +2,11 @@
 #include <engine/rendering/renderutils.h>
 #include <utils.h>
 #include <engine/components/directionallight.h>
-#include <engine/rendering/phongshader.h>
 
 TerrainScene::TerrainScene(UserInput &userInput, QObject *parent) :
 	BaseTutorialScene(userInput, parent)
 {
-	m_material = new Material(Vector3f(1, 1, 1));
+//	m_material = new Material(Vector3f(1, 1, 1));
 
 //	m_camera->setPosition(Vector3f(-166, 538, -112));
 }

@@ -13,6 +13,7 @@ public:
 	float y;
 	float z;
 
+	explicit Vector3f(QObject *parent = 0);
 	Vector3f(float, float, float, QObject *parent = 0);
 	Vector3f(const Vector3f &);
 

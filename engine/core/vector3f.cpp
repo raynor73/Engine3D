@@ -5,6 +5,13 @@
 #include <float.h>
 #include <cmath>
 
+Vector3f::Vector3f(QObject *parent) :
+	QObject(parent),
+	x(0),
+	y(0),
+	z(0)
+{}
+
 Vector3f::Vector3f(float x, float y, float z, QObject *parent) :
 	QObject(parent),
 	x(x),

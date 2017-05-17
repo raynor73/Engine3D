@@ -17,7 +17,7 @@ class Shader : public QObject
 {
 	Q_OBJECT
 public:
-	Shader(QOPENGLFUNCTIONS_CLASSNAME &, RenderingEngine &, QObject *parent = 0);
+	Shader(QOPENGLFUNCTIONS_CLASSNAME &, GLuint vertexArrayName, QObject *parent = 0);
 	~Shader();
 
 	void setVertexShader(const QString &);
@@ -31,7 +31,7 @@ public:
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
-	virtual void updateUniforms(Transform &, Camera &, const Material &) = 0;
+	virtual void updateUniforms(Transform &, Material &, RenderingEngine &) = 0;
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
@@ -39,7 +39,6 @@ protected:
 	void setVertexShaderFromFile(const QString &);
 	void setGeometryShaderFromFile(const QString &);
 	void setFragmentShaderFromFile(const QString &);
-	RenderingEngine &m_renderingEngine;
 
 private:
 	GLint m_positionAttributeIndex;

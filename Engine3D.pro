@@ -29,7 +29,6 @@ SOURCES += main.cpp\
 	engine/core/scene.cpp \
 	game/defaultscene.cpp \
 	engine/core/userinput.cpp \
-	game/tutorialscene.cpp \
 	game/tutorialcontroller.cpp \
 	engine/core/vector2f.cpp \
 	engine/core/vector3f.cpp \
@@ -43,9 +42,7 @@ SOURCES += main.cpp\
 	engine/core/transform.cpp \
 engine/components/camera.cpp \
 	engine/rendering/texture.cpp \
-	engine/rendering/basicshader.cpp \
 	engine/rendering/material.cpp \
-	engine/rendering/phongshader.cpp \
     engine/components/baselight.cpp \
 	engine/components/directionallight.cpp \
 	engine/components/attenuation.cpp \
@@ -72,7 +69,6 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/core/scene.h \
 	game/defaultscene.h \
 	engine/core/userinput.h \
-	game/tutorialscene.h \
 	game/tutorialcontroller.h \
 	engine/core/vector2f.h \
 	engine/core/vector3f.h \
@@ -87,9 +83,7 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/core/transform.h \
 engine/components/camera.h \
 	engine/rendering/texture.h \
-	engine/rendering/basicshader.h \
 	engine/rendering/material.h \
-	engine/rendering/phongshader.h \
     engine/components/baselight.h \
 	engine/components/directionallight.h \
 	engine/components/attenuation.h \
