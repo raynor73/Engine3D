@@ -83,7 +83,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_directionLightObject = new GameObject();
 	m_directionalLight = new DirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1), 0.4);
-	m_directionLightObject->transform().setRotation(Quaternion(1, 0, 0, Utils::toRadians(-45)));
+	m_directionLightObject->transform().setRotation(Quaternion(Vector3f(1, 0, 0), Utils::toRadians(-45)));
 	m_directionLightObject->addComponent(m_directionalLight);
 
 	m_pointLightObject = new GameObject();
