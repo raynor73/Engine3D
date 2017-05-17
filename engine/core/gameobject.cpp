@@ -23,13 +23,13 @@ void GameObject::update(float dt)
 		(*i)->update(dt);
 }
 
-void GameObject::render(Camera &camera, Shader &shader)
+void GameObject::render(Shader &shader, RenderingEngine &renderingEngine)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->render(camera, shader);
+		(*i)->render(shader, renderingEngine);
 
 	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
-		(*i)->render(camera, shader);
+		(*i)->render(shader, renderingEngine);
 }
 
 void GameObject::addChild(GameObject *child)

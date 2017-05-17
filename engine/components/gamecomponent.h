@@ -17,7 +17,7 @@ public:
 
 	virtual void onOpenGLResized(int width, int height);
 	virtual void update(float) {}
-	virtual void render(Camera &, Shader &) {}
+	virtual void render(Shader &, RenderingEngine&) {}
 
 	virtual void addToRenderingEngine(RenderingEngine &) {}
 

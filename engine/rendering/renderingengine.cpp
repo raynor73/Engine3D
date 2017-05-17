@@ -43,7 +43,7 @@ void RenderingEngine::render(GameObject &gameObject)
 	m_lights.clear();
 	gameObject.addToRenderingEngine(*this);
 
-	gameObject.render(*m_mainCamera, *m_forwardAmbientShader);
+	gameObject.render(*m_forwardAmbientShader, *this);
 
 	f.glEnable(GL_BLEND);
 	f.glBlendFunc(GL_ONE, GL_ONE);
@@ -52,7 +52,7 @@ void RenderingEngine::render(GameObject &gameObject)
 
 	for (QList<BaseLight *>::Iterator i = m_lights.begin(); i != m_lights.end(); ++i) {
 		m_activeLight = (*i);
-		gameObject.render(*m_mainCamera, *m_activeLight->shader());
+		gameObject.render(*m_activeLight->shader(), *this);
 	}
 
 	f.glDepthFunc(GL_LESS);

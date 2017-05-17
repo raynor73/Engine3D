@@ -1,4 +1,5 @@
 #include "meshrenderer.h"
+#include <engine/rendering/renderingengine.h>
 
 MeshRenderer::MeshRenderer(Mesh *mesh, Material *material, QObject *parent) :
 	GameComponent(parent),
@@ -9,9 +10,9 @@ MeshRenderer::MeshRenderer(Mesh *mesh, Material *material, QObject *parent) :
 	Q_ASSERT(m_material != NULL);
 }
 
-void MeshRenderer::render(Camera &camera, Shader &shader)
+void MeshRenderer::render(Shader &shader, RenderingEngine &renderingEngine)
 {
 	shader.bind();
-	shader.updateUniforms(transform(), camera, *m_material);
+	shader.updateUniforms(transform(), *m_material, renderingEngine);
 	m_mesh->draw();
 }

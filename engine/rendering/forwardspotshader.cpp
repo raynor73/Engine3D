@@ -43,7 +43,7 @@ void ForwardSpotShader::updateUniforms(Transform &transform, Material &material,
 
 	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
 
-	setUniform("spotLight", static_cast<SpotLight &>(*m_renderingEngine.activeLight()));
+	setUniform("spotLight", static_cast<SpotLight &>(*renderingEngine.activeLight()));
 }
 
 void ForwardSpotShader::setUniform(const QString &uniformName, const BaseLight &baseLight)

@@ -20,5 +20,5 @@ void ForwardAmbientShader::updateUniforms(Transform &transform, Material &materi
 	material.findTexture("diffuse")->bind();
 
 	setUniform("modelViewProjection", projectedMatrix);
-	setUniform("ambientIntensity", m_renderingEngine.ambientLight());
+	setUniform("ambientIntensity", renderingEngine.ambientLight());
 }
