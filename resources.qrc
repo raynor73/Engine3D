@@ -17,5 +17,6 @@
         <file>resources/shaders/forwardpoint.vsh</file>
         <file>resources/shaders/forwardspot.fsh</file>
         <file>resources/shaders/forwardspot.vsh</file>
+        <file>resources/models/monkey2.obj</file>
     </qresource>
 </RCC>

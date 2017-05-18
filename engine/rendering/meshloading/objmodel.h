@@ -5,11 +5,12 @@
 #include <engine/rendering/meshloading/objindex.h>
 #include <engine/core/vector3f.h>
 
+class QString;
 class OBJModel : public QObject
 {
 	Q_OBJECT
 public:
-	explicit OBJModel(QObject *parent = 0);
+	OBJModel(const QString &filename, QObject *parent = 0);
 
 	const QList<Vector3f> &vertices() const { return m_vertices; }
 	const QList<Vector2f> &textureCoordinates() const { return m_textureCoordinates; }
@@ -21,6 +22,10 @@ private:
 	QList<Vector2f> m_textureCoordinates;
 	QList<Vector3f> m_normals;
 	QList<OBJIndex> m_indices;
+	bool m_hasTextureCoordinates;
+	bool m_hasNormals;
+
+	OBJIndex parseOBJIndex(const QString &);
 };
 
 #endif // OBJMODEL_H
