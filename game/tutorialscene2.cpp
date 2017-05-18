@@ -13,14 +13,17 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_coreEngine(coreEngine),
 	m_mesh(NULL),
 	m_mesh2(NULL),
+	m_monkeyMesh(NULL),
 	m_texture(NULL),
 	m_material(NULL),
 	m_meshRenderer(NULL),
 	m_planeObject(NULL),
 	m_testMesh1(NULL),
 	m_testMesh2(NULL),
+	m_monkeyGameObject(NULL),
 	m_meshRenderer1(NULL),
-	m_meshRenderer2(NULL)
+	m_meshRenderer2(NULL),
+	m_monkeyMeshRenderer(NULL)
 {
 	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
@@ -121,6 +124,12 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_testMesh1->addChild(m_testMesh2);
 
 	m_rootGameObject->addChild(m_testMesh1);
+
+	m_monkeyMesh = new Mesh(*f, "monkey2.obj", true);
+	m_monkeyGameObject = new GameObject();
+	m_monkeyMeshRenderer = new MeshRenderer(m_monkeyMesh, m_material);
+	m_monkeyGameObject->addComponent(m_monkeyMeshRenderer);
+	m_rootGameObject->addChild(m_monkeyGameObject);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)
@@ -182,10 +191,14 @@ TutorialScene2::~TutorialScene2()
 		delete m_testMesh1;
 	if (m_testMesh2 != NULL)
 		delete m_testMesh2;
+	if (m_monkeyGameObject != NULL)
+		delete m_monkeyGameObject;
 	if (m_meshRenderer1 != NULL)
 		delete m_meshRenderer1;
 	if (m_meshRenderer2 != NULL)
 		delete m_meshRenderer2;
+	if (m_monkeyMeshRenderer != NULL)
+		delete m_monkeyMeshRenderer;
 	if (m_meshRenderer != NULL)
 		delete m_meshRenderer;
 	if (m_material != NULL)
@@ -196,6 +209,8 @@ TutorialScene2::~TutorialScene2()
 		delete m_mesh;
 	if (m_mesh2 != NULL)
 		delete m_mesh2;
+	if (m_monkeyMesh != NULL)
+		delete m_monkeyMesh;
 	if (f != NULL)
 		delete f;
 	if (m_planeObject != NULL)

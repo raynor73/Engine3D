@@ -17,32 +17,73 @@ OBJModel::OBJModel(const QString &filename, QObject *parent) :
 		auto line = meshStream.readLine();
 		auto tokens = line.split(' ');
 
-		if (tokens.size() == 4) {
-			if (tokens.at(0) == "v") {
-				auto x = tokens.at(1).toFloat();
-				auto y = tokens.at(2).toFloat();
-				auto z = tokens.at(3).toFloat();
-				m_vertices += Vector3f(x, y, z);
-			} else if (tokens.at(0) == "vt") {
-				auto x = tokens.at(1).toFloat();
-				auto y = tokens.at(2).toFloat();
-				m_textureCoordinates += Vector2f(x, y);
-			} else if (tokens.at(0) == "vn") {
-				auto x = tokens.at(1).toFloat();
-				auto y = tokens.at(2).toFloat();
-				auto z = tokens.at(3).toFloat();
-				m_normals += Vector3f(x, y, z);
-			} else if (tokens.at(0) == "f") {
-				for (int i = 0; i < tokens.size() - 3; i++) {
-					m_indices += parseOBJIndex(tokens.at(1));
-					m_indices += parseOBJIndex(tokens.at(2 + i));
-					m_indices += parseOBJIndex(tokens.at(3 + i));
-				}
+		if (tokens.at(0) == "v") {
+			auto x = tokens.at(1).toFloat();
+			auto y = tokens.at(2).toFloat();
+			auto z = tokens.at(3).toFloat();
+			m_positions += Vector3f(x, y, z);
+		} else if (tokens.at(0) == "vt") {
+			auto x = tokens.at(1).toFloat();
+			auto y = tokens.at(2).toFloat();
+			m_textureCoordinates += Vector2f(x, y);
+		} else if (tokens.at(0) == "vn") {
+			auto x = tokens.at(1).toFloat();
+			auto y = tokens.at(2).toFloat();
+			auto z = tokens.at(3).toFloat();
+			m_normals += Vector3f(x, y, z);
+		} else if (tokens.at(0) == "f") {
+			for (int i = 0; i < tokens.size() - 3; i++) {
+				m_indices += parseOBJIndex(tokens.at(1));
+				m_indices += parseOBJIndex(tokens.at(2 + i));
+				m_indices += parseOBJIndex(tokens.at(3 + i));
 			}
 		}
 	}
 
 	meshFile.close();
+}
+
+IndexedModel OBJModel::toIndexedModel() const
+{
+	IndexedModel indexedModel;
+
+	for (int i = 0; i < m_indices.size(); i++)
+	{
+		OBJIndex currentIndex = m_indices[i];
+
+		Vector3f currentPosition = m_positions[currentIndex.vertexIndex()];
+		Vector2f currentTextureCoordinate;
+		Vector3f currentNormal;
+
+		if (m_hasTextureCoordinates)
+			currentTextureCoordinate = m_textureCoordinates[currentIndex.textureCoordinateIndex()];
+
+		if (m_hasNormals)
+			currentNormal = m_normals[currentIndex.normalIndex()];
+
+		int prevVertexIndex = -1;
+		for (int j = 0; j < i; j++) {
+			OBJIndex oldIndex = m_indices[j];
+
+			if (currentIndex.vertexIndex() == oldIndex.vertexIndex() &&
+					currentIndex.textureCoordinateIndex() == oldIndex.textureCoordinateIndex() &&
+					currentIndex.normalIndex() == oldIndex.normalIndex()) {
+				prevVertexIndex = j;
+				break;
+			}
+		}
+
+		if (prevVertexIndex == -1) {
+			indexedModel.positions() += currentPosition;
+			indexedModel.textureCoordinates() += currentTextureCoordinate;
+			indexedModel.normals() += currentNormal;
+			indexedModel.indices() += i;
+		} else {
+			indexedModel.indices() += prevVertexIndex;
+		}
+	}
+
+	return indexedModel;
 }
 
 OBJIndex OBJModel::parseOBJIndex(const QString &token)

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	CoreEngine coreEngine(800, 600, 60, "Engine3D");
+	CoreEngine coreEngine(800, 600, 120, "Engine3D");
 	//TutorialSceneMonkey scene(*coreEngine.userInput());
 	//TerrainScene scene(*coreEngine.userInput());
 	TutorialScene2 scene(coreEngine);

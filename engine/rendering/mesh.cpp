@@ -1,6 +1,8 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
+#include <engine/rendering/meshloading/objmodel.h>
+#include <engine/rendering/meshloading/indexedmodel.h>
 #include "mesh.h"
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, bool shouldCalculateNormals, QObject *parent) :
@@ -126,7 +128,24 @@ void Mesh::calculateNormals(QList<Vertex> &vertices, const QVector<unsigned int>
 
 void Mesh::loadMesh(const QString &filename, bool shouldCalculateNormals)
 {
-	QFile meshFile(QString(":/resources/models/%1").arg(filename));
+	OBJModel objModel(filename);
+	IndexedModel indexedModel = objModel.toIndexedModel();
+	if (shouldCalculateNormals)
+		indexedModel.calculateNormals();
+
+	QList<Vertex> vertices;
+	QVector<unsigned int> indices;
+
+	for (int i = 0; i < indexedModel.positions().size(); i++)
+		vertices += Vertex(indexedModel.positions()[i], indexedModel.textureCoordinates()[i],
+						   indexedModel.normals()[i]);
+
+	for (int i = 0; i < indexedModel.indices().size(); i++)
+		indices += indexedModel.indices()[i];
+
+	setVertices(vertices, indices, false);
+
+	/*QFile meshFile(QString(":/resources/models/%1").arg(filename));
 	meshFile.open(QFile::ReadOnly | QFile::Text);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
@@ -152,5 +171,5 @@ void Mesh::loadMesh(const QString &filename, bool shouldCalculateNormals)
 
 	meshFile.close();
 
-	setVertices(vertices, indices, shouldCalculateNormals);
+	setVertices(vertices, indices, shouldCalculateNormals);*/
 }

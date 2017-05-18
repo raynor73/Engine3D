@@ -11,7 +11,8 @@ public:
 	float x;
 	float y;
 
-	explicit Vector2f(float, float, QObject *parent = 0);
+	explicit Vector2f(QObject *parent = 0);
+	Vector2f(float x, float y, QObject *parent = 0);
 	Vector2f(const Vector2f &);
 
 	operator QString();

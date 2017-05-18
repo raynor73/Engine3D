@@ -15,9 +15,9 @@ public:
 	Vector2f textureCoordinate;
 	Vector3f normal;
 
-	explicit Vertex(const Vector3f &, QObject *parent = 0);
-	Vertex(const Vector3f &, const Vector2f &, QObject *parent = 0);
-	Vertex(const Vector3f &, const Vector2f &, const Vector3f &, QObject *parent = 0);
+	Vertex(const Vector3f &position, QObject *parent = 0);
+	Vertex(const Vector3f &position, const Vector2f &textureCoordinate, QObject *parent = 0);
+	Vertex(const Vector3f &position, const Vector2f &textureCoordinate, const Vector3f &normal, QObject *parent = 0);
 	Vertex(const Vertex &, QObject *parent = 0);
 
 	Vertex &operator =(const Vertex &);

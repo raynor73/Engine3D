@@ -3,6 +3,12 @@
 #include <utils.h>
 #include <engine/core/vector2f.h>
 
+Vector2f::Vector2f(QObject *parent) :
+	QObject(parent),
+	x(0),
+	y(0)
+{}
+
 Vector2f::Vector2f(float x, float y, QObject *parent) :
 	QObject(parent),
 	x(x),
