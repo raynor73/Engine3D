@@ -64,7 +64,8 @@ engine/components/camera.cpp \
 	engine/rendering/forwardpointshader.cpp \
 	engine/rendering/forwardspotshader.cpp \
     engine/rendering/meshloading/indexedmodel.cpp \
-    engine/rendering/meshloading/objmodel.cpp
+    engine/rendering/meshloading/objmodel.cpp \
+    engine/rendering/resourcemanagement/meshresource.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/openglwidget.h \
@@ -108,7 +109,8 @@ engine/components/camera.h \
 	engine/rendering/forwardspotshader.h \
     engine/rendering/meshloading/indexedmodel.h \
     engine/rendering/meshloading/objmodel.h \
-    engine/rendering/meshloading/objindex.h
+    engine/rendering/meshloading/objindex.h \
+    engine/rendering/resourcemanagement/meshresource.h
 
 INCLUDEPATH += $$PWD
 
