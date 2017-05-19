@@ -125,10 +125,12 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 	m_rootGameObject->addChild(m_testMesh1);
 
-	m_monkeyMesh = new Mesh(*f, "monkey2.obj", true);
+	m_monkeyMesh = new Mesh(*f, "monkey2.obj");
 	m_monkeyGameObject = new GameObject();
 	m_monkeyMeshRenderer = new MeshRenderer(m_monkeyMesh, m_material);
 	m_monkeyGameObject->addComponent(m_monkeyMeshRenderer);
+	m_monkeyGameObject->transform().translation().set(5, 5, 5);
+	m_monkeyGameObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-70)));
 	m_rootGameObject->addChild(m_monkeyGameObject);
 }
 

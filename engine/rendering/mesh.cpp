@@ -5,7 +5,7 @@
 #include <engine/rendering/meshloading/indexedmodel.h>
 #include "mesh.h"
 
-Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, bool shouldCalculateNormals, QObject *parent) :
+Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
 	f(f),
 	m_numberOfIndices(0),
@@ -14,11 +14,8 @@ Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, bool shouldCa
 	f.glGenBuffers(1, &m_vertexBufferObjectName);
 	f.glGenBuffers(1, &m_indexBufferObjectName);
 
-	loadMesh(filename, shouldCalculateNormals);
+	loadMesh(filename);
 }
-
-Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) : Mesh(f, filename, false, parent)
-{}
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
@@ -126,12 +123,10 @@ void Mesh::calculateNormals(QList<Vertex> &vertices, const QVector<unsigned int>
 		vertices[i].normal = vertices[i].normal.normalized();
 }
 
-void Mesh::loadMesh(const QString &filename, bool shouldCalculateNormals)
+void Mesh::loadMesh(const QString &filename)
 {
 	OBJModel objModel(filename);
 	IndexedModel indexedModel = objModel.toIndexedModel();
-	if (shouldCalculateNormals)
-		indexedModel.calculateNormals();
 
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
@@ -144,32 +139,4 @@ void Mesh::loadMesh(const QString &filename, bool shouldCalculateNormals)
 		indices += indexedModel.indices()[i];
 
 	setVertices(vertices, indices, false);
-
-	/*QFile meshFile(QString(":/resources/models/%1").arg(filename));
-	meshFile.open(QFile::ReadOnly | QFile::Text);
-	QList<Vertex> vertices;
-	QVector<unsigned int> indices;
-
-	QTextStream meshStream(&meshFile);
-
-	while (!meshStream.atEnd()) {
-		auto line = meshStream.readLine();
-		auto tokens = line.split(' ');
-
-		if (tokens.size() == 4) {
-			if (tokens.at(0) == "v") {
-				auto x = tokens.at(1).toFloat();
-				auto y = tokens.at(2).toFloat();
-				auto z = tokens.at(3).toFloat();
-				vertices += Vertex(Vector3f(x, y, z));
-			} else if (tokens.at(0) == "f") {
-				for (int i = 1; i <= 3; i++)
-					indices += tokens.at(i).toInt() - 1;
-			}
-		}
-	}
-
-	meshFile.close();
-
-	setVertices(vertices, indices, shouldCalculateNormals);*/
 }

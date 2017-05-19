@@ -28,7 +28,7 @@ void TerrainScene::makeOpenGLDependentSetup()
 {
 	BaseTutorialScene::makeOpenGLDependentSetup();
 
-	m_mesh = new Mesh(*m_openGLFunctions, "terrain0.obj", true);
+	m_mesh = new Mesh(*m_openGLFunctions, "terrain0.obj");
 	/*PhongShader *phongShader = new PhongShader(*m_openGLFunctions, m_camera);
 	phongShader->setAmbientLight(Vector3f(0.1, 0.1, 0.1));
 	phongShader->setDirectionalLight(DirectionalLight(BaseLight(Vector3f(1, 1, 1), 0.8),

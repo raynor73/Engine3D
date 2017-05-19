@@ -2,6 +2,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QFile>
+#include <unordered_map>
 
 OBJModel::OBJModel(const QString &filename, QObject *parent) :
 	QObject(parent),
@@ -46,9 +47,11 @@ OBJModel::OBJModel(const QString &filename, QObject *parent) :
 IndexedModel OBJModel::toIndexedModel() const
 {
 	IndexedModel indexedModel;
-	QMap<OBJIndex, int> indexMap;
+	IndexedModel normalModel;
+	std::unordered_map<OBJIndex, int> resultIndexMap;
+	std::unordered_map<int, int> normalIndexMap;
+	std::unordered_map<int, int> indexMap;
 
-	int currentVertexIndex = 0;
 	for (int i = 0; i < m_indices.size(); i++)
 	{
 		OBJIndex currentIndex = m_indices[i];
@@ -63,44 +66,42 @@ IndexedModel OBJModel::toIndexedModel() const
 		if (m_hasNormals)
 			currentNormal = m_normals[currentIndex.normalIndex()];
 
-		int prevVertexIndex = -1;
+		int modelVertexIndex = -1;
+		if (resultIndexMap.count(currentIndex) != 0)
+			modelVertexIndex = resultIndexMap[currentIndex];
 
-		if (indexMap.contains(currentIndex))
-			prevVertexIndex = indexMap[currentIndex];
-
-		if (prevVertexIndex == -1) {
-			indexMap[currentIndex] = currentVertexIndex;
-
-			indexedModel.positions() += currentPosition;
-			indexedModel.textureCoordinates() += currentTextureCoordinate;
-			indexedModel.normals() += currentNormal;
-			indexedModel.indices() += currentVertexIndex;
-			currentVertexIndex++;
-		} else {
-			indexedModel.indices() += prevVertexIndex;
-		}
-		/*for (int j = 0; j < i; j++) {
-			OBJIndex oldIndex = m_indices[j];
-
-			if (currentIndex.vertexIndex() == oldIndex.vertexIndex() &&
-					currentIndex.textureCoordinateIndex() == oldIndex.textureCoordinateIndex() &&
-					currentIndex.normalIndex() == oldIndex.normalIndex()) {
-				prevVertexIndex = j;
-				break;
-			}
-		}
-
-		if (prevVertexIndex == -1) {
-			indexMap[i] = currentVertexIndex;
+		if (modelVertexIndex == -1) {
+			modelVertexIndex = indexedModel.positions().size();
+			resultIndexMap[currentIndex] = modelVertexIndex;
 
 			indexedModel.positions() += currentPosition;
 			indexedModel.textureCoordinates() += currentTextureCoordinate;
 			indexedModel.normals() += currentNormal;
-			indexedModel.indices() += currentVertexIndex;
-			currentVertexIndex++;
-		} else {
-			indexedModel.indices() += indexMap[prevVertexIndex];
-		}*/
+		}
+
+		int normalModelIndex = -1;
+		if (normalIndexMap.count(currentIndex.vertexIndex()) != 0)
+			normalModelIndex = normalIndexMap[currentIndex.vertexIndex()];
+
+		if (normalModelIndex == -1) {
+			normalModelIndex = normalModel.positions().size();
+			normalIndexMap[currentIndex.vertexIndex()] = normalModelIndex;
+
+			normalModel.positions() += currentPosition;
+			normalModel.textureCoordinates() += currentTextureCoordinate;
+			normalModel.normals() += currentNormal;
+		}
+
+		indexedModel.indices() += modelVertexIndex;
+		normalModel.indices() += normalModelIndex;
+		indexMap[modelVertexIndex] = normalModelIndex;
+	}
+
+	if (!m_hasNormals) {
+		normalModel.calculateNormals();
+
+		for (int i = 0; i < indexedModel.normals().size(); i++)
+			indexedModel.normals()[i] = normalModel.normals()[indexMap[i]];
 	}
 
 	return indexedModel;
