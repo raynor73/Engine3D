@@ -46,7 +46,9 @@ OBJModel::OBJModel(const QString &filename, QObject *parent) :
 IndexedModel OBJModel::toIndexedModel() const
 {
 	IndexedModel indexedModel;
+	QMap<int, int> indexMap;
 
+	int currentVertexIndex = 0;
 	for (int i = 0; i < m_indices.size(); i++)
 	{
 		OBJIndex currentIndex = m_indices[i];
@@ -74,12 +76,15 @@ IndexedModel OBJModel::toIndexedModel() const
 		}
 
 		if (prevVertexIndex == -1) {
+			indexMap[i] = currentVertexIndex;
+
 			indexedModel.positions() += currentPosition;
 			indexedModel.textureCoordinates() += currentTextureCoordinate;
 			indexedModel.normals() += currentNormal;
-			indexedModel.indices() += i;
+			indexedModel.indices() += currentVertexIndex;
+			currentVertexIndex++;
 		} else {
-			indexedModel.indices() += prevVertexIndex;
+			indexedModel.indices() += indexMap[prevVertexIndex];
 		}
 	}
 
