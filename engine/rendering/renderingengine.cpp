@@ -4,6 +4,7 @@
 #include <engine/rendering/forwarddirectionalshader.h>
 #include <engine/rendering/forwardpointshader.h>
 #include <engine/rendering/forwardspotshader.h>
+#include <glwrapper.h>
 
 RenderingEngine::RenderingEngine(QObject *parent) :
 	QObject(parent),
@@ -11,6 +12,8 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 	m_ambientLight(0.1, 0.1, 0.1)
 {
 	f.initializeOpenGLFunctions();
+
+	setOpenGLFunctions(&f);
 
 	f.glClearColor(0, 0, 0, 0);
 

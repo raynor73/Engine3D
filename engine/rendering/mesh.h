@@ -4,7 +4,9 @@
 #include <QObject>
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <QList>
+#include <QMap>
 #include <engine/rendering/vertex.h>
+#include <engine/rendering/resourcemanagement/meshresource.h>
 
 class Mesh : public QObject
 {
@@ -19,11 +21,11 @@ public:
 	void draw();
 
 private:
+	static QMap<QString, MeshResource> s_loadedModels;
+
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 
-	GLuint m_vertexBufferObjectName;
-	GLuint m_indexBufferObjectName;
-	int m_numberOfIndices;
+	MeshResource m_meshResource;
 	unsigned char *m_temporaryVertexBuffer;
 
 	void loadMesh(const QString &filename);

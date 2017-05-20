@@ -8,33 +8,21 @@
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
 	f(f),
-	m_numberOfIndices(0),
 	m_temporaryVertexBuffer(NULL)
 {
-	f.glGenBuffers(1, &m_vertexBufferObjectName);
-	f.glGenBuffers(1, &m_indexBufferObjectName);
-
 	loadMesh(filename);
 }
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
 	f(f),
-	m_numberOfIndices(0),
 	m_temporaryVertexBuffer(NULL)
-{
-	f.glGenBuffers(1, &m_vertexBufferObjectName);
-	f.glGenBuffers(1, &m_indexBufferObjectName);
-}
+{}
 
 Mesh::~Mesh()
 {
-	f.glDeleteBuffers(1, &m_vertexBufferObjectName);
-	f.glDeleteBuffers(1, &m_indexBufferObjectName);
-	if (m_temporaryVertexBuffer != NULL) {
+	if (m_temporaryVertexBuffer != NULL)
 		delete m_temporaryVertexBuffer;
-		m_temporaryVertexBuffer = NULL;
-	}
 }
 
 void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &indices)
@@ -73,10 +61,10 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 		m_floatBuffer[base + 7] = normal.z;
 	}
 
-	f.glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjectName);
+	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource.vertexBufferObjectName());
 	f.glBufferData(GL_ARRAY_BUFFER, sizeOfVertexBuffer, m_temporaryVertexBuffer, GL_STATIC_DRAW);
 
-	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferObjectName);
+	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
 	f.glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numberOfIndices * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 }
 
@@ -86,14 +74,14 @@ void Mesh::draw()
 	f.glEnableVertexAttribArray(1);
 	f.glEnableVertexAttribArray(2);
 
-	f.glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObjectName);
+	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource.vertexBufferObjectName());
 	f.glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
 	f.glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float),
 							reinterpret_cast<const void *>(3 * sizeof(float)));
 	f.glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float),
 							reinterpret_cast<const void *>(5 * sizeof(float)));
 
-	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferObjectName);
+	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
 
 	f.glDrawElements(GL_TRIANGLES, m_numberOfIndices, GL_UNSIGNED_INT, 0);
 
