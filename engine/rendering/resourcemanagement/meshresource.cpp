@@ -1,13 +1,13 @@
 #include "meshresource.h"
 
-MeshResource::MeshResource(QObject *parent) : QObject(parent)
+MeshResource::MeshResource()
 {
-	glGenBuffers(1, &m_vertexBufferObjectName);
-	glGenBuffers(1, &m_indexBufferObjectName);
+	_glGenBuffers(1, &m_vertexBufferObjectName);
+	_glGenBuffers(1, &m_indexBufferObjectName);
 }
 
 MeshResource::~MeshResource()
 {
-	glDeleteBuffers(1, &m_vertexBufferObjectName);
-	glDeleteBuffers(1, &m_indexBufferObjectName);
+	_glDeleteBuffers(1, &m_vertexBufferObjectName);
+	_glDeleteBuffers(1, &m_indexBufferObjectName);
 }

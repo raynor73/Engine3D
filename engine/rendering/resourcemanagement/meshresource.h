@@ -1,14 +1,12 @@
 #ifndef MESHRESOURCE_H
 #define MESHRESOURCE_H
 
-#include <QObject>
 #include <glwrapper.h>
 
-class MeshResource : public QObject
+class MeshResource
 {
-	Q_OBJECT
 public:
-	explicit MeshResource(QObject *parent = 0);
+	MeshResource();
 	~MeshResource();
 
 	GLuint vertexBufferObjectName() const { return m_vertexBufferObjectName; }

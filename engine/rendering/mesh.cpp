@@ -3,14 +3,23 @@
 #include <QTextStream>
 #include <engine/rendering/meshloading/objmodel.h>
 #include <engine/rendering/meshloading/indexedmodel.h>
+#include <QDebug>
 #include "mesh.h"
+
+QMap<QString, MeshResource> Mesh::s_loadedModels;
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
 	f(f),
 	m_temporaryVertexBuffer(NULL)
 {
-	loadMesh(filename);
+	if (s_loadedModels.count(filename) > 0) {
+		qDebug() << "Mesh with filename:" << filename << "already loaded, reusing buffers";
+		m_meshResource = s_loadedModels[filename];
+	} else {
+		loadMesh(filename);
+		s_loadedModels[filename] = m_meshResource;
+	}
 }
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
@@ -38,7 +47,7 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 	if (m_temporaryVertexBuffer != NULL)
 		delete m_temporaryVertexBuffer;
 
-	m_numberOfIndices = indices.size();
+	m_meshResource.setNumberOfIndices(indices.size());
 
 	auto numberOfVertices = vertices.size();
 
@@ -65,7 +74,8 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 	f.glBufferData(GL_ARRAY_BUFFER, sizeOfVertexBuffer, m_temporaryVertexBuffer, GL_STATIC_DRAW);
 
 	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
-	f.glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_numberOfIndices * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+	f.glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.numberOfIndices() * sizeof(unsigned int), indices.data(),
+				   GL_STATIC_DRAW);
 }
 
 void Mesh::draw()
@@ -83,7 +93,7 @@ void Mesh::draw()
 
 	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
 
-	f.glDrawElements(GL_TRIANGLES, m_numberOfIndices, GL_UNSIGNED_INT, 0);
+	f.glDrawElements(GL_TRIANGLES, m_meshResource.numberOfIndices(), GL_UNSIGNED_INT, 0);
 
 	f.glDisableVertexAttribArray(0);
 	f.glDisableVertexAttribArray(1);
