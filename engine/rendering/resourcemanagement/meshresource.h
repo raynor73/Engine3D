@@ -6,7 +6,7 @@
 class MeshResource
 {
 public:
-	MeshResource();
+	MeshResource(int numberOfIndices);
 	~MeshResource();
 
 	GLuint vertexBufferObjectName() const { return m_vertexBufferObjectName; }

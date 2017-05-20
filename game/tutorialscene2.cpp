@@ -13,17 +13,20 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_coreEngine(coreEngine),
 	m_mesh(NULL),
 	m_mesh2(NULL),
-	m_monkeyMesh(NULL),
 	m_texture(NULL),
 	m_material(NULL),
 	m_meshRenderer(NULL),
 	m_planeObject(NULL),
 	m_testMesh1(NULL),
 	m_testMesh2(NULL),
-	m_monkeyGameObject(NULL),
 	m_meshRenderer1(NULL),
 	m_meshRenderer2(NULL),
-	m_monkeyMeshRenderer(NULL)
+	m_monkeyMesh(NULL),
+	m_monkeyGameObject(NULL),
+	m_monkeyMeshRenderer(NULL),
+	m_monkeyMesh2(NULL),
+	m_monkeyGameObject2(NULL),
+	m_monkeyMeshRenderer2(NULL)
 {
 	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
@@ -132,6 +135,17 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_monkeyGameObject->transform().translation().set(5, 5, 5);
 	m_monkeyGameObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-70)));
 	m_rootGameObject->addChild(m_monkeyGameObject);
+
+	m_texture2 = new Texture(*f, "brick.jpg");
+	m_material2 = new Material();
+	m_material2->addTexture("diffuse", m_texture2);
+	m_material2->addFloat("specularIntensity", 1);
+	m_material2->addFloat("specularPower", 8);
+	m_monkeyMesh2 = new Mesh(*f, "monkey2.obj");
+	m_monkeyGameObject2 = new GameObject();
+	m_monkeyMeshRenderer2 = new MeshRenderer(m_monkeyMesh2, m_material2);
+	m_monkeyGameObject2->addComponent(m_monkeyMeshRenderer2);
+	m_rootGameObject->addChild(m_monkeyGameObject2);
 }
 
 void TutorialScene2::onOpenGLResized(int width, int height)
@@ -193,14 +207,29 @@ TutorialScene2::~TutorialScene2()
 		delete m_testMesh1;
 	if (m_testMesh2 != NULL)
 		delete m_testMesh2;
-	if (m_monkeyGameObject != NULL)
-		delete m_monkeyGameObject;
 	if (m_meshRenderer1 != NULL)
 		delete m_meshRenderer1;
 	if (m_meshRenderer2 != NULL)
 		delete m_meshRenderer2;
+
+	if (m_monkeyGameObject != NULL)
+		delete m_monkeyGameObject;
 	if (m_monkeyMeshRenderer != NULL)
 		delete m_monkeyMeshRenderer;
+	if (m_monkeyMesh != NULL)
+		delete m_monkeyMesh;
+
+	if (m_monkeyGameObject2 != NULL)
+		delete m_monkeyGameObject2;
+	if (m_monkeyMeshRenderer2 != NULL)
+		delete m_monkeyMeshRenderer2;
+	if (m_monkeyMesh2 != NULL)
+		delete m_monkeyMesh2;
+	if (m_material2 != NULL)
+		delete m_material2;
+	if (m_texture2 != NULL)
+		delete m_texture2;
+
 	if (m_meshRenderer != NULL)
 		delete m_meshRenderer;
 	if (m_material != NULL)
@@ -211,8 +240,6 @@ TutorialScene2::~TutorialScene2()
 		delete m_mesh;
 	if (m_mesh2 != NULL)
 		delete m_mesh2;
-	if (m_monkeyMesh != NULL)
-		delete m_monkeyMesh;
 	if (f != NULL)
 		delete f;
 	if (m_planeObject != NULL)

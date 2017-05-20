@@ -1,6 +1,7 @@
 #include "meshresource.h"
 
-MeshResource::MeshResource()
+MeshResource::MeshResource(int numberOfIndices) :
+	m_numberOfIndices(numberOfIndices)
 {
 	_glGenBuffers(1, &m_vertexBufferObjectName);
 	_glGenBuffers(1, &m_indexBufferObjectName);

@@ -33,7 +33,6 @@ private:
 	CoreEngine &m_coreEngine;
 	Mesh *m_mesh;
 	Mesh *m_mesh2;
-	Mesh *m_monkeyMesh;
 	Texture *m_texture;
 	Material *m_material;
 	MeshRenderer *m_meshRenderer;
@@ -43,10 +42,17 @@ private:
 
 	GameObject *m_testMesh1;
 	GameObject *m_testMesh2;
-	GameObject *m_monkeyGameObject;
 	MeshRenderer *m_meshRenderer1;
 	MeshRenderer *m_meshRenderer2;
+
+	Mesh *m_monkeyMesh;
+	GameObject *m_monkeyGameObject;
 	MeshRenderer *m_monkeyMeshRenderer;
+	Mesh *m_monkeyMesh2;
+	GameObject *m_monkeyGameObject2;
+	Texture *m_texture2;
+	Material *m_material2;
+	MeshRenderer *m_monkeyMeshRenderer2;
 
 	GameObject *m_directionLightObject;
 	DirectionalLight *m_directionalLight;
