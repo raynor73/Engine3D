@@ -11,14 +11,15 @@ QMap<QString, MeshResource> Mesh::s_loadedModels;
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
 	f(f),
-	m_meshResource(0),
 	m_temporaryVertexBuffer(NULL)
 {
 	if (s_loadedModels.count(filename) > 0) {
 		qDebug() << "Mesh with filename:" << filename << "already loaded, reusing buffers";
+		//m_meshResource = s_loadedModels[filename];
 		m_meshResource = s_loadedModels.values(filename).at(0);
 	} else {
 		loadMesh(filename);
+		//s_loadedModels[filename] = m_meshResource;
 		s_loadedModels.insert(filename, m_meshResource);
 	}
 }
@@ -26,7 +27,6 @@ Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *pare
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
 	f(f),
-	m_meshResource(0),
 	m_temporaryVertexBuffer(NULL)
 {}
 
