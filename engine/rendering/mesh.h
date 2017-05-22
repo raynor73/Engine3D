@@ -21,11 +21,12 @@ public:
 	void draw();
 
 private:
-	static QMap<QString, MeshResource> s_loadedModels;
+	// TODO Decide when to free mesh resources
+	static QMap<QString, MeshResource *> s_loadedModels;
 
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 
-	MeshResource m_meshResource;
+	MeshResource *m_meshResource;
 	unsigned char *m_temporaryVertexBuffer;
 
 	void loadMesh(const QString &filename);

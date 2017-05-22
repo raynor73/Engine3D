@@ -6,27 +6,27 @@
 #include <QDebug>
 #include "mesh.h"
 
-QMap<QString, MeshResource> Mesh::s_loadedModels;
+QMap<QString, MeshResource *> Mesh::s_loadedModels;
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
 	f(f),
+	m_meshResource(NULL),
 	m_temporaryVertexBuffer(NULL)
 {
 	if (s_loadedModels.count(filename) > 0) {
 		qDebug() << "Mesh with filename:" << filename << "already loaded, reusing buffers";
-		//m_meshResource = s_loadedModels[filename];
-		m_meshResource = s_loadedModels.values(filename).at(0);
+		m_meshResource = s_loadedModels[filename];
 	} else {
 		loadMesh(filename);
-		//s_loadedModels[filename] = m_meshResource;
-		s_loadedModels.insert(filename, m_meshResource);
+		s_loadedModels[filename] = m_meshResource;
 	}
 }
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
 	QObject(parent),
 	f(f),
+	m_meshResource(NULL),
 	m_temporaryVertexBuffer(NULL)
 {}
 
@@ -49,7 +49,7 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 	if (m_temporaryVertexBuffer != NULL)
 		delete m_temporaryVertexBuffer;
 
-	m_meshResource.setNumberOfIndices(indices.size());
+	m_meshResource = new MeshResource(indices.size());
 
 	auto numberOfVertices = vertices.size();
 
@@ -72,11 +72,11 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 		m_floatBuffer[base + 7] = normal.z;
 	}
 
-	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource.vertexBufferObjectName());
+	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource->vertexBufferObjectName());
 	f.glBufferData(GL_ARRAY_BUFFER, sizeOfVertexBuffer, m_temporaryVertexBuffer, GL_STATIC_DRAW);
 
-	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
-	f.glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.numberOfIndices() * sizeof(unsigned int), indices.data(),
+	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource->indexBufferObjectName());
+	f.glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_meshResource->numberOfIndices() * sizeof(unsigned int), indices.data(),
 				   GL_STATIC_DRAW);
 }
 
@@ -86,16 +86,16 @@ void Mesh::draw()
 	f.glEnableVertexAttribArray(1);
 	f.glEnableVertexAttribArray(2);
 
-	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource.vertexBufferObjectName());
+	f.glBindBuffer(GL_ARRAY_BUFFER, m_meshResource->vertexBufferObjectName());
 	f.glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float), 0);
 	f.glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float),
 							reinterpret_cast<const void *>(3 * sizeof(float)));
 	f.glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, Vertex::SIZE * sizeof(float),
 							reinterpret_cast<const void *>(5 * sizeof(float)));
 
-	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource.indexBufferObjectName());
+	f.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshResource->indexBufferObjectName());
 
-	f.glDrawElements(GL_TRIANGLES, m_meshResource.numberOfIndices(), GL_UNSIGNED_INT, 0);
+	f.glDrawElements(GL_TRIANGLES, m_meshResource->numberOfIndices(), GL_UNSIGNED_INT, 0);
 
 	f.glDisableVertexAttribArray(0);
 	f.glDisableVertexAttribArray(1);

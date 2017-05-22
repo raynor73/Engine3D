@@ -6,7 +6,7 @@
 class MeshResource
 {
 public:
-	MeshResource(/*int numberOfIndices*/);
+	MeshResource(int numberOfIndices);
 	~MeshResource();
 
 	GLuint vertexBufferObjectName() const { return m_vertexBufferObjectName; }
@@ -14,6 +14,9 @@ public:
 
 	int numberOfIndices() const { return m_numberOfIndices; }
 	void setNumberOfIndices(int numberOfIndices) { m_numberOfIndices = numberOfIndices; }
+
+	MeshResource(const MeshResource &) = delete;
+	MeshResource &operator =(const MeshResource &) = delete;
 
 private:
 	GLuint m_vertexBufferObjectName;
