@@ -1,37 +1,31 @@
 #include "texture.h"
 #include <QImage>
+#include <QDebug>
 
-Texture::Texture(QOPENGLFUNCTIONS_CLASSNAME &f, int id, QObject *parent) :
-	QObject(parent),
-	f(f),
-	m_id(id)
-{}
+QMap<QString, QWeakPointer<TextureResource>> Texture::s_loadedTextures;
 
-Texture::Texture(const Texture &other) :
-	QObject(other.parent()),
-	f(other.f),
-	m_id(other.m_id)
-{}
+Texture::Texture(const QString &filename)
+{
+	if (s_loadedTextures.count(filename) > 0) {
+		QWeakPointer<TextureResource> textureResource = s_loadedTextures[filename];
+		if (textureResource.isNull()) {
+			s_loadedTextures.remove(filename);
+			loadTextureAndPutToCache(filename);
+		} else {
+			qDebug() << "Texture with filename:" << filename << "already loaded, reusing texture";
+			m_textureResource = textureResource.toStrongRef();
+		}
+	} else {
+		loadTextureAndPutToCache(filename);
+	}
+}
 
 void Texture::bind()
 {
-	f.glBindTexture(GL_TEXTURE_2D, m_id);
+	glBindTexture(GL_TEXTURE_2D, m_textureResource->id());
 }
 
-Texture &Texture::operator =(const Texture &other)
-{
-	if (&other == this)
-		return *this;
-
-	f = other.f;
-	m_id = other.m_id;
-
-	return *this;
-}
-
-Texture::Texture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
-	QObject(parent),
-	f(f)
+void Texture::loadTextureAndPutToCache(const QString &filename)
 {
 	QImage image;
 	image.load(QString(":/resources/textures/%1").arg(filename));
@@ -39,15 +33,18 @@ Texture::Texture(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject
 		image = image.convertToFormat(QImage::Format_RGBA8888);
 
 	GLuint textureID;
-	f.glGenTextures(1, &textureID);
+	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,
 				 image.constBits());
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	m_id = textureID;
+	m_textureResource = QSharedPointer<TextureResource>::create(textureID);
+	s_loadedTextures[filename] = m_textureResource.toWeakRef();
 }

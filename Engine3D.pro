@@ -66,7 +66,8 @@ engine/components/camera.cpp \
     engine/rendering/meshloading/indexedmodel.cpp \
     engine/rendering/meshloading/objmodel.cpp \
     engine/rendering/resourcemanagement/meshresource.cpp \
-    glwrapper.cpp
+    glwrapper.cpp \
+    engine/rendering/resourcemanagement/textureresource.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/openglwidget.h \
@@ -112,7 +113,8 @@ engine/components/camera.h \
     engine/rendering/meshloading/objmodel.h \
     engine/rendering/meshloading/objindex.h \
     engine/rendering/resourcemanagement/meshresource.h \
-    glwrapper.h
+    glwrapper.h \
+    engine/rendering/resourcemanagement/textureresource.h
 
 INCLUDEPATH += $$PWD
 
