@@ -41,8 +41,6 @@ protected:
 	void setFragmentShaderFromFile(const QString &);
 
 private:
-	static const QString INCLUDE_DIRCTIVE;
-
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
 

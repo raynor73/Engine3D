@@ -2,13 +2,13 @@
 #include <QByteArray>
 #include <QDebug>
 #include <QFile>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 #include "shader.h"
 #include <engine/rendering/renderutils.h>
 #include <engine/rendering/renderingengine.h>
 #include <engine/components/camera.h>
 #include <engine/core/transform.h>
-
-const QString Shader::INCLUDE_DIRCTIVE = "#include";
 
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
 	QObject(parent),
@@ -124,10 +124,12 @@ QString Shader::loadShader(const QString &filename)
 	while (!shaderStream.atEnd()) {
 		QString line = shaderStream.readLine();
 
-		if (line.startsWith(INCLUDE_DIRCTIVE)) {
-			line
+		QRegularExpression re("#include \"([a-z]+\\.h)\"");
+		QRegularExpressionMatch match = re.match(line);
+		if (match.hasMatch()) {
+			shaderText.append(loadShader(match.captured(1)));
 		} else {
-			shaderText.append().append("\n");
+			shaderText.append(line).append("\n");
 		}
 	}
 
