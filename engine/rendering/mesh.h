@@ -7,6 +7,8 @@
 #include <QMap>
 #include <engine/rendering/vertex.h>
 #include <engine/rendering/resourcemanagement/meshresource.h>
+#include <QSharedPointer>
+#include <QWeakPointer>
 
 class Mesh : public QObject
 {
@@ -21,16 +23,16 @@ public:
 	void draw();
 
 private:
-	// TODO Decide when to free mesh resources
-	static QMap<QString, MeshResource *> s_loadedModels;
+	static QMap<QString, QWeakPointer<MeshResource>> s_loadedModels;
 
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 
-	MeshResource *m_meshResource;
+	QSharedPointer<MeshResource> m_meshResource;
 	unsigned char *m_temporaryVertexBuffer;
 
 	void loadMesh(const QString &filename);
 	void calculateNormals(QList<Vertex> &, const QVector<unsigned int> &);
+	void loadMeshAndPutToCache(const QString &filename);
 };
 
 #endif // MESH_H

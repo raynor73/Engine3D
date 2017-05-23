@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "mesh.h"
 
-QMap<QString, MeshResource *> Mesh::s_loadedModels;
+QMap<QString, QWeakPointer<MeshResource>> Mesh::s_loadedModels;
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *parent) :
 	QObject(parent),
@@ -15,12 +15,23 @@ Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &filename, QObject *pare
 	m_temporaryVertexBuffer(NULL)
 {
 	if (s_loadedModels.count(filename) > 0) {
-		qDebug() << "Mesh with filename:" << filename << "already loaded, reusing buffers";
-		m_meshResource = s_loadedModels[filename];
+		QWeakPointer<MeshResource> meshResource = s_loadedModels[filename];
+		if (meshResource.isNull()) {
+			s_loadedModels.remove(filename);
+			loadMeshAndPutToCache(filename);
+		} else {
+			qDebug() << "Mesh with filename:" << filename << "already loaded, reusing buffers";
+			m_meshResource = meshResource.toStrongRef();
+		}
 	} else {
-		loadMesh(filename);
-		s_loadedModels[filename] = m_meshResource;
+		loadMeshAndPutToCache(filename);
 	}
+}
+
+void Mesh::loadMeshAndPutToCache(const QString &filename)
+{
+	loadMesh(filename);
+	s_loadedModels[filename] = m_meshResource.toWeakRef();
 }
 
 Mesh::Mesh(QOPENGLFUNCTIONS_CLASSNAME &f, QObject *parent) :
@@ -49,7 +60,7 @@ void Mesh::setVertices(QList<Vertex> &vertices, const QVector<unsigned int> &ind
 	if (m_temporaryVertexBuffer != NULL)
 		delete m_temporaryVertexBuffer;
 
-	m_meshResource = new MeshResource(indices.size());
+	m_meshResource = QSharedPointer<MeshResource>::create(indices.size());
 
 	auto numberOfVertices = vertices.size();
 
