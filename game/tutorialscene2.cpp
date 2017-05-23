@@ -45,7 +45,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_mesh = new Mesh(*f);
 	QList<Vertex> vertices;
 	QVector<unsigned int> indices;
-	m_texture = new Texture("test.png");
+	m_texture = new Texture("brick.jpg");
 	m_material = new Material();
 	m_material->addTexture("diffuse", m_texture);
 	m_material->addFloat("specularIntensity", 1);
@@ -136,7 +136,7 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_monkeyGameObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-70)));
 	m_rootGameObject->addChild(m_monkeyGameObject);
 
-	m_texture2 = new Texture("brick.jpg");
+	m_texture2 = new Texture("test.png");
 	m_material2 = new Material();
 	m_material2->addTexture("diffuse", m_texture2);
 	m_material2->addFloat("specularIntensity", 1);
