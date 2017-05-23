@@ -8,6 +8,8 @@
 #include <engine/components/camera.h>
 #include <engine/core/transform.h>
 
+const QString Shader::INCLUDE_DIRCTIVE = "#include";
+
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
 	QObject(parent),
 	f(f)
@@ -118,7 +120,16 @@ QString Shader::loadShader(const QString &filename)
 
 	QTextStream shaderStream(&shaderFile);
 
-	QString shaderText = shaderStream.readAll();
+	QString shaderText;
+	while (!shaderStream.atEnd()) {
+		QString line = shaderStream.readLine();
+
+		if (line.startsWith(INCLUDE_DIRCTIVE)) {
+			line
+		} else {
+			shaderText.append().append("\n");
+		}
+	}
 
 	shaderFile.close();
 

@@ -1,25 +1,24 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include <QObject>
-#include <engine/rendering/qopenglfunctions_selector.h>
+#include <glwrapper.h>
+#include <engine/rendering/resourcemanagement/textureresource.h>
+#include <QSharedPointer>
 
-class Texture : public QObject
+class Texture
 {
-	Q_OBJECT
 public:
-	Texture(QOPENGLFUNCTIONS_CLASSNAME &, int, QObject *parent = 0);
-	Texture(QOPENGLFUNCTIONS_CLASSNAME &, const QString &, QObject *parent = 0);
-	Texture(const Texture &);
+	Texture(const QString &filename);
 
-	int id() { return m_id; }
+	GLuint id() const { return m_textureResource->id(); }
 	void bind();
 
-	Texture &operator =(const Texture &);
-
 private:
-	QOPENGLFUNCTIONS_CLASSNAME &f;
-	int m_id;
+	static QMap<QString, QWeakPointer<TextureResource>> s_loadedTextures;
+
+	QSharedPointer<TextureResource> m_textureResource;
+
+	void loadTextureAndPutToCache(const QString &filename);
 };
 
 #endif // TEXTURE_H
