@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QMap>
+#include <QList>
 #include <engine/rendering/material.h>
 #include <engine/core/vector3f.h>
 #include <engine/core/matrix4f.h>
@@ -47,6 +48,7 @@ private:
 	QMap<QString, GLint> m_uniformLocations;
 
 	void compileShader(const QString &, GLenum);
+	QMap<QString, QList<QString>> findUniformStructs(const QString &shaderText);
 };
 
 #endif // SHADER_H
