@@ -124,7 +124,7 @@ QString Shader::loadShader(const QString &filename)
 	while (!shaderStream.atEnd()) {
 		QString line = shaderStream.readLine();
 
-		QRegularExpression re("#include \"([a-z]+\\.h)\"");
+		QRegularExpression re("#include \"([a-z\\.]+)\"");
 		QRegularExpressionMatch match = re.match(line);
 		if (match.hasMatch()) {
 			shaderText.append(loadShader(match.captured(1)));

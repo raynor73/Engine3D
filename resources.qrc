@@ -19,5 +19,6 @@
         <file>resources/shaders/forwardspot.vsh</file>
         <file>resources/models/monkey2.obj</file>
         <file>resources/textures/brick.jpg</file>
+        <file>resources/shaders/lighting.glh</file>
     </qresource>
 </RCC>

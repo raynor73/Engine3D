@@ -142,4 +142,5 @@ DISTFILES += \
     resources/shaders/forwardpoint.vsh \
     resources/shaders/forwardpoint.fsh \
     resources/shaders/forwardspot.fsh \
-    resources/shaders/forwardspot.vsh
+    resources/shaders/forwardspot.vsh \
+    resources/shaders/lighting.glh
