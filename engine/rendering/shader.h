@@ -32,6 +32,8 @@ public:
 	void linkProgram();
 	void bind();
 	virtual void updateUniforms(Transform &, Material &, RenderingEngine &) = 0;
+	void addAllUniforms(const QString &shaderText);
+	static QString loadShader(const QString &);
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
@@ -43,8 +45,6 @@ protected:
 private:
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
-
-	static QString loadShader(const QString &);
 
 	void compileShader(const QString &, GLenum);
 };

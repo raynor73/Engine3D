@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QRegularExpressionMatchIterator>
 #include "shader.h"
 #include <engine/rendering/renderutils.h>
 #include <engine/rendering/renderingengine.h>
@@ -83,6 +84,17 @@ void Shader::compileShader(const QString &text, GLenum type)
 	Q_ASSERT(RenderUtils::glGetShader(f, shaderReference, GL_COMPILE_STATUS) == GL_TRUE);
 
 	f.glAttachShader(m_programReference, shaderReference);
+}
+
+void Shader::addAllUniforms(const QString &shaderText)
+{
+	QRegularExpression re("uniform (\\w*?) ([\\w]+)");
+	QRegularExpressionMatchIterator i = re.globalMatch(shaderText);
+	while (i.hasNext()) {
+		QRegularExpressionMatch match= i.next();
+		//qDebug() << match.captured(1) << match.captured(2);
+		addUniform(match.captured(2));
+	}
 }
 
 void Shader::addUniform(const QString &uniformName)

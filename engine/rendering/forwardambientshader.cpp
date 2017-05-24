@@ -4,12 +4,15 @@
 ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
 	Shader(f, vertexArrayName, parent)
 {
-	setVertexShaderFromFile("forwardambient.vsh");
-	setFragmentShaderFromFile("forwardambient.fsh");
+	QString vertexShaderText = loadShader("forwardambient.vsh");
+	QString fragmentShaderText = loadShader("forwardambient.fsh");
+
+	setVertexShader(vertexShaderText);
+	setFragmentShader(fragmentShaderText);
 	linkProgram();
 
-	addUniform("modelViewProjection");
-	addUniform("ambientIntensity");
+	addAllUniforms(vertexShaderText);
+	addAllUniforms(fragmentShaderText);
 }
 
 void ForwardAmbientShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
