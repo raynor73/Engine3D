@@ -28,7 +28,7 @@ public:
 	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
-	virtual void updateUniforms(Transform &, Material &, RenderingEngine &) = 0;
+	virtual void updateUniforms(Transform &, Material &, RenderingEngine &);
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
@@ -47,15 +47,19 @@ private:
 		QString name;
 	};
 
+	struct Uniform : StructField {
+		Uniform(QString type, QString name) : StructField(type, name) {}
+	};
+
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
+	QList<Uniform> m_uniforms;
 
 	void compileShader(const QString &, GLenum);
 	QMap<QString, QList<StructField>> findUniformStructs(const QString &shaderText);
-	void addUniformWithStructCheck(QString uniformType, QString uniformName,
+	void addUniform(QString uniformType, QString uniformName,
 								   QMap<QString, QList<StructField>> structsWithFields);
 	void addAllUniforms(const QString &shaderText);
-	void addUniform(const QString &);
 	void setVertexShader(const QString &);
 	void setGeometryShader(const QString &);
 	void setFragmentShader(const QString &);

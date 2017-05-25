@@ -103,7 +103,7 @@ QMap<QString, QList<Shader::StructField>> Shader::findUniformStructs(const QStri
 	return structsWithFields;
 }
 
-void Shader::addUniformWithStructCheck(QString uniformType, QString uniformName,
+void Shader::addUniform(QString uniformType, QString uniformName,
 							   QMap<QString, QList<StructField>> structsWithFields)
 {
 	bool shouldAddThis = true;
@@ -113,12 +113,36 @@ void Shader::addUniformWithStructCheck(QString uniformType, QString uniformName,
 		QList<StructField> structFields = structsWithFields[uniformType];
 
 		for (int i = 0; i < structFields.size(); i++)
-			addUniformWithStructCheck(structFields[i].type, uniformName + "." + structFields[i].name,
+			addUniform(structFields[i].type, uniformName + "." + structFields[i].name,
 									  structsWithFields);
 	}
 
-	if (shouldAddThis)
-		addUniform(uniformName);
+	if (!shouldAddThis)
+		return;
+
+	GLint uniformLocation = f.glGetUniformLocation(m_programReference, uniformName.toLocal8Bit());
+	Q_ASSERT(uniformLocation >= 0);
+
+	m_uniformLocations[uniformName] = uniformLocation;
+	m_uniforms += Uniform(uniformType, uniformName);
+}
+
+void Shader::updateUniforms(Transform &transform, Material &, RenderingEngine &renderingEngine)
+{
+	Matrix4f worldMatrix = transform.transformation();
+	Matrix4f projectedMatrix = renderingEngine.mainCamera().calculateViewProjection() * worldMatrix;
+
+	for (int i = 0; i < m_uniforms.size(); i++) {
+		QString uniformType = m_uniforms[i].type;
+		QString uniformName = m_uniforms[i].name;
+
+		if (uniformName == "T_modelViewProjection")
+			setUniform(uniformName, projectedMatrix);
+		else if (uniformName == "T_world")
+			setUniform(uniformName, worldMatrix);
+		else
+			Q_ASSERT(true);
+	}
 }
 
 void Shader::addAllUniforms(const QString &shaderText)
@@ -129,16 +153,8 @@ void Shader::addAllUniforms(const QString &shaderText)
 	QRegularExpressionMatchIterator i = re.globalMatch(shaderText);
 	while (i.hasNext()) {
 		QRegularExpressionMatch match= i.next();
-		addUniformWithStructCheck(match.captured(1), match.captured(2), structsWithFields);
+		addUniform(match.captured(1), match.captured(2), structsWithFields);
 	}
-}
-
-void Shader::addUniform(const QString &uniformName)
-{
-	GLint uniformLocation = f.glGetUniformLocation(m_programReference, uniformName.toLocal8Bit());
-	Q_ASSERT(uniformLocation >= 0);
-
-	m_uniformLocations[uniformName] = uniformLocation;
 }
 
 void Shader::setUniformi(const QString &uniformName, int value)
