@@ -44,11 +44,21 @@ protected:
 	void setFragmentShaderFromFile(const QString &);
 
 private:
+	struct StructField {
+		StructField(QString type, QString name) :
+			type(type),
+			name(name)
+		{}
+
+		QString type;
+		QString name;
+	};
+
 	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
 
 	void compileShader(const QString &, GLenum);
-	QMap<QString, QList<QString>> findUniformStructs(const QString &shaderText);
+	QMap<QString, QList<StructField>> findUniformStructs(const QString &shaderText);
 };
 
 #endif // SHADER_H

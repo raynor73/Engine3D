@@ -22,9 +22,9 @@ ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f
 	addAllUniforms(vertexShaderText);
 	addAllUniforms(fragmentShaderText);
 
-	addUniform("directionalLight.base.color");
+	/*addUniform("directionalLight.base.color");
 	addUniform("directionalLight.base.intensity");
-	addUniform("directionalLight.direction");
+	addUniform("directionalLight.direction");*/
 }
 
 void ForwardDirectionalShader::updateUniforms(Transform &transform, Material &material,

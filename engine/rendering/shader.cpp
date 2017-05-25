@@ -86,9 +86,9 @@ void Shader::compileShader(const QString &text, GLenum type)
 	f.glAttachShader(m_programReference, shaderReference);
 }
 
-QMap<QString, QList<QString>> Shader::findUniformStructs(const QString &shaderText)
+QMap<QString, QList<Shader::StructField>> Shader::findUniformStructs(const QString &shaderText)
 {
-	QMap<QString, QList<QString>> structsWithFields;
+	QMap<QString, QList<StructField>> structsWithFields;
 
 	QRegularExpression structRe("^struct (\\w+)\\n\\{((.|\\n)*?)\\};", QRegularExpression::MultilineOption);
 	QRegularExpression fieldRe("(\\w+) (\\w+);");
@@ -97,11 +97,10 @@ QMap<QString, QList<QString>> Shader::findUniformStructs(const QString &shaderTe
 	while (structMatchIterator.hasNext()) {
 		QRegularExpressionMatch structMatch = structMatchIterator.next();
 		QRegularExpressionMatchIterator fieldMatchIterator = fieldRe.globalMatch(structMatch.captured(2));
-		QList<QString> fields;
+		QList<StructField> fields;
 		while (fieldMatchIterator.hasNext()) {
 			QRegularExpressionMatch fieldMatch = fieldMatchIterator.next();
-			//qDebug() << fieldMatch.captured(1) << fieldMatch.captured(2);
-			fields += fieldMatch.captured(2);
+			fields += StructField(fieldMatch.captured(1), fieldMatch.captured(2));
 		}
 		structsWithFields[structMatch.captured(1)] = fields;
 	}
@@ -111,7 +110,7 @@ QMap<QString, QList<QString>> Shader::findUniformStructs(const QString &shaderTe
 
 void Shader::addAllUniforms(const QString &shaderText)
 {
-	QMap<QString, QList<QString>> structsWithFields = findUniformStructs(shaderText);
+	QMap<QString, QList<StructField>> structsWithFields = findUniformStructs(shaderText);
 
 	QRegularExpression re("uniform (\\w*?) ([\\w]+)");
 	QRegularExpressionMatchIterator i = re.globalMatch(shaderText);
