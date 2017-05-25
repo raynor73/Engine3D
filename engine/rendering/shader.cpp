@@ -136,12 +136,15 @@ void Shader::updateUniforms(Transform &transform, Material &, RenderingEngine &r
 		QString uniformType = m_uniforms[i].type;
 		QString uniformName = m_uniforms[i].name;
 
-		if (uniformName == "T_modelViewProjection")
+		if (uniformName == "T_modelViewProjection") {
 			setUniform(uniformName, projectedMatrix);
-		else if (uniformName == "T_world")
+		} else if (uniformName == "T_world") {
 			setUniform(uniformName, worldMatrix);
-		else
+		} else if (uniformName == "R_") {
+		} else {
+			qDebug() << uniformName;
 			Q_ASSERT(true);
+		}
 	}
 }
 

@@ -6,6 +6,7 @@
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
 #include <QList>
+#include <QMap>
 
 class ForwardAmbientShader;
 class ForwardDirectionalShader;
@@ -37,6 +38,7 @@ private:
 	Camera *m_mainCamera;
 	ForwardAmbientShader *m_forwardAmbientShader;
 	Vector3f m_ambientLight;
+	QMap<QString, int> m_samplerMap;
 
 	// More Permanent structures
 	QList<BaseLight *> m_lights;
