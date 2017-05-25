@@ -3,29 +3,8 @@
 
 ForwardDirectionalShader::ForwardDirectionalShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName,
 												   QObject *parent) :
-	Shader(f, vertexArrayName, parent)
-{
-	QString vertexShaderText = loadShader("forwarddirectional.vsh");
-	QString fragmentShaderText = loadShader("forwarddirectional.fsh");
-
-	setVertexShader(vertexShaderText);
-	setFragmentShader(fragmentShaderText);
-	linkProgram();
-
-	/*addUniform("model");
-	addUniform("modelViewProjection");
-
-	addUniform("specularIntensity");
-	addUniform("specularPower");
-	addUniform("eyePosition");*/
-
-	addAllUniforms(vertexShaderText);
-	addAllUniforms(fragmentShaderText);
-
-	/*addUniform("directionalLight.base.color");
-	addUniform("directionalLight.base.intensity");
-	addUniform("directionalLight.direction");*/
-}
+	Shader(f, "forwarddirectional", vertexArrayName, parent)
+{}
 
 void ForwardDirectionalShader::updateUniforms(Transform &transform, Material &material,
 											  RenderingEngine &renderingEngine)

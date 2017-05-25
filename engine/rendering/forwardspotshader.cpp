@@ -2,29 +2,8 @@
 #include <engine/rendering/renderingengine.h>
 
 ForwardSpotShader::ForwardSpotShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
-	Shader(f, vertexArrayName, parent)
-{
-	setVertexShaderFromFile("forwardspot.vsh");
-	setFragmentShaderFromFile("forwardspot.fsh");
-	linkProgram();
-
-	addUniform("model");
-	addUniform("modelViewProjection");
-
-	addUniform("specularIntensity");
-	addUniform("specularPower");
-	addUniform("eyePosition");
-
-	addUniform("spotLight.pointLight.base.color");
-	addUniform("spotLight.pointLight.base.intensity");
-	addUniform("spotLight.pointLight.attenuation.constant");
-	addUniform("spotLight.pointLight.attenuation.linear");
-	addUniform("spotLight.pointLight.attenuation.exponent");
-	addUniform("spotLight.pointLight.position");
-	addUniform("spotLight.pointLight.range");
-	addUniform("spotLight.direction");
-	addUniform("spotLight.cutoff");
-}
+	Shader(f, "forwardspot", vertexArrayName, parent)
+{}
 
 void ForwardSpotShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {

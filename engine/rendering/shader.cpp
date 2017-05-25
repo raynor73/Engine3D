@@ -11,7 +11,7 @@
 #include <engine/components/camera.h>
 #include <engine/core/transform.h>
 
-Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
+Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &name, GLuint vertexArrayName, QObject *parent) :
 	QObject(parent),
 	f(f)
 {
@@ -19,26 +19,21 @@ Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *p
 
 	m_programReference = f.glCreateProgram();
 	Q_ASSERT(m_programReference != 0);
+
+	QString vertexShaderText = loadShader(name + ".vsh");
+	QString fragmentShaderText = loadShader(name + ".fsh");
+
+	setVertexShader(vertexShaderText);
+	setFragmentShader(fragmentShaderText);
+	linkProgram();
+
+	addAllUniforms(vertexShaderText);
+	addAllUniforms(fragmentShaderText);
 }
 
 Shader::~Shader()
 {
 	f.glDeleteProgram(m_programReference);
-}
-
-void Shader::setVertexShaderFromFile(const QString &filename)
-{
-	compileShader(loadShader(filename), GL_VERTEX_SHADER);
-}
-
-void Shader::setGeometryShaderFromFile(const QString &filename)
-{
-	compileShader(loadShader(filename), GL_GEOMETRY_SHADER);
-}
-
-void Shader::setFragmentShaderFromFile(const QString &filename)
-{
-	compileShader(loadShader(filename), GL_FRAGMENT_SHADER);
 }
 
 void Shader::setVertexShader(const QString &text)
@@ -108,6 +103,24 @@ QMap<QString, QList<Shader::StructField>> Shader::findUniformStructs(const QStri
 	return structsWithFields;
 }
 
+void Shader::addUniformWithStructCheck(QString uniformType, QString uniformName,
+							   QMap<QString, QList<StructField>> structsWithFields)
+{
+	bool shouldAddThis = true;
+
+	if (structsWithFields.contains(uniformType)) {
+		shouldAddThis = false;
+		QList<StructField> structFields = structsWithFields[uniformType];
+
+		for (int i = 0; i < structFields.size(); i++)
+			addUniformWithStructCheck(structFields[i].type, uniformName + "." + structFields[i].name,
+									  structsWithFields);
+	}
+
+	if (shouldAddThis)
+		addUniform(uniformName);
+}
+
 void Shader::addAllUniforms(const QString &shaderText)
 {
 	QMap<QString, QList<StructField>> structsWithFields = findUniformStructs(shaderText);
@@ -116,7 +129,7 @@ void Shader::addAllUniforms(const QString &shaderText)
 	QRegularExpressionMatchIterator i = re.globalMatch(shaderText);
 	while (i.hasNext()) {
 		QRegularExpressionMatch match= i.next();
-		addUniform(match.captured(2));
+		addUniformWithStructCheck(match.captured(1), match.captured(2), structsWithFields);
 	}
 }
 

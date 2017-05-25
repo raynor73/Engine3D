@@ -2,18 +2,8 @@
 #include <engine/rendering/renderingengine.h>
 
 ForwardAmbientShader::ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent) :
-	Shader(f, vertexArrayName, parent)
-{
-	QString vertexShaderText = loadShader("forwardambient.vsh");
-	QString fragmentShaderText = loadShader("forwardambient.fsh");
-
-	setVertexShader(vertexShaderText);
-	setFragmentShader(fragmentShaderText);
-	linkProgram();
-
-	addAllUniforms(vertexShaderText);
-	addAllUniforms(fragmentShaderText);
-}
+	Shader(f, "forwardambient", vertexArrayName, parent)
+{}
 
 void ForwardAmbientShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {
