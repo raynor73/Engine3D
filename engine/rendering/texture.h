@@ -12,6 +12,7 @@ public:
 
 	GLuint id() const { return m_textureResource->id(); }
 	void bind();
+	void bind(int samplerSlot);
 
 private:
 	static QMap<QString, QWeakPointer<TextureResource>> s_loadedTextures;

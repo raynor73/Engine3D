@@ -127,7 +127,7 @@ void Shader::addUniform(QString uniformType, QString uniformName,
 	m_uniforms += Uniform(uniformType, uniformName);
 }
 
-void Shader::updateUniforms(Transform &transform, Material &, RenderingEngine &renderingEngine)
+void Shader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {
 	Matrix4f worldMatrix = transform.transformation();
 	Matrix4f projectedMatrix = renderingEngine.mainCamera().calculateViewProjection() * worldMatrix;
@@ -136,11 +136,22 @@ void Shader::updateUniforms(Transform &transform, Material &, RenderingEngine &r
 		QString uniformType = m_uniforms[i].type;
 		QString uniformName = m_uniforms[i].name;
 
+		QString renderingEnginePrefix = "R_";
+		int renderingEnginePrefixSize = renderingEnginePrefix.size();
+
 		if (uniformName == "T_modelViewProjection") {
 			setUniform(uniformName, projectedMatrix);
 		} else if (uniformName == "T_world") {
 			setUniform(uniformName, worldMatrix);
-		} else if (uniformName == "R_") {
+		} else if (uniformName.startsWith(renderingEnginePrefix)) {
+			if (uniformType == "sampler2D") {
+				QStringRef unprefixedUniformName = QStringRef(&uniformName, renderingEnginePrefixSize,
+															  uniformName.size() - renderingEnginePrefixSize);
+				int samplerSlot = renderingEngine.samplerSlot(*unprefixedUniformName.string());
+
+				material.findTexture(*unprefixedUniformName.string())->bind(samplerSlot);
+				setUniformi(uniformName, samplerSlot);
+			}
 		} else {
 			qDebug() << uniformName;
 			Q_ASSERT(true);

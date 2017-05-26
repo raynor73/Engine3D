@@ -22,6 +22,12 @@ Texture::Texture(const QString &filename)
 
 void Texture::bind()
 {
+	bind(0);
+}
+
+void Texture::bind(int samplerSlot)
+{
+	_glActiveTexture(GL_TEXTURE0 + samplerSlot);
 	glBindTexture(GL_TEXTURE_2D, m_textureResource->id());
 }
 

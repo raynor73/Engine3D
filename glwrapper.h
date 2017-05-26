@@ -7,5 +7,6 @@ void setOpenGLFunctions(QOPENGLFUNCTIONS_CLASSNAME *);
 
 void _glGenBuffers(GLsizei n, GLuint * buffers);
 void _glDeleteBuffers(GLsizei n, GLuint *buffers);
+void _glActiveTexture(GLenum texture);
 
 #endif // GLWRAPPER_H

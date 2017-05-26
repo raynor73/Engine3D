@@ -15,6 +15,8 @@ RenderingEngine::RenderingEngine(QObject *parent) :
 
 	setOpenGLFunctions(&f);
 
+	m_samplerMap["diffuse"] = 0;
+
 	f.glClearColor(0, 0, 0, 0);
 
 	f.glFrontFace(GL_CW);
@@ -34,6 +36,11 @@ RenderingEngine::~RenderingEngine()
 	delete m_forwardAmbientShader;
 }
 
+int RenderingEngine::samplerSlot(const QString &name) const
+{
+	return m_samplerMap[name];
+}
+
 void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int height)
 {
 	gameObject.onOpenGLResized(width, height);
@@ -41,7 +48,7 @@ void RenderingEngine::onOpenGLResized(GameObject &gameObject, int width, int hei
 
 void RenderingEngine::render(GameObject &gameObject)
 {
-	clearScreen();
+	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_lights.clear();
 	gameObject.addToRenderingEngine(*this);
@@ -61,12 +68,6 @@ void RenderingEngine::render(GameObject &gameObject)
 	f.glDepthFunc(GL_LESS);
 	f.glDepthMask(true);
 	f.glDisable(GL_BLEND);
-}
-
-void RenderingEngine::clearScreen()
-{
-	// TODO: Stencil buffer
-	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void RenderingEngine::setClearColor(QOPENGLFUNCTIONS_CLASSNAME &f, const Vector3f &color)

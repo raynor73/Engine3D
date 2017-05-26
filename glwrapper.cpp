@@ -16,3 +16,8 @@ void _glDeleteBuffers(GLsizei n, GLuint *buffers)
 {
 	f->glDeleteBuffers(n, buffers);
 }
+
+void _glActiveTexture(GLenum texture)
+{
+	f->glActiveTexture(texture);
+}

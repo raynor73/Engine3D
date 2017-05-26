@@ -32,6 +32,8 @@ public:
 	void addLight(BaseLight *light) { m_lights += light; }
 	void setCamera(Camera *camera) { m_mainCamera = camera; }
 
+	int samplerSlot(const QString &name) const;
+
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
 	GLuint m_vertexArrayName;
@@ -43,8 +45,6 @@ private:
 	// More Permanent structures
 	QList<BaseLight *> m_lights;
 	BaseLight *m_activeLight;
-
-	void clearScreen();
 
 	QString getOpenGLVersion(QOPENGLFUNCTIONS_CLASSNAME &f);
 	void setClearColor(QOPENGLFUNCTIONS_CLASSNAME &, const Vector3f &color);

@@ -12,7 +12,7 @@ void ForwardAmbientShader::updateUniforms(Transform &transform, Material &materi
 
 	Shader::updateUniforms(transform, material, renderingEngine);
 
-	material.findTexture("diffuse")->bind();
+//	material.findTexture("diffuse")->bind();
 
 	//setUniform("T_modelViewProjection", projectedMatrix);
 	setUniform("R_ambient", renderingEngine.ambientLight());
