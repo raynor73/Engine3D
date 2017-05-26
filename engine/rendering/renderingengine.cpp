@@ -6,16 +6,15 @@
 #include <engine/rendering/forwardspotshader.h>
 #include <glwrapper.h>
 
-RenderingEngine::RenderingEngine(QObject *parent) :
-	QObject(parent),
-	m_mainCamera(NULL),
-	m_ambientLight(0.1, 0.1, 0.1)
+RenderingEngine::RenderingEngine() :
+	m_mainCamera(NULL)
 {
 	f.initializeOpenGLFunctions();
 
 	setOpenGLFunctions(&f);
 
 	m_samplerMap["diffuse"] = 0;
+	m_vectors3f["ambient"] = Vector3f(0.1, 0.1, 0.1);
 
 	f.glClearColor(0, 0, 0, 0);
 

@@ -11,8 +11,6 @@ class ForwardAmbientShader : public Shader
 
 public:
 	ForwardAmbientShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent = 0);
-
-	virtual void updateUniforms(Transform &, Material &, RenderingEngine &) override;
 };
 
 #endif // FORWARDAMBIENTSHADER_H

@@ -1,10 +1,10 @@
 #ifndef RENDERINGENGINE_H
 #define RENDERINGENGINE_H
 
-#include <QObject>
 #include <engine/components/camera.h>
 #include <engine/core/gameobject.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
+#include <engine/rendering/resourcemanagement/mappedvalues.h>
 #include <QList>
 #include <QMap>
 
@@ -13,11 +13,10 @@ class ForwardDirectionalShader;
 class ForwardPointShader;
 class ForwardSpotShader;
 class BaseLight;
-class RenderingEngine : public QObject
+class RenderingEngine : public MappedValues
 {
-	Q_OBJECT
 public:
-	explicit RenderingEngine(QObject *parent = 0);
+	RenderingEngine();
 	virtual ~RenderingEngine();
 
 	void onOpenGLResized(GameObject &gameObject, int width, int height);
@@ -25,7 +24,6 @@ public:
 
 	Camera &mainCamera() const { Q_ASSERT(m_mainCamera != NULL); return *m_mainCamera; }
 
-	Vector3f &ambientLight() { return m_ambientLight; }
 	BaseLight *activeLight() { return m_activeLight; }
 	GLuint vertexArrayName() const { return m_vertexArrayName; }
 
@@ -39,7 +37,6 @@ private:
 	GLuint m_vertexArrayName;
 	Camera *m_mainCamera;
 	ForwardAmbientShader *m_forwardAmbientShader;
-	Vector3f m_ambientLight;
 	QMap<QString, int> m_samplerMap;
 
 	// More Permanent structures

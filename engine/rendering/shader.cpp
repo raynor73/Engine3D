@@ -137,24 +137,36 @@ void Shader::updateUniforms(Transform &transform, Material &material, RenderingE
 		QString uniformName = m_uniforms[i].name;
 
 		QString renderingEnginePrefix = "R_";
-		int renderingEnginePrefixSize = renderingEnginePrefix.size();
+		QString transformPrefix = "T_";
 
-		if (uniformName == "T_modelViewProjection") {
-			setUniform(uniformName, projectedMatrix);
-		} else if (uniformName == "T_world") {
-			setUniform(uniformName, worldMatrix);
+		if (uniformName.startsWith(transformPrefix)) {
+			if (uniformName == "T_modelViewProjection") {
+				setUniform(uniformName, projectedMatrix);
+			} else if (uniformName == "T_world") {
+				setUniform(uniformName, worldMatrix);
+			} else {
+				qDebug() << uniformName;
+				Q_ASSERT(true);
+			}
 		} else if (uniformName.startsWith(renderingEnginePrefix)) {
-			if (uniformType == "sampler2D") {
-				QStringRef unprefixedUniformName = QStringRef(&uniformName, renderingEnginePrefixSize,
-															  uniformName.size() - renderingEnginePrefixSize);
-				int samplerSlot = renderingEngine.samplerSlot(*unprefixedUniformName.string());
+			QString unprefixedUniformName = uniformName.right(uniformName.size() - renderingEnginePrefix.size());
 
-				material.findTexture(*unprefixedUniformName.string())->bind(samplerSlot);
+			if (uniformType == "sampler2D") {
+				int samplerSlot = renderingEngine.samplerSlot(unprefixedUniformName);
+
+				material.findTexture(unprefixedUniformName)->bind(samplerSlot);
 				setUniformi(uniformName, samplerSlot);
+			} else if (uniformType == "vec3") {
+				setUniform(uniformName, renderingEngine.findVector3f(unprefixedUniformName));
+			} else if (uniformType == "float") {
+				setUniformf(uniformName, renderingEngine.findFloat(unprefixedUniformName));
 			}
 		} else {
-			qDebug() << uniformName;
-			Q_ASSERT(true);
+			if (uniformType == "vec3") {
+				setUniform(uniformName, material.findVector3f(uniformName));
+			} else if (uniformType == "float") {
+				setUniformf(uniformName, material.findFloat(uniformName));
+			}
 		}
 	}
 }

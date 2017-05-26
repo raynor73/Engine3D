@@ -42,7 +42,6 @@ SOURCES += main.cpp\
 	engine/core/transform.cpp \
 engine/components/camera.cpp \
 	engine/rendering/texture.cpp \
-	engine/rendering/material.cpp \
     engine/components/baselight.cpp \
 	engine/components/directionallight.cpp \
 	engine/components/attenuation.cpp \
@@ -86,10 +85,10 @@ HEADERS  += engine/rendering/mainwindow.h \
 	utils.h \
 	engine/rendering/qopenglfunctions_selector.h \
 	engine/core/transform.h \
-engine/components/camera.h \
+	engine/components/camera.h \
 	engine/rendering/texture.h \
 	engine/rendering/material.h \
-    engine/components/baselight.h \
+	engine/components/baselight.h \
 	engine/components/directionallight.h \
 	engine/components/attenuation.h \
 	engine/components/pointlight.h \
@@ -103,18 +102,18 @@ engine/components/camera.h \
 	engine/components/gamecomponent.h \
 	game/tutorialscene2.h \
 	engine/components/meshrenderer.h \
-	engine/rendering/renderingengine.h \
 	engine/core/scenewithrootobject.h \
 	engine/rendering/forwardambientshader.h \
 	engine/rendering/forwarddirectionalshader.h \
 	engine/rendering/forwardpointshader.h \
 	engine/rendering/forwardspotshader.h \
-    engine/rendering/meshloading/indexedmodel.h \
-    engine/rendering/meshloading/objmodel.h \
-    engine/rendering/meshloading/objindex.h \
-    engine/rendering/resourcemanagement/meshresource.h \
-    glwrapper.h \
-    engine/rendering/resourcemanagement/textureresource.h
+	engine/rendering/meshloading/indexedmodel.h \
+	engine/rendering/meshloading/objmodel.h \
+	engine/rendering/meshloading/objindex.h \
+	engine/rendering/resourcemanagement/meshresource.h \
+	glwrapper.h \
+	engine/rendering/resourcemanagement/textureresource.h \
+	engine/rendering/resourcemanagement/mappedvalues.h
 
 INCLUDEPATH += $$PWD
 
