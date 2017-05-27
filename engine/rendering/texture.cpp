@@ -38,9 +38,8 @@ void Texture::loadTextureAndPutToCache(const QString &filename)
 	if (image.format() != QImage::Format_RGBA8888)
 		image = image.convertToFormat(QImage::Format_RGBA8888);
 
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	m_textureResource = QSharedPointer<TextureResource>::create();
+	glBindTexture(GL_TEXTURE_2D, m_textureResource->id());
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -51,6 +50,5 @@ void Texture::loadTextureAndPutToCache(const QString &filename)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,
 				 image.constBits());
 
-	m_textureResource = QSharedPointer<TextureResource>::create(textureID);
 	s_loadedTextures[filename] = m_textureResource.toWeakRef();
 }

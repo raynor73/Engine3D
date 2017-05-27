@@ -15,14 +15,31 @@
 #include <engine/components/pointlight.h>
 #include <engine/components/spotlight.h>
 
+QMap<QString, QWeakPointer<ShaderResource>> Shader::s_loadedShaders;
+
 Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &name, GLuint vertexArrayName, QObject *parent) :
 	QObject(parent),
 	f(f)
 {
 	f.glBindVertexArray(vertexArrayName);
 
-	m_programReference = f.glCreateProgram();
-	Q_ASSERT(m_programReference != 0);
+	if (s_loadedShaders.count(name) > 0) {
+		QWeakPointer<ShaderResource> shaderResource = s_loadedShaders[name];
+		if (shaderResource.isNull()) {
+			s_loadedShaders.remove(name);
+			loadShaderAndPutToCache(name);
+		} else {
+			qDebug() << "Shader with name:" << name << "already loaded, reusing program";
+			m_shaderResource = shaderResource.toStrongRef();
+		}
+	} else {
+		loadShaderAndPutToCache(name);
+	}
+}
+
+void Shader::loadShaderAndPutToCache(const QString &name)
+{
+	m_shaderResource = QSharedPointer<ShaderResource>::create();
 
 	QString vertexShaderText = loadShader(name + ".vsh");
 	QString fragmentShaderText = loadShader(name + ".fsh");
@@ -33,11 +50,8 @@ Shader::Shader(QOPENGLFUNCTIONS_CLASSNAME &f, const QString &name, GLuint vertex
 
 	addAllUniforms(vertexShaderText);
 	addAllUniforms(fragmentShaderText);
-}
 
-Shader::~Shader()
-{
-	f.glDeleteProgram(m_programReference);
+	s_loadedShaders[name] = m_shaderResource.toWeakRef();
 }
 
 void Shader::setVertexShader(const QString &text)
@@ -57,16 +71,16 @@ void Shader::setFragmentShader(const QString &text)
 
 void Shader::linkProgram()
 {
-	f.glLinkProgram(m_programReference);
-	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_LINK_STATUS) == GL_TRUE);
+	f.glLinkProgram(m_shaderResource->programReference());
+	Q_ASSERT(RenderUtils::glGetProgram(f, m_shaderResource->programReference(), GL_LINK_STATUS) == GL_TRUE);
 
-	f.glValidateProgram(m_programReference);
-	Q_ASSERT(RenderUtils::glGetProgram(f, m_programReference, GL_VALIDATE_STATUS) == GL_TRUE);
+	f.glValidateProgram(m_shaderResource->programReference());
+	Q_ASSERT(RenderUtils::glGetProgram(f, m_shaderResource->programReference(), GL_VALIDATE_STATUS) == GL_TRUE);
 }
 
 void Shader::bind()
 {
-	f.glUseProgram(m_programReference);
+	f.glUseProgram(m_shaderResource->programReference());
 }
 
 void Shader::compileShader(const QString &text, GLenum type)
@@ -82,7 +96,7 @@ void Shader::compileShader(const QString &text, GLenum type)
 
 	Q_ASSERT(RenderUtils::glGetShader(f, shaderReference, GL_COMPILE_STATUS) == GL_TRUE);
 
-	f.glAttachShader(m_programReference, shaderReference);
+	f.glAttachShader(m_shaderResource->programReference(), shaderReference);
 }
 
 QMap<QString, QList<Shader::StructField>> Shader::findUniformStructs(const QString &shaderText)
@@ -124,7 +138,7 @@ void Shader::addUniform(QString uniformType, QString uniformName,
 	if (!shouldAddThis)
 		return;
 
-	GLint uniformLocation = f.glGetUniformLocation(m_programReference, uniformName.toLocal8Bit());
+	GLint uniformLocation = f.glGetUniformLocation(m_shaderResource->programReference(), uniformName.toLocal8Bit());
 	Q_ASSERT(uniformLocation >= 0);
 
 	m_uniformLocations[uniformName] = uniformLocation;

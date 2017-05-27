@@ -6,7 +6,7 @@
 class TextureResource
 {
 public:
-	TextureResource(GLuint id);
+	TextureResource();
 	~TextureResource();
 
 	GLuint id() const { return m_id; }

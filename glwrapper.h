@@ -5,6 +5,8 @@
 
 void setOpenGLFunctions(QOPENGLFUNCTIONS_CLASSNAME *);
 
+GLuint _glCreateProgram(void);
+void _glDeleteProgram(GLuint program);
 void _glGenBuffers(GLsizei n, GLuint * buffers);
 void _glDeleteBuffers(GLsizei n, GLuint *buffers);
 void _glActiveTexture(GLenum texture);
