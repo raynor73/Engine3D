@@ -14,6 +14,10 @@
 class RenderingEngine;
 class Camera;
 class Transform;
+class BaseLight;
+class DirectionalLight;
+class PointLight;
+class SpotLight;
 class Shader : public QObject
 {
 	Q_OBJECT
@@ -33,6 +37,11 @@ public:
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
 	GLuint m_programReference;
+
+	void setUniform(const QString &, const BaseLight &);
+	void setUniform(const QString &, DirectionalLight &);
+	void setUniform(const QString &, PointLight &);
+	void setUniform(const QString &, SpotLight &);
 
 private:
 	static QString loadShader(const QString &filename);

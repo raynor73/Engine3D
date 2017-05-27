@@ -5,6 +5,7 @@
 #include <engine/rendering/forwardpointshader.h>
 #include <engine/rendering/forwardspotshader.h>
 #include <glwrapper.h>
+#include <QDebug>
 
 RenderingEngine::RenderingEngine() :
 	m_mainCamera(NULL)
@@ -33,6 +34,12 @@ RenderingEngine::RenderingEngine() :
 RenderingEngine::~RenderingEngine()
 {
 	delete m_forwardAmbientShader;
+}
+
+void RenderingEngine::updateUniformStruct(Transform &, Material &, Shader &, const QString &,
+										  const QString &uniformName) {
+	qDebug() << uniformName;
+	Q_ASSERT(false);
 }
 
 int RenderingEngine::samplerSlot(const QString &name) const

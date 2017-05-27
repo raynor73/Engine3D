@@ -5,7 +5,7 @@ ForwardSpotShader::ForwardSpotShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint verte
 	Shader(f, "forwardspot", vertexArrayName, parent)
 {}
 
-void ForwardSpotShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
+/*void ForwardSpotShader::updateUniforms(Transform &transform, Material &material, RenderingEngine &renderingEngine)
 {
 	Camera &camera = renderingEngine.mainCamera();
 
@@ -20,7 +20,7 @@ void ForwardSpotShader::updateUniforms(Transform &transform, Material &material,
 	setUniformf("specularIntensity", material.findFloat("specularIntensity"));
 	setUniformf("specularPower", material.findFloat("specularPower"));
 
-	setUniform("eyePosition", camera.transform().calculateTransformedTranslation());
+	setUniform("C_eyePosition", camera.transform().calculateTransformedTranslation());
 
 	setUniform("spotLight", static_cast<SpotLight &>(*renderingEngine.activeLight()));
 }
@@ -39,11 +39,4 @@ void ForwardSpotShader::setUniform(const QString &uniformName, PointLight &point
 	setUniformf(uniformName + ".attenuation.exponent", pointLight.attenuation().exponent());
 	setUniform(uniformName + ".position", pointLight.transform().calculateTransformedTranslation());
 	setUniformf(uniformName + ".range", pointLight.range());
-}
-
-void ForwardSpotShader::setUniform(const QString &uniformName, SpotLight &spotLight)
-{
-	setUniform(uniformName + ".pointLight", static_cast<PointLight &>(spotLight));
-	setUniform(uniformName + ".direction", spotLight.direction());
-	setUniformf(uniformName + ".cutoff", spotLight.cutoff());
-}
+}*/

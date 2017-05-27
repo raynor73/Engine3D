@@ -13,11 +13,6 @@ class ForwardPointShader : public Shader
 
 public:
 	ForwardPointShader(QOPENGLFUNCTIONS_CLASSNAME &f, GLuint vertexArrayName, QObject *parent = 0);
-
-	virtual void updateUniforms(Transform &, Material &, RenderingEngine &) override;
-	using Shader::setUniform;
-	void setUniform(const QString &, const BaseLight &);
-	void setUniform(const QString &, PointLight &);
 };
 
 #endif // FORWARDPOINTSHADER_H

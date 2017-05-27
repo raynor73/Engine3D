@@ -8,12 +8,11 @@ in vec3 worldPosition0;
 out vec4 fragmentColor;
 
 uniform sampler2D diffuse;
-
-uniform SpotLight spotLight;
+uniform SpotLight R_spotLight;
 
 void main()
 {
 	fragmentColor =
-	        texture(diffuse, textureCoordinate0.xy) *
-			calculateSpotLight(spotLight, normalize(normal0), worldPosition0);
+			texture(diffuse, textureCoordinate0.xy) *
+			calculateSpotLight(R_spotLight, normalize(normal0), worldPosition0);
 }

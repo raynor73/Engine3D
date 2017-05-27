@@ -8,11 +8,11 @@ in vec3 worldPosition0;
 out vec4 fragmentColor;
 
 uniform sampler2D diffuse;
-uniform DirectionalLight directionalLight;
+uniform DirectionalLight R_directionalLight;
 
 void main()
 {
 	fragmentColor =
 			texture(diffuse, textureCoordinate0.xy) *
-			calculateDirectionalLight(directionalLight, normalize(normal0), worldPosition0);
+			calculateDirectionalLight(R_directionalLight, normalize(normal0), worldPosition0);
 }

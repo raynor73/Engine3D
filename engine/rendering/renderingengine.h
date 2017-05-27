@@ -13,6 +13,9 @@ class ForwardDirectionalShader;
 class ForwardPointShader;
 class ForwardSpotShader;
 class BaseLight;
+class Transform;
+class Material;
+
 class RenderingEngine : public MappedValues
 {
 public:
@@ -31,6 +34,9 @@ public:
 	void setCamera(Camera *camera) { m_mainCamera = camera; }
 
 	int samplerSlot(const QString &name) const;
+
+	virtual void updateUniformStruct(Transform &transform, Material &material, Shader &shader,
+									 const QString &unifotmType, const QString &uniformName);
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME f;

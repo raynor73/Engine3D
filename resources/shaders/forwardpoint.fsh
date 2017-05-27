@@ -8,12 +8,11 @@ in vec3 worldPosition0;
 out vec4 fragmentColor;
 
 uniform sampler2D diffuse;
-
-uniform PointLight pointLight;
+uniform PointLight R_pointLight;
 
 void main()
 {
 	fragmentColor =
-	        texture(diffuse, textureCoordinate0.xy) *
-			calculatePointLight(pointLight, normalize(normal0), worldPosition0);
+			texture(diffuse, textureCoordinate0.xy) *
+			calculatePointLight(R_pointLight, normalize(normal0), worldPosition0);
 }
