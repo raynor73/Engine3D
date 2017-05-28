@@ -67,7 +67,8 @@ engine/components/camera.cpp \
     engine/rendering/resourcemanagement/meshresource.cpp \
     glwrapper.cpp \
     engine/rendering/resourcemanagement/textureresource.cpp \
-    engine/rendering/resourcemanagement/shaderresource.cpp
+    engine/rendering/resourcemanagement/shaderresource.cpp \
+    engine/components/lightsfactory.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/openglwidget.h \
@@ -115,7 +116,8 @@ HEADERS  += engine/rendering/mainwindow.h \
 	glwrapper.h \
 	engine/rendering/resourcemanagement/textureresource.h \
 	engine/rendering/resourcemanagement/mappedvalues.h \
-    engine/rendering/resourcemanagement/shaderresource.h
+    engine/rendering/resourcemanagement/shaderresource.h \
+    engine/components/lightsfactory.h
 
 INCLUDEPATH += $$PWD
 
