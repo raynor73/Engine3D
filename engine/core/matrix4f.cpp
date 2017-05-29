@@ -30,7 +30,7 @@ void Matrix4f::setM(const std::array<float, DATA_SIZE> &data)
 	m_data = data;
 }
 
-float  Matrix4f::get(int row, int column)
+float  Matrix4f::get(int row, int column) const
 {
 	return m_data[offset(row, column)];
 }

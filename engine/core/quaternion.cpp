@@ -30,6 +30,47 @@ Quaternion::Quaternion(const Quaternion &other) :
 	w(other.w)
 {}
 
+//From Ken Shoemake's "Quaternion Calculus and Fast Animation" article
+Quaternion::Quaternion(const Matrix4f &rotation, QObject *parent) :
+	QObject(parent)
+{
+	float trace = rotation.get(0, 0) + rotation.get(1, 1) + rotation.get(2, 2);
+
+	if (trace > 0) {
+		float s = 0.5 / std::sqrt(trace + 1);
+		w = 0.25 / s;
+		x = (rotation.get(1, 2) - rotation.get(2, 1)) * s;
+		y = (rotation.get(2, 0) - rotation.get(0, 2)) * s;
+		z = (rotation.get(0, 1) - rotation.get(1, 0)) * s;
+	} else {
+		if (rotation.get(0, 0) > rotation.get(1, 1) && rotation.get(0, 0) > rotation.get(2, 2)) {
+			float s = 2 * std::sqrt(1 + rotation.get(0, 0) - rotation.get(1, 1) - rotation.get(2, 2));
+			w = (rotation.get(1, 2) - rotation.get(2, 1)) / s;
+			x = 0.25 * s;
+			y = (rotation.get(1, 0) + rotation.get(0, 1)) / s;
+			z = (rotation.get(2, 0) + rotation.get(0, 2)) / s;
+		} else if(rotation.get(1, 1) > rotation.get(2, 2)) {
+			float s = 2 * std::sqrt(1 + rotation.get(1, 1) - rotation.get(0, 0) - rotation.get(2, 2));
+			w = (rotation.get(2, 0) - rotation.get(0, 2)) / s;
+			x = (rotation.get(1, 0) + rotation.get(0, 1)) / s;
+			y = 0.25 * s;
+			z = (rotation.get(2, 1) + rotation.get(1, 2)) / s;
+		} else {
+			float s = 2 * std::sqrt(1 + rotation.get(2, 2) - rotation.get(0, 0) - rotation.get(1, 1));
+			w = (rotation.get(0, 1) - rotation.get(1, 0) ) / s;
+			x = (rotation.get(2, 0) + rotation.get(0, 2) ) / s;
+			y = (rotation.get(1, 2) + rotation.get(2, 1) ) / s;
+			z = 0.25 * s;
+		}
+	}
+
+	float length = std::sqrt(x * x + y * y + z * z + w * w);
+	x /= length;
+	y /= length;
+	z /= length;
+	w /= length;
+}
+
 float Quaternion::length() const
 {
 	return sqrtf(x * x + y * y + z * z + w * w);
@@ -56,6 +97,26 @@ Quaternion Quaternion::operator *(const Quaternion &other) const
 	return Quaternion(newX, newY, newZ, newW);
 }
 
+Quaternion Quaternion::operator *(float multiplier) const
+{
+	return Quaternion(x * multiplier, y * multiplier, z * multiplier, w * multiplier);
+}
+
+Quaternion Quaternion::operator -(const Quaternion &other) const
+{
+	return Quaternion(x - other.x, y - other.y, z - other.z, w - other.w);
+}
+
+Quaternion Quaternion::operator +(const Quaternion &other) const
+{
+	return Quaternion(x + other.x, y + other.y, z + other.z, w + other.w);
+}
+
+float Quaternion::dot(const Quaternion &other) const
+{
+	return x * other.x + y * other.y + z * other.z + w * other.w;
+}
+
 Quaternion Quaternion ::operator *(const Vector3f &v) const
 {
 	float newW = -x * v.x - y * v.y - z * v.z;
@@ -64,6 +125,39 @@ Quaternion Quaternion ::operator *(const Vector3f &v) const
 	float newZ =  w * v.z + x * v.y - y * v.x;
 
 	return Quaternion(newX, newY, newZ, newW);
+}
+
+Quaternion Quaternion::nlerp(const Quaternion &destination, float factor, bool shortestRequired)
+{
+	Quaternion result = destination;
+
+	if (shortestRequired && this->dot(destination) < 0)
+		result = Quaternion(-destination.x, -destination.y, -destination.z, -destination.w);
+
+	return ((result - (*this)) * factor + (*this)).normalized();
+}
+
+Quaternion Quaternion::slerp(const Quaternion &destination, float factor, bool shortestRequired)
+{
+	float cos = this->dot(destination);
+	Quaternion correctedDestination = destination;
+
+	if (shortestRequired && cos < 0) {
+		cos = -cos;
+		correctedDestination = Quaternion(-destination.x, -destination.y, -destination.z, -destination.w);
+	}
+
+	if (std::abs(cos) >= 1 - FLT_EPSILON)
+		return nlerp(correctedDestination, factor, false);
+
+	float sin = std::sqrt(1 - cos * cos);
+	float angle = std::atan2(sin, cos);
+	float invertedSin =  1 / sin;
+
+	float sourceFactor = std::sin((1 - factor) * angle) * invertedSin;
+	float destinationFactor = std::sin(factor * angle) * invertedSin;
+
+	return (((*this) * sourceFactor) + correctedDestination) * destinationFactor;
 }
 
 Quaternion &Quaternion::operator =(const Quaternion &other)

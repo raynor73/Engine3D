@@ -41,6 +41,16 @@ void Transform::rotate(const Vector3f &axis, float angle)
 	m_rotation = (Quaternion(axis, angle) * m_rotation).normalized();
 }
 
+void Transform::lookAt(const Vector3f &point, const Vector3f &up)
+{
+	m_rotation = calculateLookAtDirection(point, up);
+}
+
+Quaternion Transform::calculateLookAtDirection(const Vector3f &point, const Vector3f &up) const
+{
+	return Quaternion(*Matrix4f().initRotation((point - m_translation).normalized(), up));
+}
+
 Matrix4f Transform:: calculateParentMatrix()
 {
 	if (m_parentTransformation != NULL &&

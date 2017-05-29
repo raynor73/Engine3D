@@ -34,6 +34,9 @@ public:
 	Vector3f calculateTransformedTranslation();
 	Quaternion calculateTransformedRotation();
 
+	void lookAt(const Vector3f &point, const Vector3f &up);
+	Quaternion calculateLookAtDirection(const Vector3f &point, const Vector3f &up) const;
+
 private:
 	Transform *m_parentTransformation;
 	Matrix4f m_parentMatrix;

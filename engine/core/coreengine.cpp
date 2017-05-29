@@ -42,6 +42,8 @@ void CoreEngine::setScene(SceneWithRootObject *scene)
 	if (m_scene == NULL)
 		return;
 
+	m_scene->setEngine(this);
+
 	if (m_isOpenGLReady)
 		m_scene->makeOpenGLDependentSetup();
 

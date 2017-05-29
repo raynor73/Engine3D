@@ -18,7 +18,7 @@ public:
 
 	std::array<float, DATA_SIZE> getM() const;
 	void setM(const std::array<float, DATA_SIZE> &);
-	float get(int, int);
+	float get(int, int) const;
 	void set(int, int, float);
 	Matrix4f *initIdentity();
 	Matrix4f *initTranslation(float, float, float);
