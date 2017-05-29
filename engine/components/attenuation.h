@@ -1,28 +1,20 @@
 #ifndef ATTENUATION_H
 #define ATTENUATION_H
 
-#include <QObject>
+#include <engine/core/vector3f.h>
 
-class Attenuation : public QObject
+class Attenuation : public Vector3f
 {
 	Q_OBJECT
 public:
-	Attenuation(float, float, float, QObject *parent = 0);
-	Attenuation(const Attenuation &);
+	Attenuation(float constant, float linear, float exponent, QObject *parent = 0);
 
-	Attenuation &operator =(const Attenuation &);
-
-	float constant() const { return m_constant; }
-	float linear() const { return m_linear; }
-	float exponent() const { return m_exponent; }
-	void setConstant(float constant) { m_constant = constant; }
-	void setLinear(float linear) { m_linear = linear; }
-	void setExponent(float exponent) { m_exponent = exponent; }
-
-private:
-	float m_constant;
-	float m_linear;
-	float m_exponent;
+	float constant() const { return x; }
+	float linear() const { return y; }
+	float exponent() const { return z; }
+	void setConstant(float constant) { x = constant; }
+	void setLinear(float linear) { y = linear; }
+	void setExponent(float exponent) { z = exponent; }
 };
 
 #endif // ATTENUATION_H
