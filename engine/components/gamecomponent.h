@@ -17,7 +17,7 @@ public:
 	explicit GameComponent(QObject *parent = 0);
 
 	virtual void onOpenGLResized(int width, int height);
-	virtual void update(float) {}
+	virtual void update(float dt);
 	virtual void render(Shader &, RenderingEngine&) {}
 
 	virtual void addToEngine(CoreEngine &) {}

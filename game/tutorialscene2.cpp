@@ -27,7 +27,8 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_monkeyMeshRenderer(NULL),
 	m_monkeyMesh2(NULL),
 	m_monkeyGameObject2(NULL),
-	m_monkeyMeshRenderer2(NULL)
+	m_monkeyMeshRenderer2(NULL),
+	m_cameraGameObject(NULL)
 {
 	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
@@ -153,13 +154,19 @@ void TutorialScene2::makeOpenGLDependentSetup()
 
 void TutorialScene2::onOpenGLResized(int width, int height)
 {
-	m_cameraGameObject = new GameObject();
-	m_camera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
-	m_cameraGameObject->addComponent(m_camera);
-	//m_rootGameObject->addChild(m_cameraGameObject);
-	m_testMesh2->addChild(m_cameraGameObject);
+	if (m_cameraGameObject == NULL) {
+		m_cameraGameObject = new GameObject();
+		//TODO Make camera update aspect ratio every time opengl resized
+		m_camera = new Camera(Utils::toRadians(70), float(width) / float(height), 0.01, 1000);
+		m_cameraGameObject->addComponent(m_camera);
+		//m_rootGameObject->addChild(m_cameraGameObject);
+		m_testMesh2->addChild(m_cameraGameObject);
+
+		//m_monkeyGameObject
+	}
 
 	m_controller->setDisplaySize(width, height);
+	//TODO Don't connect to events several times
 	m_controller->connectToEvents();
 }
 

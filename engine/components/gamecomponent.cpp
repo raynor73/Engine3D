@@ -4,6 +4,7 @@
 GameComponent::GameComponent(QObject *parent) : QObject(parent) {}
 
 void GameComponent::onOpenGLResized(int, int) {}
+void GameComponent::update(float) {}
 
 Transform &GameComponent::transform()
 {
