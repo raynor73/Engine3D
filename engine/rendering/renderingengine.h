@@ -42,10 +42,9 @@ private:
 	QOPENGLFUNCTIONS_CLASSNAME f;
 	GLuint m_vertexArrayName;
 	Camera *m_mainCamera;
-	ForwardAmbientShader *m_forwardAmbientShader;
+	Shader *m_forwardAmbientShader;
 	QMap<QString, int> m_samplerMap;
 
-	// More Permanent structures
 	QList<BaseLight *> m_lights;
 	BaseLight *m_activeLight;
 

@@ -1,15 +1,15 @@
 #include <engine/components/pointlight.h>
-#include <engine/rendering/forwardpointshader.h>
 #include <engine/rendering/renderingengine.h>
 #include <cmath>
 #include <QDebug>
 
 PointLight::PointLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngine, const Vector3f &color,
-					   float intensity, const Attenuation &attenuation, QObject *parent) :
+					   float intensity, const Attenuation &attenuation, QSharedPointer<Shader> shader,
+					   QObject *parent) :
 	BaseLight(f, renderingEngine, color, intensity, parent),
 	m_attenuation(attenuation)
 {
-	m_shader = new ForwardPointShader(f, m_renderingEngine.vertexArrayName());
+	m_shader = shader;
 
 	float a = m_attenuation.exponent();
 	float b = m_attenuation.linear();

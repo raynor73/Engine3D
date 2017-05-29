@@ -5,6 +5,7 @@
 #include <engine/components/pointlight.h>
 #include <engine/components/spotlight.h>
 #include <engine/components/meshrenderer.h>
+#include <engine/components/lightsfactory.h>
 #include <utils.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
@@ -91,18 +92,20 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_planeObject->transform().translation().set(0, -1, 5);
 
 	m_directionLightObject = new GameObject();
-	m_directionalLight = new DirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1), 0.4);
+	m_directionalLight = LightsFactory::createDirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1),
+															   0.4);//new DirectionalLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 0, 1), 0.4);
 	m_directionLightObject->transform().setRotation(Quaternion(Vector3f(1, 0, 0), Utils::toRadians(-45)));
-	m_directionLightObject->addComponent(m_directionalLight);
+	m_directionLightObject->addComponent(m_directionalLight.data());
 
 	m_pointLightObject = new GameObject();
-	m_pointLight = new PointLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 0), 0.4, Attenuation(0, 0, 1));
-	m_pointLightObject->addComponent(m_pointLight);
+	m_pointLight = LightsFactory::createPointLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 0), 0.4,
+												   Attenuation(0, 0, 1));//new PointLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 0), 0.4, Attenuation(0, 0, 1));
+	m_pointLightObject->addComponent(m_pointLight.data());
 
 	m_spotLightObject = new GameObject();
-	m_spotLight = new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1),
-								0.7);
-	m_spotLightObject->addComponent(m_spotLight);
+	m_spotLight = LightsFactory::createSpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8,
+												 Attenuation(0, 0, 0.1), 0.7);//new SpotLight(*f, m_coreEngine.renderingEngine(), Vector3f(0, 1, 1), 0.8, Attenuation(0, 0, 0.1), 0.7);
+	m_spotLightObject->addComponent(m_spotLight.data());
 	m_spotLightObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(90)));
 
 	m_spotLight->transform().translation().set(5, 0, 5);
@@ -254,16 +257,10 @@ TutorialScene2::~TutorialScene2()
 
 	if (m_directionLightObject != NULL)
 		delete m_directionLightObject;
-	if (m_directionalLight != NULL)
-		delete m_directionalLight;
 
 	if (m_pointLightObject != NULL)
 		delete m_pointLightObject;
-	if (m_pointLight != NULL)
-		delete m_pointLight;
 
 	if (m_spotLightObject != NULL)
 		delete m_spotLightObject;
-	if (m_spotLight != NULL)
-		delete m_spotLight;
 }

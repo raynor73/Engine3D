@@ -7,15 +7,8 @@ BaseLight::BaseLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEn
 	f(f),
 	m_renderingEngine(renderingEngine),
 	m_color(color),
-	m_intensity(intensity),
-	m_shader(NULL)
+	m_intensity(intensity)
 {}
-
-BaseLight::~BaseLight()
-{
-	if (m_shader != NULL)
-		delete m_shader;
-}
 
 void BaseLight::addToRenderingEngine(RenderingEngine &)
 {

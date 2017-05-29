@@ -30,7 +30,6 @@ public:
 	void setUniformf(const QString &, float);
 	void setUniform(const QString &, const Vector3f &);
 	void setUniform(const QString &, const Matrix4f &);
-	GLint positionAttributeIndex() { return m_positionAttributeIndex; }
 	void linkProgram();
 	void bind();
 	virtual void updateUniforms(Transform &, Material &, RenderingEngine &);
@@ -59,7 +58,6 @@ private:
 
 	QSharedPointer<ShaderResource> m_shaderResource;
 
-	GLint m_positionAttributeIndex;
 	QMap<QString, GLint> m_uniformLocations;
 	QList<Uniform> m_uniforms;
 

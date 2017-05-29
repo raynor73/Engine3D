@@ -4,6 +4,8 @@
 #include <QObject>
 #include <engine/core/vector3f.h>
 #include <engine/components/baselight.h>
+#include <QSharedPointer>
+#include <engine/rendering/shader.h>
 #include <engine/rendering/qopenglfunctions_selector.h>
 
 class QOPENGLFUNCTIONS_CLASSNAME;
@@ -13,7 +15,7 @@ class DirectionalLight : public BaseLight
 	Q_OBJECT
 public:
 	DirectionalLight(QOPENGLFUNCTIONS_CLASSNAME &f, RenderingEngine &renderingEngien, const Vector3f &color,
-					 float intensity, QObject *parent = 0);
+					 float intensity, QSharedPointer<Shader> shader, QObject *parent = 0);
 	DirectionalLight(const DirectionalLight &);
 
 	Vector3f direction();

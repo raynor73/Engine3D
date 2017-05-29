@@ -58,10 +58,6 @@ engine/components/camera.cpp \
 	engine/components/meshrenderer.cpp \
 	engine/rendering/renderingengine.cpp \
 	engine/core/scenewithrootobject.cpp \
-	engine/rendering/forwardambientshader.cpp \
-	engine/rendering/forwarddirectionalshader.cpp \
-	engine/rendering/forwardpointshader.cpp \
-	engine/rendering/forwardspotshader.cpp \
     engine/rendering/meshloading/indexedmodel.cpp \
     engine/rendering/meshloading/objmodel.cpp \
     engine/rendering/resourcemanagement/meshresource.cpp \
@@ -105,10 +101,6 @@ HEADERS  += engine/rendering/mainwindow.h \
 	game/tutorialscene2.h \
 	engine/components/meshrenderer.h \
 	engine/core/scenewithrootobject.h \
-	engine/rendering/forwardambientshader.h \
-	engine/rendering/forwarddirectionalshader.h \
-	engine/rendering/forwardpointshader.h \
-	engine/rendering/forwardspotshader.h \
 	engine/rendering/meshloading/indexedmodel.h \
 	engine/rendering/meshloading/objmodel.h \
 	engine/rendering/meshloading/objindex.h \

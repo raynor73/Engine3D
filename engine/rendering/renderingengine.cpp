@@ -1,9 +1,6 @@
 #include "renderingengine.h"
+#include <engine/components/baselight.h>
 #include <utils.h>
-#include <engine/rendering/forwardambientshader.h>
-#include <engine/rendering/forwarddirectionalshader.h>
-#include <engine/rendering/forwardpointshader.h>
-#include <engine/rendering/forwardspotshader.h>
 #include <glwrapper.h>
 #include <QDebug>
 
@@ -28,7 +25,7 @@ RenderingEngine::RenderingEngine() :
 
 	f.glGenVertexArrays(1, &m_vertexArrayName);
 
-	m_forwardAmbientShader = new ForwardAmbientShader(f, m_vertexArrayName);
+	m_forwardAmbientShader = new Shader(f, "forwardambient", m_vertexArrayName);
 }
 
 RenderingEngine::~RenderingEngine()

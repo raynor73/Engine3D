@@ -11,6 +11,10 @@
 #include <game/tutorialcontroller.h>
 #include <engine/core/coreengine.h>
 #include <QTimer>
+#include <QSharedPointer>
+#include <engine/components/directionallight.h>
+#include <engine/components/pointlight.h>
+#include <engine/components/spotlight.h>
 
 class DirectionalLight;
 class PointLight;
@@ -55,13 +59,13 @@ private:
 	MeshRenderer *m_monkeyMeshRenderer2;
 
 	GameObject *m_directionLightObject;
-	DirectionalLight *m_directionalLight;
+	QSharedPointer<DirectionalLight> m_directionalLight;
 
 	GameObject *m_pointLightObject;
-	PointLight *m_pointLight;
+	QSharedPointer<PointLight> m_pointLight;
 
 	GameObject *m_spotLightObject;
-	SpotLight *m_spotLight;
+	QSharedPointer<SpotLight> m_spotLight;
 
 	GameObject *m_cameraGameObject;
 	Camera *m_camera;
