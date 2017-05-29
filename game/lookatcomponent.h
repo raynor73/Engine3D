@@ -9,7 +9,7 @@ class LookAtComponent : public GameComponent
 	Q_OBJECT
 
 public:
-	LookAtComponent(QObject *parent);
+	LookAtComponent(QObject *parent = 0);
 
 	virtual void update(float dt) override;
 	virtual void addToEngine(CoreEngine &) override;

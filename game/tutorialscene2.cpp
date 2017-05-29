@@ -28,7 +28,8 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_monkeyMesh2(NULL),
 	m_monkeyGameObject2(NULL),
 	m_monkeyMeshRenderer2(NULL),
-	m_cameraGameObject(NULL)
+	m_cameraGameObject(NULL),
+	m_lookAtComponent(NULL)
 {
 	m_rootGameObject = new GameObject();
 	m_controller = new TutorialController(m_coreEngine.userInput());
@@ -138,6 +139,11 @@ void TutorialScene2::makeOpenGLDependentSetup()
 	m_monkeyGameObject->addComponent(m_monkeyMeshRenderer);
 	m_monkeyGameObject->transform().translation().set(5, 5, 5);
 	m_monkeyGameObject->transform().setRotation(Quaternion(Vector3f(0, 1, 0), Utils::toRadians(-70)));
+
+	//TODO Set engine to component in case when it added after parent object added to hierarchy
+	m_lookAtComponent = new LookAtComponent();
+	m_monkeyGameObject->addComponent(m_lookAtComponent);
+
 	m_rootGameObject->addChild(m_monkeyGameObject);
 
 	m_texture2 = new Texture("test.png");
@@ -161,8 +167,6 @@ void TutorialScene2::onOpenGLResized(int width, int height)
 		m_cameraGameObject->addComponent(m_camera);
 		//m_rootGameObject->addChild(m_cameraGameObject);
 		m_testMesh2->addChild(m_cameraGameObject);
-
-		//m_monkeyGameObject
 	}
 
 	m_controller->setDisplaySize(width, height);
@@ -217,6 +221,9 @@ TutorialScene2::~TutorialScene2()
 {
 	m_fpsTimer.stop();
 	m_controller->disconnectFromEvents();
+
+	if (m_lookAtComponent != NULL)
+		delete m_lookAtComponent;
 
 	if (m_testMesh1 != NULL)
 		delete m_testMesh1;

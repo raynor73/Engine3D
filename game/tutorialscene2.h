@@ -15,6 +15,7 @@
 #include <engine/components/directionallight.h>
 #include <engine/components/pointlight.h>
 #include <engine/components/spotlight.h>
+#include <game/lookatcomponent.h>
 
 class DirectionalLight;
 class PointLight;
@@ -70,6 +71,8 @@ private:
 
 	GameObject *m_cameraGameObject;
 	Camera *m_camera;
+
+	LookAtComponent *m_lookAtComponent;
 };
 
 #endif // TUTORIALSCENE2_H
