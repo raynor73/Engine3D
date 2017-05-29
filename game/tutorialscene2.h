@@ -31,6 +31,7 @@ public:
 	virtual void update(float);
 	virtual void onOpenGLResized(int width, int height);
 	virtual void makeOpenGLDependentSetup();
+	virtual void setEngine(CoreEngine *);
 
 private:
 	QOPENGLFUNCTIONS_CLASSNAME *f;

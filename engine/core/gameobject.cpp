@@ -3,7 +3,10 @@
 #include <engine/components/gamecomponent.h>
 #include <engine/components/camera.h>
 
-GameObject::GameObject(QObject *parent) : QObject(parent) {}
+GameObject::GameObject(QObject *parent) :
+	QObject(parent),
+	m_coreEngine(NULL)
+{}
 
 void GameObject::onOpenGLResized(int width, int height)
 {
@@ -35,6 +38,7 @@ void GameObject::render(Shader &shader, RenderingEngine &renderingEngine)
 void GameObject::addChild(GameObject *child)
 {
 	m_children += child;
+	child->setEngine(m_coreEngine);
 	child->transform().setParentTransformation(&m_transform);
 }
 
@@ -44,11 +48,15 @@ void GameObject::addComponent(GameComponent *component)
 	component->setParentGameObject(this);
 }
 
-void GameObject::addToRenderingEngine(RenderingEngine &renderingEngine)
+void GameObject::setEngine(CoreEngine *engine)
 {
-	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->addToRenderingEngine(renderingEngine);
+	if (m_coreEngine != engine) {
+		m_coreEngine = engine;
 
-	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
-		(*i)->addToRenderingEngine(renderingEngine);
+		for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
+			(*i)->addToEngine(*engine);
+
+		for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+			(*i)->setEngine(engine);
+	}
 }

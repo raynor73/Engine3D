@@ -1,5 +1,6 @@
 #include "camera.h"
 #include <engine/rendering/renderingengine.h>
+#include <engine/core/coreengine.h>
 
 Camera::Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *parent) :
 	GameComponent(parent)
@@ -23,9 +24,9 @@ void Camera::move(const Vector3f &direction, float amount)
 	transform().setTranslation(transform().translation() + direction * amount);
 }
 
-void Camera::addToRenderingEngine(RenderingEngine &renderingEngine)
+void Camera::addToEngine(CoreEngine &engine)
 {
-	renderingEngine.setCamera(this);
+	engine.renderingEngine().setCamera(this);
 }
 
 const Vector3f Camera::yAxis(0, 1, 0);

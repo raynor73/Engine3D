@@ -9,6 +9,7 @@ class Camera;
 class Shader;
 class Transform;
 class GameObject;
+class CoreEngine;
 class GameComponent : public QObject
 {
 	Q_OBJECT
@@ -19,7 +20,7 @@ public:
 	virtual void update(float) {}
 	virtual void render(Shader &, RenderingEngine&) {}
 
-	virtual void addToRenderingEngine(RenderingEngine &) {}
+	virtual void addToEngine(CoreEngine &) {}
 
 	GameObject *parentGameObject() { return m_parentGameObject; }
 	void setParentGameObject(GameObject *gameObject) { m_parentGameObject = gameObject; }

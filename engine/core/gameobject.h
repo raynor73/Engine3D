@@ -9,6 +9,7 @@
 class RenderingEngine;
 class GameComponent;
 class Camera;
+class CoreEngine;
 class GameObject : public QObject
 {
 	Q_OBJECT
@@ -24,9 +25,10 @@ public:
 
 	Transform &transform() { return m_transform; }
 
-	virtual void addToRenderingEngine(RenderingEngine &);
+	void setEngine(CoreEngine *coreEngine);
 
 private:
+	CoreEngine *m_coreEngine;
 	QList<GameObject *> m_children;
 	QList<GameComponent *> m_components;
 	Transform m_transform;

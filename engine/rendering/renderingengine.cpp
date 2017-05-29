@@ -53,8 +53,8 @@ void RenderingEngine::render(GameObject &gameObject)
 {
 	f.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_lights.clear();
-	gameObject.addToRenderingEngine(*this);
+	/*m_lights.clear();
+	gameObject.addToRenderingEngine(*this);*/
 
 	gameObject.render(*m_forwardAmbientShader, *this);
 

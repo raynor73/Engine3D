@@ -201,6 +201,11 @@ void TutorialScene2::update(float dt)
 	m_rootGameObject->update(dt);
 }
 
+void TutorialScene2::setEngine(CoreEngine *coreEngine)
+{
+	m_rootGameObject->setEngine(coreEngine);
+}
+
 TutorialScene2::~TutorialScene2()
 {
 	m_fpsTimer.stop();

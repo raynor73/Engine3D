@@ -9,6 +9,7 @@
 #include <QSharedPointer>
 
 class RenderingEngine;
+class CoreEngine;
 class QOPENGLFUNCTIONS_CLASSNAME;
 class BaseLight : public GameComponent
 {
@@ -24,7 +25,7 @@ public:
 	void setIntensity(float intensity) { m_intensity = intensity; }
 	QSharedPointer<Shader> shader() { return m_shader; }
 
-	virtual void addToRenderingEngine(RenderingEngine &) override;
+	virtual void addToEngine(CoreEngine &) override;
 
 protected:
 	QOPENGLFUNCTIONS_CLASSNAME &f;
