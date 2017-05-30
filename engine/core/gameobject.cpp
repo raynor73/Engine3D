@@ -8,12 +8,33 @@ GameObject::GameObject(QObject *parent) :
 	m_coreEngine(NULL)
 {}
 
+void GameObject::onOpenGLResizedAll(int width, int height)
+{
+	onOpenGLResized(width, height);
+
+	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+		(*i)->onOpenGLResizedAll(width, height);
+}
+
+void GameObject::updateAll(float dt)
+{
+	update(dt);
+
+	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+		(*i)->updateAll(dt);
+}
+
+void GameObject::renderAll(Shader &shader, RenderingEngine &renderingEngine)
+{
+	render(shader, renderingEngine);
+
+	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+		(*i)->renderAll(shader, renderingEngine);
+}
+
 void GameObject::onOpenGLResized(int width, int height)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->onOpenGLResized(width, height);
-
-	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 		(*i)->onOpenGLResized(width, height);
 }
 
@@ -21,17 +42,11 @@ void GameObject::update(float dt)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
 		(*i)->update(dt);
-
-	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
-		(*i)->update(dt);
 }
 
 void GameObject::render(Shader &shader, RenderingEngine &renderingEngine)
 {
 	for (QList<GameComponent *>::Iterator i = m_components.begin(); i != m_components.end(); ++i)
-		(*i)->render(shader, renderingEngine);
-
-	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 		(*i)->render(shader, renderingEngine);
 }
 
@@ -59,4 +74,16 @@ void GameObject::setEngine(CoreEngine *engine)
 		for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
 			(*i)->setEngine(engine);
 	}
+}
+
+QList<GameObject *> GameObject::descendantsAndSelf()
+{
+	QList<GameObject *> result;
+
+	for (QList<GameObject *>::Iterator i = m_children.begin(); i != m_children.end(); ++i)
+		result += (*i)->descendantsAndSelf();
+
+	result += this;
+
+	return result;
 }

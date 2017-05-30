@@ -137,6 +137,7 @@ Quaternion Quaternion::nlerp(const Quaternion &destination, float factor, bool s
 	return ((result - (*this)) * factor + (*this)).normalized();
 }
 
+//TODO Fix slerp
 Quaternion Quaternion::slerp(const Quaternion &destination, float factor, bool shortestRequired)
 {
 	float cos = this->dot(destination);

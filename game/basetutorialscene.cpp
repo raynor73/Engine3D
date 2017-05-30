@@ -58,9 +58,9 @@ void BaseTutorialScene::stop()
 	m_fpsTimer.stop();
 }
 
-void BaseTutorialScene::update(float dt)
+void BaseTutorialScene::update(float /*dt*/)
 {
-	float sensitivity = 0.5;
+	/*float sensitivity = 0.5;
 
 	m_controller->updatePointer();
 
@@ -87,7 +87,7 @@ void BaseTutorialScene::update(float dt)
 		QPoint delta = m_controller->pointerDelta();
 		m_camera->transform().rotation() * Quaternion(m_camera->yAxis, Utils::toRadians(delta.x() * sensitivity));
 		m_camera->transform().rotation() * Quaternion(Vector3f(1, 0, 0), Utils::toRadians(delta.y() * sensitivity));
-	}
+	}*/
 }
 
 void BaseTutorialScene::render()

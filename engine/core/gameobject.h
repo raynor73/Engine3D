@@ -16,9 +16,13 @@ class GameObject : public QObject
 public:
 	explicit GameObject(QObject *parent = 0);
 
-	virtual void onOpenGLResized(int width, int height);
-	virtual void update(float dt);
-	virtual void render(Shader &, RenderingEngine &);
+	virtual void onOpenGLResizedAll(int width, int height);
+	virtual void updateAll(float dt);
+	virtual void renderAll(Shader &, RenderingEngine &);
+
+	void onOpenGLResized(int width, int height);
+	void update(float dt);
+	void render(Shader &, RenderingEngine &);
 
 	virtual void addChild(GameObject *);
 	virtual void addComponent(GameComponent *);
@@ -26,6 +30,8 @@ public:
 	Transform &transform() { return m_transform; }
 
 	void setEngine(CoreEngine *coreEngine);
+
+	QList<GameObject *> descendantsAndSelf();
 
 private:
 	CoreEngine *m_coreEngine;

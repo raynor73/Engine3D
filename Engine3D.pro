@@ -65,7 +65,8 @@ engine/components/camera.cpp \
     engine/rendering/resourcemanagement/textureresource.cpp \
     engine/rendering/resourcemanagement/shaderresource.cpp \
     engine/components/lightsfactory.cpp \
-    game/lookatcomponent.cpp
+    game/lookatcomponent.cpp \
+    engine/components/movehelper.cpp
 
 HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/openglwidget.h \
@@ -111,7 +112,8 @@ HEADERS  += engine/rendering/mainwindow.h \
 	engine/rendering/resourcemanagement/mappedvalues.h \
     engine/rendering/resourcemanagement/shaderresource.h \
     engine/components/lightsfactory.h \
-    game/lookatcomponent.h
+    game/lookatcomponent.h \
+    engine/components/movehelper.h
 
 INCLUDEPATH += $$PWD
 

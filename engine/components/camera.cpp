@@ -2,6 +2,8 @@
 #include <engine/rendering/renderingengine.h>
 #include <engine/core/coreengine.h>
 
+const Vector3f Camera::yAxis(0, 1, 0);
+
 Camera::Camera(float fov, float aspectRatio, float zNear, float zFar, QObject *parent) :
 	GameComponent(parent)
 {
@@ -19,14 +21,7 @@ Matrix4f Camera::calculateViewProjection()
 	return m_projection * cameraRotation * cameraTranslation;
 }
 
-void Camera::move(const Vector3f &direction, float amount)
-{
-	transform().setTranslation(transform().translation() + direction * amount);
-}
-
 void Camera::addToEngine(CoreEngine &engine)
 {
 	engine.renderingEngine().setCamera(this);
 }
-
-const Vector3f Camera::yAxis(0, 1, 0);

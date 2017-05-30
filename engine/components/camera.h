@@ -17,7 +17,6 @@ public:
 
 	virtual void addToEngine(CoreEngine &) override;
 
-	void move(const Vector3f &, float);
 	Matrix4f calculateViewProjection();
 
 private:

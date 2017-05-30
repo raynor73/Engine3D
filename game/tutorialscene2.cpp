@@ -6,6 +6,7 @@
 #include <engine/components/spotlight.h>
 #include <engine/components/meshrenderer.h>
 #include <engine/components/lightsfactory.h>
+#include <engine/components/movehelper.h>
 #include <utils.h>
 
 TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
@@ -29,6 +30,7 @@ TutorialScene2::TutorialScene2(CoreEngine &coreEngine, QObject *parent) :
 	m_monkeyGameObject2(NULL),
 	m_monkeyMeshRenderer2(NULL),
 	m_cameraGameObject(NULL),
+	m_camera(NULL),
 	m_lookAtComponent(NULL)
 {
 	m_rootGameObject = new GameObject();
@@ -209,7 +211,7 @@ void TutorialScene2::update(float dt)
 									 Utils::toRadians(delta.y() * sensitivity));
 	}
 
-	m_rootGameObject->update(dt);
+	m_rootGameObject->updateAll(dt);
 }
 
 void TutorialScene2::setEngine(CoreEngine *coreEngine)

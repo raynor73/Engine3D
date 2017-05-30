@@ -21,6 +21,7 @@ class DirectionalLight;
 class PointLight;
 class MeshRenderer;
 class SpotLight;
+class MoveHelper;
 class TutorialScene2 : public SceneWithRootObject
 {
 	Q_OBJECT
